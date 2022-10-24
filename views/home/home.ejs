@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <!-- 
+      When index.html is loaded, 2 requests will be 
+      sent to the server for the CSS and JS files. 
+    -->
+    <link rel="stylesheet" href="/home/home.css" />
+    <script src="/home/home.js" type="module"></script>
+  </head>
+  <body>
+    <h1>Hello World!</h1>
+    <p>This file was served with Express.</p>
+    <p>Here is your information:</p>
+    <ul>
+      <li>First Name: <%= user.first_name %></li>
+      <li>Last Name: <%= user.last_name %></li>
+      <li>Email: <%= user.email %></li>
+      <li>Password: <%= user.password %></li>
+    </ul>
+    <a href="/account/logout">Logout</a>
+  </body>
+</html>
