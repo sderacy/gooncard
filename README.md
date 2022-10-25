@@ -27,13 +27,19 @@ Below are the instructions for running the backend server as well as an overview
 #### `home` Routes
 
 - `GET /` - Loads the home page if logged in, otherwise redirects to the login page. The home page is passed the user object for displaying information about the user.
-- `GET /home/home.css` - Serves the home page's stylesheet.
-- `GET /home/home.js` - Serves the home page's JavaScript.
+- `GET /home/style` - Serves the home page's stylesheet.
+- `GET /home/main` - Serves the home page's JavaScript.
 
-#### `account` Routes
+#### `account/login` Routes
 
 - `GET /account/login` - Loads the login page, passing it an error that can be optionally displayed.
-- `GET /account/signup`- Loads the signup page, passing it an error that can be optinally displayed.
-- `GET /account/logout` - Logs the user out and redirects to the login page. This is implemented as a GET method in order to use it in an `<a>` tag.
 - `POST /account/login` - Attempts to log the user in. If successful, redirects to the home page. If unsuccessful, redirects to the login page with an error message. Used in form submission.
+
+#### `account/logout` Routes
+
+- `GET /account/logout` - Logs the user out and redirects to the login page. This is implemented as a GET method in order to use it in an `<a>` tag.
+
+#### `account/signup` Routes
+
+- `GET /account/signup`- Loads the signup page, passing it an error that can be optinally displayed.
 - `POST /account/signup` - Attempts to create a new user. If successful, redirects to the home page. If unsuccessful, redirects to the signup page with an error message. Used in form submission.
