@@ -16,26 +16,26 @@ module.exports = function (app, path) {
    */
   app.get("/", isLoggedIn, (req, res) => {
     // Pass the user object to the home page
-    res.render(path + "/home/home", {
+    res.render(path + "/home/index", {
       user: req.session.user,
     });
   });
 
   /**
-   * GET /home/home.css
+   * GET /home/style
    *
    * Serves the home page's stylesheet.
    */
-  app.get("/home/home.css", (req, res) => {
-    res.sendFile(path + "/home/home.css");
+  app.get("/home/style", (req, res) => {
+    res.sendFile(path + "/home/style.css");
   });
 
   /**
-   * GET /home/home.js
+   * GET /home/main
    *
    * Serves the home page's script.
    */
-  app.get("/home/home.js", (req, res) => {
-    res.sendFile(path + "/home/home.js");
+  app.get("/home/main", (req, res) => {
+    res.sendFile(path + "/home/main.js");
   });
 };

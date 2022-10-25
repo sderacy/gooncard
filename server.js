@@ -27,7 +27,9 @@ app.use(
 
 // Import all routes from their respective files
 require("./routes/home")(app, viewsPath);
-require("./routes/account")(app, viewsPath);
+require("./routes/login")(app, viewsPath);
+require("./routes/logout")(app, viewsPath);
+require("./routes/signup")(app, viewsPath);
 
 // Redirect any other unknown requests to the home page
 app.get("*", (req, res) => {

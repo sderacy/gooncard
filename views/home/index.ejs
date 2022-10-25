@@ -10,8 +10,8 @@
       When index.html is loaded, 2 requests will be 
       sent to the server for the CSS and JS files. 
     -->
-    <link rel="stylesheet" href="/home/home.css" />
-    <script src="/home/home.js" type="module"></script>
+    <link rel="stylesheet" href="/home/style" />
+    <script src="/home/main" type="module"></script>
   </head>
   <body>
     <h1>Hello World!</h1>
@@ -22,6 +22,17 @@
       <li>Last Name: <%= user.last_name %></li>
       <li>Email: <%= user.email %></li>
       <li>Password: <%= user.password %></li>
+    </ul>
+
+    <!-- Example of writing inline JS with EJS files. -->
+    <p>
+      The following uses inline JS in an EJS file to print the object's
+      key/values:
+    </p>
+    <ul>
+      <% Object.keys(user).forEach( (key) => { %>
+      <li><%= key %>: <%= user[key] %></li>
+      <% }); %>
     </ul>
     <a href="/account/logout">Logout</a>
   </body>
