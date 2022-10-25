@@ -15,6 +15,9 @@ app.engine("html", require("ejs").renderFile);
 // Allow parsing of body data
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// Provide the directory for static image files
+app.use(express.static(__dirname + "/public"));
+
 // Using sessions to determine if user is logged in
 app.use(
   session({
