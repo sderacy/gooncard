@@ -1,0 +1,19 @@
+{
+  "name": "gooncard",
+  "version": "1.0.0",
+  "description": "The dynamic, digital business card for professional and casual settings.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "The GOON Squad",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "ejs": "^3.1.8",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "knex": "^2.3.0",
+    "sqlite3": "^5.1.2"
+  }
+}
