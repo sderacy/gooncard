@@ -1,5 +1,5 @@
 // Functions for manipulating the users table
-const connection = require("./knex");
+const knex = require("./knex");
 
 // Creates a new user in the database. Returns an array of a single value,
 // either the user object or a falsey value if the user could not be created.
@@ -14,8 +14,7 @@ const createUser = async (first_name, last_name, email, password) => {
     return [undefined];
   }
 
-  return await connection
-    .knex("users")
+  return await knex("users")
     .insert(
       {
         first_name: first_name,
@@ -33,8 +32,7 @@ const createUser = async (first_name, last_name, email, password) => {
 // Gets a user from the database. Returns an array of a single value,
 // either the user object or a falsey value if the user could not be found.
 const getUser = async (email) => {
-  return await connection
-    .knex("users")
+  return await knex("users")
     .select("*")
     .where("email", email)
     .catch((err) => {
