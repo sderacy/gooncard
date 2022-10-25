@@ -7,10 +7,8 @@ module.exports = function (app, path) {
    * Renders the signup page with the given error message.
    */
   app.get("/account/signup", (req, res) => {
-    // Set error message if signup failed
-    const error = req.session.error ? "Signup failed." : null;
-
-    // Clears session data so that failure message does not persist
+    // Clear error message and render the page
+    const error = req.session.error;
     req.session.error = null;
     res.render(path + "/account/signup/index", {
       error,
@@ -39,16 +37,9 @@ module.exports = function (app, path) {
       req.session.user = user;
       res.redirect("/");
     } else {
-      // Set error message
-      const error = "Signup failed.";
-
-      // Clears session data so that failure message does not persist
-      req.session.error = null;
-
-      // Render the signup page with an error message
-      res.render(path + "/account/signup/index", {
-        error,
-      });
+      // Redirect to the signup page with an error message
+      req.session.error = "Signup failed.";
+      res.redirect("/account/signup");
     }
   });
 };

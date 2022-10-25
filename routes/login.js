@@ -7,10 +7,8 @@ module.exports = function (app, path) {
    * Renders the login page with the given error message.
    */
   app.get("/account/login", (req, res) => {
-    // Set error message if login failed
-    const error = req.session.error ? "Login failed." : null;
-
-    // Clears session data so that failure message does not persist
+    // Clear error message and render the page
+    const error = req.session.error;
     req.session.error = null;
     res.render(path + "/account/login/index", {
       error,
@@ -36,16 +34,9 @@ module.exports = function (app, path) {
 
     // If the user does not exist, redirect to the login page with message
     else {
-      // Set error message
-      const error = "Login failed.";
-
-      // Clears session data so that failure message does not persist
-      req.session.error = null;
-
-      // Render the signup page with an error message
-      res.render(path + "/account/login/index", {
-        error,
-      });
+      // Redirect to the login page with an error message
+      req.session.error = "Login failed.";
+      res.redirect("/account/login");
     }
   });
 };
