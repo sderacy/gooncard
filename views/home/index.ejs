@@ -65,20 +65,16 @@
             <li>Password: <%= user.password %></li>
           </ul>
 
-
-    <!-- Testing requesting an image. -->
-    <img src="/hamster.jpg" alt="Hamster image" />
-
-    <!-- Example of writing inline JS with EJS files. -->
-    <p>
-      The following uses inline JS in an EJS file to print the object's
-      key/values:
-    </p>
-    <ul>
-      <% Object.keys(user).forEach( (key) => { %>
-      <li><%= key %>: <%= user[key] %></li>
-      <% }); %>
-    </ul>
+          <!-- Example of writing inline JS with EJS files. -->
+          <p>
+            The following uses inline JS in an EJS file to print the object's
+            key/values:
+          </p>
+          <ul>
+            <% Object.keys(user).forEach( (key) => { %>
+            <li><%= key %>: <%= user[key] %></li>
+            <% }); %>
+          </ul>
 
           <a href="#" class="btn btn-warning btn-lg" role="button" aria-disabled="true">Generate</a>
         </main>
