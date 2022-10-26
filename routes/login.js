@@ -16,6 +16,24 @@ module.exports = function (app, path) {
   });
 
   /**
+   * GET /account/login/style
+   *
+   * Serves the login page's stylesheet.
+   */
+  app.get("/account/login/style", (req, res) => {
+    res.sendFile(path + "/account/login/style.css");
+  });
+
+  /**
+   * GET /account/login/main
+   *
+   * Serves the login page's script.
+   */
+  app.get("/account/login/main", (req, res) => {
+    res.sendFile(path + "/account/login/main.js");
+  });
+
+  /**
    * POST /account/login
    *
    * Logs in a user if the user exists in the database.
