@@ -1,3 +1,4 @@
+const session = require("express-session");
 const { getUser } = require("../db/users");
 
 module.exports = function (app, path) {
@@ -12,6 +13,7 @@ module.exports = function (app, path) {
     req.session.error = null;
     res.render(path + "/account/login/index", {
       error,
+      loginValues: req.session.loginValues,
     });
   });
 
@@ -52,8 +54,9 @@ module.exports = function (app, path) {
 
     // If the user does not exist, redirect to the login page with message
     else {
-      // Redirect to the login page with an error message
-      req.session.error = "Login failed.";
+      // Redirect to the login page with an error message and previous values.
+      req.session.error = "Invalid email or password";
+      req.session.loginValues = req.body;
       res.redirect("/account/login");
     }
   });
