@@ -2,5 +2,8 @@
 node_modules
 package-lock.json
 
+# Database
+*.sqlite
+
 # MacOS
 .DS_Store

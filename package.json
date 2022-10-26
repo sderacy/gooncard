@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",
-    "format": "prettier --write ./"
+    "format": "prettier --write ./",
+    "seed": "node ./db/seed.js"
   },
   "author": "The GOON Squad",
   "license": "ISC",
