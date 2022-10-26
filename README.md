@@ -18,7 +18,7 @@ The `.prettierrc` file stores the formatting rules for the project. It is used b
 
 Currently, Prettier doesn't support `.ejs`, but you can get around this by using the VSCode extension and setting your default formatter in VSCode to Prettier and adjust the `.ejs` association to `HTML` like in [this link](<https://stackoverflow.com/questions/59238175/visual-studio-code-isnt-recognising-ejs#:~:text=5-,Working%20solution,-(September%202021)>). The extension allows you to use the VSCode option to auto-format on save, which is definitely recommended.
 
-## -- Backend Server --
+## -- Server --
 
 Below are the instructions for running the backend server as well as an overview of the currently configured routes.
 
@@ -27,6 +27,12 @@ Below are the instructions for running the backend server as well as an overview
 1. Make sure that you have downloaded all dependencies by running `npm install`.
 2. Run `npm start` to start the server on its configured port.
 3. You can access the server at `http://localhost:3000`, or on other computers on the same network if you know your local IP address.
+
+### Development Process
+
+When you make a change (At least on the front-end side), you should just be able to refresh the page. Before you push the code to the repo to make a Pull Request, make sure to run `npm run format` to format the code so that it matches the repo's white space and indentation.
+
+If you get a message about files being modified and changing from LF to CLF for example, do `git add -A` to fix the issue.
 
 ### Configured Routes
 
