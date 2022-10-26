@@ -43,3 +43,12 @@ Below are the instructions for running the backend server as well as an overview
 
 - `GET /account/signup`- Loads the signup page, passing it an error that can be optinally displayed.
 - `POST /account/signup` - Attempts to create a new user. If successful, redirects to the home page. If unsuccessful, redirects to the signup page with an error message. Used in form submission.
+
+## -- Database --
+
+We are using an SQLite database in order to store users' preferred settings as well as their account information. Below is a diagram of the database's schema.
+
+![Database Schema](./docs/db-schema.png)
+
+- Because each user will have the same set of options, it makes more sense to store this as a JSON object within the `users` table and parse it later.
+- Because each user will likely have a different number of social media accounts, it makes more sense to store these in a seperate table and link the two with a foreign key.

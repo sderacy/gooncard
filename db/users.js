@@ -1,5 +1,10 @@
 // Functions for manipulating the users table
 const knex = require("./knex");
+const DEFAULT_SETTINGS = {
+  theme: "light",
+  fontSize: "12px",
+  fontFamily: "sans-serif",
+};
 
 // Creates a new user in the database. Returns an array of a single value,
 // either the user object or a falsey value if the user could not be created.
@@ -21,8 +26,9 @@ const createUser = async (first_name, last_name, email, password) => {
         last_name: last_name,
         email: email,
         password: password,
+        settings: JSON.stringify(DEFAULT_SETTINGS),
       },
-      ["first_name", "last_name", "email", "password"]
+      ["first_name", "last_name", "email", "password", "settings"]
     )
     .catch((err) => {
       console.log(err);
