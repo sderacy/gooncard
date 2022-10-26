@@ -8,12 +8,14 @@ module.exports = function (app, path) {
    * Renders the login page with the given error message.
    */
   app.get("/account/login", (req, res) => {
-    // Clear error message and render the page
+    // Clear error message and user input and render the page
     const error = req.session.error;
+    const loginValues = req.session.loginValues;
     req.session.error = null;
+    req.session.loginValues = null;
     res.render(path + "/account/login/index", {
       error,
-      loginValues: req.session.loginValues,
+      loginValues,
     });
   });
 

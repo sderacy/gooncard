@@ -1,4 +1,4 @@
-const { createUser } = require("../db/users");
+const { createUser, getUser } = require("../db/users");
 
 module.exports = function (app, path) {
   /**
@@ -7,12 +7,14 @@ module.exports = function (app, path) {
    * Renders the signup page with the given error message.
    */
   app.get("/account/signup", (req, res) => {
-    // Clear error message and render the page
+    // Clear error message and user input and render the page
     const error = req.session.error;
+    const signupValues = req.session.signupValues;
     req.session.error = null;
+    req.session.signupValues = null;
     res.render(path + "/account/signup/index", {
       error,
-      signupValues: req.session.signupValues,
+      signupValues,
     });
   });
 
@@ -41,25 +43,43 @@ module.exports = function (app, path) {
    * Requires a first name, last name, email, and password.
    */
   app.post("/account/signup", async (req, res) => {
-    // Add the user to the database
-    const user = (
-      await createUser(
-        req.body.first_name,
-        req.body.last_name,
-        req.body.email,
-        req.body.password
-      )
-    )[0];
+    let user = null;
 
-    if (user) {
-      // Start the user's session and redirect them to the home page
-      req.session.user = user;
-      res.redirect("/");
-    } else {
-      // Redirect to the signup page with an error message and the user's input
-      req.session.error = "Signup failed.";
+    // FAILURE: Email is already in use
+    if ((await getUser(req.body.email)).length > 0) {
+      req.session.error = "Email is already in use";
+    }
+
+    // FAILURE: Passwords do not match
+    else if (req.body.password !== req.body.confirm_password) {
+      req.session.error = "Passwords do not match";
+    }
+
+    // SUCCESS: Proceed as normal
+    else {
+      // Try to add the user to the database
+      user = (
+        await createUser(
+          req.body.first_name,
+          req.body.last_name,
+          req.body.email,
+          req.body.password
+        )
+      )[0];
+
+      // FAILURE: User could not be added to the database
+      if (!user) {
+        req.session.error = "Signup failed.";
+      }
+    }
+
+    // Either start the user's session or redirect to the signup page with error
+    if (req.session.error) {
       req.session.signupValues = req.body;
       res.redirect("/account/signup");
+    } else {
+      req.session.user = user;
+      res.redirect("/");
     }
   });
 };
