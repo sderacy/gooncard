@@ -4,7 +4,8 @@
   "description": "The dynamic, digital business card for professional and casual settings.",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "format": "prettier --write ./"
   },
   "author": "The GOON Squad",
   "license": "ISC",

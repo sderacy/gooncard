@@ -12,6 +12,12 @@ The Goon Squad's Goon Card Project for CSC 355 ('22)
 - Sterly Deracy
 - Shane Matyi
 
+## -- Prettier Formatting --
+
+The `.prettierrc` file stores the formatting rules for the project. It is used by the `prettier` package to format the code. You can format all code in the project by running `npm run format` after writing code in order to adjust whitespace, indentation, and blank lines between code. This should hopefully avoid commits that include mostly formatting changes.
+
+Currently, Prettier doesn't support `.ejs`, but you can get around this by using the VSCode extension and setting your default formatter in VSCode to Prettier and adjust the `.ejs` association to `HTML` like in [this link](<https://stackoverflow.com/questions/59238175/visual-studio-code-isnt-recognising-ejs#:~:text=5-,Working%20solution,-(September%202021)>). The extension allows you to use the VSCode option to auto-format on save, which is definitely recommended.
+
 ## -- Backend Server --
 
 Below are the instructions for running the backend server as well as an overview of the currently configured routes.
