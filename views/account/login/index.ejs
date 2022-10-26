@@ -55,25 +55,29 @@
                         name="email"
                         id="email"
                         class="form-control form-control-lg"
+                        value="<%= loginValues?.email %>"
                       />
                     </div>
 
                     <div class="form-outline mb-4">
                       <label class="form-label" for="password">
-                        Password
+                        Password (8 Letter Minimum)
                       </label>
                       <input
                         type="password"
                         name="password"
                         id="password"
                         class="form-control form-control-lg"
+                        value="<%= loginValues?.password %>"
                       />
                     </div>
 
                     <div class="d-flex justify-content-center">
                       <button
                         type="submit"
+                        id="login"
                         class="btn btn-warning btn-block btn-lg gradient-custom-4"
+                        disabled
                       >
                         Login
                       </button>
@@ -82,7 +86,7 @@
                     <p class="text-center text-white mt-5 mb-0">
                       Don't have an account yet?
                       <a href="/account/signup" class="fw-bold text-white">
-                        Signup here
+                        Sign up here
                       </a>
                     </p>
                   </form>

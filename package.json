@@ -4,7 +4,7 @@
   "description": "The dynamic, digital business card for professional and casual settings.",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "nodemon server.js"
   },
   "author": "The GOON Squad",
   "license": "ISC",
@@ -15,5 +15,8 @@
     "express-session": "^1.17.3",
     "knex": "^2.3.0",
     "sqlite3": "^5.1.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
   }
 }

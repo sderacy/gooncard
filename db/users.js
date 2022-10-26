@@ -16,7 +16,7 @@ const createUser = async (first_name, last_name, email, password) => {
     email.length === 0 ||
     password.length === 0
   ) {
-    return [undefined];
+    return [null];
   }
 
   return await knex("users")
