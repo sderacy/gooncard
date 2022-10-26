@@ -24,12 +24,13 @@
       href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css"
       rel="stylesheet"
     />
+
+    <link rel="icon" href="/favicon.ico">
   </head>
-  <body>
-    <section
-      class="vh-100 bg-image"
-      style="background-image: url('/gooncardbackground.jpg')"
-    >
+  <body
+  class="vh-100 bg-image"
+  style="background-image: url('/gooncardbackground.jpg')"
+  >
       <div class="mask d-flex align-items-center h-100 gradient-custom-3">
         <div class="container h-100">
           <div
@@ -54,7 +55,7 @@
                         type="text"
                         name="first_name"
                         id="first_name"
-                        class="form-control form-control-lg"
+                        class="form-control form-control-sm"
                         value="<%= signupValues?.first_name %>"
                       />
                     </div>
@@ -67,7 +68,7 @@
                         type="text"
                         name="last_name"
                         id="last_name"
-                        class="form-control form-control-lg"
+                        class="form-control form-control-sm"
                         value="<%= signupValues?.last_name %>"
                       />
                     </div>
@@ -78,7 +79,7 @@
                         type="email"
                         name="email"
                         id="email"
-                        class="form-control form-control-lg"
+                        class="form-control form-control-sm"
                         value="<%= signupValues?.email %>"
                       />
                     </div>
@@ -91,7 +92,7 @@
                         type="password"
                         name="password"
                         id="password"
-                        class="form-control form-control-lg"
+                        class="form-control form-control-sm"
                         value="<%= signupValues?.password %>"
                       />
                     </div>
@@ -105,7 +106,7 @@
                         type="password"
                         name="confirm_password"
                         id="confirm_password"
-                        class="form-control form-control-lg"
+                        class="form-control form-control-sm"
                         value="<%= signupValues?.confirm_password %>"
                       />
                     </div>
@@ -134,6 +135,5 @@
           </div>
         </div>
       </div>
-    </section>
   </body>
 </html>
