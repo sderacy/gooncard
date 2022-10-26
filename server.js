@@ -26,6 +26,7 @@ app.use(
     saveUninitialized: true,
     error: null,
     loginValues: null,
+    signupValues: null,
   })
 );
 

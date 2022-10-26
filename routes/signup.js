@@ -12,6 +12,7 @@ module.exports = function (app, path) {
     req.session.error = null;
     res.render(path + "/account/signup/index", {
       error,
+      signupValues: req.session.signupValues,
     });
   });
 
@@ -55,8 +56,9 @@ module.exports = function (app, path) {
       req.session.user = user;
       res.redirect("/");
     } else {
-      // Redirect to the signup page with an error message
+      // Redirect to the signup page with an error message and the user's input
       req.session.error = "Signup failed.";
+      req.session.signupValues = req.body;
       res.redirect("/account/signup");
     }
   });
