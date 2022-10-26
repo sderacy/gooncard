@@ -54,7 +54,7 @@ module.exports = function (app, path) {
       res.redirect("/");
     }
 
-    // If the user does not exist, redirect to the login page with message
+    // If the user does not exist or passwords do not match, redirect to the login page with message
     else {
       // Redirect to the login page with an error message and previous values.
       req.session.error = "Invalid email or password";
