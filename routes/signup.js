@@ -16,6 +16,24 @@ module.exports = function (app, path) {
   });
 
   /**
+   * GET /account/signup/style
+   *
+   * Serves the signup page's stylesheet.
+   */
+  app.get("/account/signup/style", (req, res) => {
+    res.sendFile(path + "/account/signup/style.css");
+  });
+
+  /**
+   * GET /account/signup/main
+   *
+   * Serves the signup page's script.
+   */
+  app.get("/account/signup/main", (req, res) => {
+    res.sendFile(path + "/account/signup/main.js");
+  });
+
+  /**
    * POST /account/signup
    *
    * Creates a new user in the database.
