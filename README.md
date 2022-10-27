@@ -25,8 +25,7 @@ Below are the instructions for running the backend server as well as an overview
 ### Starting the Server
 
 1. Make sure that you have downloaded all dependencies by running `npm install`.
-2. Run `npm start` to start the server on its configured port. If this is your first time running the application, you will need
-   to seed the database executing `npm start`. Instructions below.
+2. Run `npm start` to start the server on its configured port. If this is your first time running the application, you will need to seed the database executing `npm cleanStart`. Instructions below.
 3. You can access the server at `http://localhost:3000`, or on other computers on the same network if you know your local IP address.
 
 ### Development Process

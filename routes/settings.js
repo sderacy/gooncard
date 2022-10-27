@@ -1,15 +1,9 @@
 module.exports = function (app, path) {
   // Middleware that redirects to login page if user is not logged in
-  const isLoggedIn = (req, res, next) => {
-    if (req.session.user) {
-      next();
-    } else {
-      res.redirect("/account/login");
-    }
-  };
+  isLoggedIn = require("../util/middleware").isLoggedIn;
 
   /**
-   * GET /
+   * GET /account/settings
    *
    * Renders the settings page for the currently logged in user.
    * Uses the isLoggedIn middleware to redirect to confirm this.
@@ -22,7 +16,7 @@ module.exports = function (app, path) {
   });
 
   /**
-   * GET /settings/style
+   * GET /account/settings/style
    *
    * Serves the settings page's stylesheet.
    */
@@ -31,7 +25,7 @@ module.exports = function (app, path) {
   });
 
   /**
-   * GET /settings/main
+   * GET /account/settings/main
    *
    * Serves the settings page's script.
    */
