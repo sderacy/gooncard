@@ -11,29 +11,29 @@ module.exports = function (app, path) {
   /**
    * GET /
    *
-   * Renders the home page for the currently logged in user.
+   * Renders the profile page for the currently logged in user.
    * Uses the isLoggedIn middleware to redirect to confirm this.
    */
   app.get("/account/profile", isLoggedIn, (req, res) => {
-    // Pass the user object to the home page
+    // Pass the user object to the profile page
     res.render(path + "/account/profile/index", {
       user: req.session.user,
     });
   });
 
   /**
-   * GET /home/style
+   * GET /profile/style
    *
-   * Serves the home page's stylesheet.
+   * Serves the profile page's stylesheet.
    */
   app.get("/account/profile/style", (req, res) => {
     res.sendFile(path + "/account/profile/style.css");
   });
 
   /**
-   * GET /home/main
+   * GET /profile/main
    *
-   * Serves the home page's script.
+   * Serves the profile page's script.
    */
   app.get("/account/profile/main", (req, res) => {
     res.sendFile(path + "/account/profile/main.js");
