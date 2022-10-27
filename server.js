@@ -1,5 +1,6 @@
 const express = require("express");
 const session = require("express-session");
+const address = require("address");
 const bodyParser = require("body-parser");
 
 // Create backend constants
@@ -44,4 +45,6 @@ app.get("*", (req, res) => {
 });
 
 // Start the server
-app.listen(port, () => console.log(`Server listening on port ${port}!`));
+app.listen(port, () =>
+  console.log(`Access the server at http://${address.ip()}:${port}`)
+);
