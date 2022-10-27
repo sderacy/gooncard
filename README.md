@@ -58,9 +58,22 @@ If you get a message about files being modified and changing from LF to CLF for 
 
 ## -- Database --
 
+### Database Schema
+
 We are using an SQLite database in order to store users' preferred settings as well as their account information. Below is a diagram of the database's schema.
 
 ![Database Schema](./docs/db-schema.png)
 
 - Because each user will have the same set of options, it makes more sense to store this as a JSON object within the `users` table and parse it later.
 - Because each user will likely have a different number of social media accounts, it makes more sense to store these in a seperate table and link the two with a foreign key.
+
+### Local Database Setup
+
+In order to run the app locally, the database also needs to exist in the project directory. In order to prevent the database from being committed to the repo, it is ignored by git. To create the database, run `npm run seed` in the main project directory. This will:
+
+1. Delete the database file if it already exists.
+2. Create a new database file.
+3. Create the tables.
+4. Seed the database with some sample data from `./seed.js`.
+
+When testing the application locally, any data that you add will be deleted and the database reseeded with another run of `npm run seed`. This configuration is just for testing the application while we develop; once we start testing with other users, we can change the configuration to persist data.
