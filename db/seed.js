@@ -1,3 +1,9 @@
+/* Contains the code to delete, recreate, and reseed the database.
+ * This script is run by the command `npm run seed` in the main project
+ * directory, but additional seeded data can be added in this script
+ * when development requires it.
+ */
+
 const fs = require("fs");
 const { createUser } = require("./users");
 const sqlite3 = require("sqlite3").verbose();
