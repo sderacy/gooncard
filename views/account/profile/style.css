@@ -29,11 +29,11 @@ body {
 
  /* Dropdown menu background color*/
 
- .navbar-nav > li > .dropdown-menu {     background-color: #212529;  }
+.navbar-nav > li > .dropdown-menu {     background-color: #212529;  }
 
- /* Dropdown menu font color*/ 
- 
-  .navbar-nav > li > .dropdown-menu a{   color: #fff;  }
+/* Dropdown menu font color*/ 
+
+ .navbar-nav > li > .dropdown-menu a{   color: #fff;  }
 
 .navbar.transparent.navbar-inverse .navbar-inner {
   background: rgba(0, 0, 0, 0.4) !important;
