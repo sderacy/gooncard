@@ -6,11 +6,13 @@
   "scripts": {
     "format": "prettier --write ./",
     "seed": "node ./db/seed.js",
-    "start": "npm run format && nodemon server.js"
+    "start": "npm run format && nodemon server.js",
+    "cleanStart": "npm run seed && npm start"
   },
   "author": "The GOON Squad",
   "license": "ISC",
   "dependencies": {
+    "address": "^1.2.1",
     "body-parser": "^1.20.1",
     "ejs": "^3.1.8",
     "express": "^4.18.2",

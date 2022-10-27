@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+  <head>
+    <%- include('../../partials/header'); %>
+    <title>Settings</title>
+    <link rel="stylesheet" href="/account/settings/style" />
+    <script src="/account/settings/main" type="module"></script>
+  </head>
+  <body class="h-100 text-center text-white bg-dark">
+    <div class="row col-12"><%- include('../../partials/navbar'); %></div>
+
+    <div
+      class="cover-container w-100 d-flex align-items-center h-75 p-3 mx-auto"
+    >
+      <div class="row col-12">
+        <main class="px-3">
+          <h1 class="display-4">Goon up Brah.</h1>
+          <h1>Hello World!</h1>
+          <p>This file was served with Express.</p>
+          <p>Here is your information:</p>
+          <ul>
+            <li>First Name: <%= user.first_name %></li>
+            <li>Last Name: <%= user.last_name %></li>
+            <li>Email: <%= user.email %></li>
+            <li>Password: <%= user.password %></li>
+            <li>
+              Settings:
+              <ul>
+                <% var settings = JSON.parse(user.settings);
+                Object.keys(settings).forEach( (key) => { %>
+                <li><%= key %>: <%= settings[key] %></li>
+                <% }); %>
+              </ul>
+            </li>
+          </ul>
+
+          <a
+            href="#"
+            class="btn btn-warning btn-lg"
+            role="button"
+            aria-disabled="true"
+            >Generate</a
+          >
+        </main>
+      </div>
+      <div class="row col-12">
+        <footer class="footer mt-auto text-white-50">
+          <div class="container">
+            Made with <i class="fa fa-heart heart text-warning"></i> by the
+            <a
+              id="Architects"
+              class="text-warning"
+              type="button"
+              data-bs-container="body"
+              data-bs-toggle="tooltip"
+              data-bs-trigger="hover focus"
+              data-bs-placement="top"
+              data-bs-html="true"
+              title="<em>Sterly Deracy</em> | <em>Leah Kazenmayer</em> | <em>Shane Matyi</em> | <em>Nisha Reddy</em> | <em>Payton Shaltis</em>"
+            >
+              Goon Squad (2022).
+            </a>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <!--Script Link put before end of </body> -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      var tooltipTriggerList = [].slice.call(
+        document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      );
+      var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+      });
+    </script>
+  </body>
+</html>

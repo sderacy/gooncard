@@ -1,5 +1,6 @@
 const express = require("express");
 const session = require("express-session");
+const address = require("address");
 const bodyParser = require("body-parser");
 
 // Create backend constants
@@ -35,6 +36,8 @@ require("./routes/home")(app, viewsPath);
 require("./routes/login")(app, viewsPath);
 require("./routes/logout")(app, viewsPath);
 require("./routes/signup")(app, viewsPath);
+require("./routes/profile")(app, viewsPath);
+require("./routes/settings")(app, viewsPath);
 
 // Redirect any other unknown requests to the home page
 app.get("*", (req, res) => {
@@ -42,4 +45,6 @@ app.get("*", (req, res) => {
 });
 
 // Start the server
-app.listen(port, () => console.log(`Server listening on port ${port}!`));
+app.listen(port, () =>
+  console.log(`Access the server at http://${address.ip()}:${port}`)
+);

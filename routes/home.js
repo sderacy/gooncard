@@ -1,12 +1,6 @@
 module.exports = function (app, path) {
   // Middleware that redirects to login page if user is not logged in
-  const isLoggedIn = (req, res, next) => {
-    if (req.session.user) {
-      next();
-    } else {
-      res.redirect("/account/login");
-    }
-  };
+  isLoggedIn = require("../util/middleware").isLoggedIn;
 
   /**
    * GET /
@@ -17,6 +11,13 @@ module.exports = function (app, path) {
   app.get("/", isLoggedIn, (req, res) => {
     // Pass the user object to the home page
     res.render(path + "/home/index", {
+      user: req.session.user,
+    });
+  });
+
+  app.get("/home/aboutus", isLoggedIn, (req, res) => {
+    // Pass the user object to the profile page
+    res.render(path + "/home/aboutus", {
       user: req.session.user,
     });
   });
