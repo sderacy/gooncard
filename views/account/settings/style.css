@@ -62,10 +62,7 @@ body {
 }
 
 .footer {
-  position: fixed;
-  left: 0;
-  bottom: 2%;
+  margin-top: 5%;
   width: 100%;
-  color: white;
   text-align: center;
 }
