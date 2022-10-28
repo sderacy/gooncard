@@ -27,7 +27,7 @@ db.exec(sql, function (err) {
   if (err) throw err;
 });
 
-// Seed the database with some data
+// // Seed the database with some data
 console.log("Seeding database...");
 
 // Data to seed the database with
