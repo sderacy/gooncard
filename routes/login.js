@@ -48,7 +48,7 @@ module.exports = function (app, path) {
     // Get the user from the database
     const user = (await getUser(req.body.email))[0];
 
-    // If the user was found, check the hashed password
+    // If the user was found, make sure that their password matches (hashed)
     if (bcrypt.compareSync(req.body.password, user?.password)) {
       // Start the user's session and redirect them to the home page
       req.session.user = user;
