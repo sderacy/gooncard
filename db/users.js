@@ -1,5 +1,6 @@
 // Functions for manipulating the users table
 const knex = require("./knex");
+const bcrypt = require("bcrypt");
 const DEFAULT_SETTINGS = {
   theme: "light",
   fontSize: "12px",
@@ -19,13 +20,16 @@ const createUser = async (first_name, last_name, email, password) => {
     return [null];
   }
 
+  // Hash the password
+  let hashedPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+
   return await knex("users")
     .insert(
       {
         first_name: first_name,
         last_name: last_name,
         email: email,
-        password: password,
+        password: hashedPassword,
         settings: JSON.stringify(DEFAULT_SETTINGS),
       },
       ["first_name", "last_name", "email", "password", "settings"]
