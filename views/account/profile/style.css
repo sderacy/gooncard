@@ -51,10 +51,6 @@ body {
   user-select: none;
 }
 
-.h-75 {
-  height: 75%;
-}
-
 @media (min-width: 768px) {
   .bd-placeholder-img-lg {
     font-size: 3.5rem;
@@ -62,10 +58,7 @@ body {
 }
 
 .footer {
-  position: fixed;
-  left: 0;
-  bottom: 2%;
+  margin-top: 5%;
   width: 100%;
-  color: white;
   text-align: center;
 }
