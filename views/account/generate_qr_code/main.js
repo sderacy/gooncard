@@ -1,31 +1,27 @@
-let form = document.getElementById("generate-form");
-let qr = document.getElementById("qrcode");
-let qr_submit = document.getElementById("qr_submit");
+let qrcode_div = document.getElementById("qrcode-div");
+let qrcode_submit = document.getElementById("qr_submit");
+let url = document.getElementById('url');
+let size = document.getElementById('size');
 
 // Button submit
-let onGenerateSubmit = (e) => {
+let onGenerateSubmit = async function (e) {
   e.preventDefault();
 
-  qr.innerHTML = "";
+  // Clear the div's contents
+  qrcode_div.innerHTML = "";
 
-  const url = document.getElementById("url").value;
-  const size = document.getElementById("size").value;
+  // Create the QR code using the google charts api
+  let qrcode = document.createElement("img");
+  let qrcode_url = new URL("https://chart.googleapis.com/chart?");
+  qrcode_url.searchParams.append("chs", size.value);
+  qrcode_url.searchParams.append("cht", "qr");
+  qrcode_url.searchParams.append("chl", url.value);
+  qrcode_url.searchParams.append("choe", "UTF-8");
+  qrcode.src = qrcode_url.toString();
+  qrcode.alt = "QR Code";
 
-  // Validate url
-  if (url === "") {
-    alert("Please enter a URL");
-  } else {
-    generateQRCode(url, size);
-  }
+  // Append the QR Code inside the qrcode div
+  qrcode_div.appendChild(qrcode);
 };
 
-// Generate QR code
-let generateQRCode = (url, size) => {
-  let qrcode = new QRCode("qrcode", {
-    text: url,
-    width: size,
-    height: size,
-  });
-};
-
-qr_submit.onclick = onGenerateSubmit;
+qrcode_submit.onclick = onGenerateSubmit;
