@@ -7,7 +7,7 @@
     "format": "prettier --write ./",
     "seed": "node ./db/seed.js",
     "start": "npm run format && nodemon server.js",
-    "cleanStart": "npm run seed && npm start"
+    "cleanStart": "rm -rf ./node_modules && npm install && npm run seed && npm start"
   },
   "author": "The GOON Squad",
   "license": "ISC",
