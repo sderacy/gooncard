@@ -15,13 +15,6 @@ module.exports = function (app, path) {
     });
   });
 
-  app.get("/home/aboutus", isLoggedIn, (req, res) => {
-    // Pass the user object to the profile page
-    res.render(path + "/home/aboutus", {
-      user: req.session.user,
-    });
-  });
-
   /**
    * GET /home/style
    *

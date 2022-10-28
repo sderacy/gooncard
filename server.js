@@ -38,6 +38,7 @@ require("./routes/logout")(app, viewsPath);
 require("./routes/signup")(app, viewsPath);
 require("./routes/profile")(app, viewsPath);
 require("./routes/settings")(app, viewsPath);
+require("./routes/aboutus")(app, viewsPath);
 
 // Redirect any other unknown requests to the home page
 app.get("*", (req, res) => {
