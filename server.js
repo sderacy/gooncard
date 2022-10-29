@@ -46,6 +46,10 @@ app.get("*", (req, res) => {
   res.redirect("/");
 });
 
+app.get("/partials/common", (req, res) => {
+  res.sendFile(path + "/partials/common.css");
+});
+
 // Start the server
 app.listen(port, () =>
   console.log(`Access the server at http://${address.ip()}:${port}`)

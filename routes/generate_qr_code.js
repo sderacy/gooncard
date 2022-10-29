@@ -24,10 +24,6 @@ module.exports = function (app, path) {
     res.sendFile(path + "/account/generate_qr_code/style.css");
   });
 
-  app.get("/partials/common", (req, res) => {
-    res.sendFile(path + "/partials/common.css");
-  });
-
   /**
    * GET /account/generate_qr_code/main
    *
