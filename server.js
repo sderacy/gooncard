@@ -32,6 +32,7 @@ app.use(
 );
 
 // Import all routes from their respective files
+require("./routes/generate_qr_code")(app, viewsPath);
 require("./routes/home")(app, viewsPath);
 require("./routes/login")(app, viewsPath);
 require("./routes/logout")(app, viewsPath);
