@@ -24,6 +24,10 @@ module.exports = function (app, path) {
     res.sendFile(path + "/account/profile/style.css");
   });
 
+  app.get("/partials/common", (req, res) => {
+    res.sendFile(path + "/partials/common.css");
+  });
+
   /**
    * GET /account/profile/main
    *
