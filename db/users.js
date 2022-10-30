@@ -8,8 +8,16 @@ const DEFAULT_SETTINGS = {
   fontFamily: "sans-serif",
 };
 
-// Creates a new user in the database. Returns an array of a single value,
-// either the user object or a falsey value if the user could not be created.
+/**
+ *
+ * Attempts to create a new user in the database.
+ *
+ * @param first_name The first name of the user.
+ * @param last_name The user's last name.
+ * @param email The email of the user to create.
+ * @param password The password to be hashed and stored in the db.
+ * @returns Promise of the user object if the user was successfully created, or null if the user could not be created.
+ */
 const createUser = async (first_name, last_name, email, password) => {
   // Make sure params are not 0-length strings
   if (
@@ -18,10 +26,10 @@ const createUser = async (first_name, last_name, email, password) => {
     email.length === 0 ||
     password.length === 0
   ) {
-    return [null];
+    return null;
   }
 
-  return await knex("users")
+  const result = await knex("users")
     .insert(
       {
         first_name: first_name,
@@ -35,17 +43,45 @@ const createUser = async (first_name, last_name, email, password) => {
     .catch((err) => {
       console.log(err);
     });
+
+  return result ? result[0] : null;
 };
 
-// Gets a user from the database. Returns an array of a single value,
-// either the user object or a falsey value if the user could not be found.
+/**
+ *
+ * Attempts to get a user from the database by their email.
+ *
+ * @param email The email of the user to get.
+ * @returns Promise of the user object if the user was found, or null if the user was not found.
+ */
 const getUser = async (email) => {
-  return await knex("users")
+  const result = await knex("users")
     .select("*")
     .where("email", email)
     .catch((err) => {
       console.log(err);
     });
+
+  return result && result[0] ? result[0] : null;
 };
 
-module.exports = { createUser, getUser };
+/**
+ *
+ * Attempts to update the settings for a user in the database by their email.
+ *
+ * @param email The email of the user to update.
+ * @param settings The settings object to be stored in the db.
+ * @returns Promise of true or false depending on whether the update was successful.
+ */
+const updateSettings = async (email, settings) => {
+  return !!(
+    await knex("users")
+      .where("email", email)
+      .update({ settings: JSON.stringify(settings) }, ["settings"])
+      .catch((err) => {
+        console.log(err);
+      })
+  )[0];
+};
+
+module.exports = { createUser, getUser, updateSettings };
