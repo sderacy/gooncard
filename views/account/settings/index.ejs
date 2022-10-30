@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" class="h-100">
-
   <head>
     <%- include('../../partials/header'); %>
     <title>Settings</title>
@@ -9,115 +8,147 @@
   </head>
   <body class="h-100 text-center text-white bg-dark">
     <div class="row col-12"><%- include('../../partials/navbar'); %></div>
-
+    <% let settings = JSON.parse(user.settings) %>
     <div class="col-sm-2">
-      <br>
+      <br />
       <h1>Settings</h1>
       <p class="message text-danger"><%= error %></p>
     </div>
-    
-    <br>
-    <form>
+
+    <br />
+    <form action="/account/settings/update" method="POST">
       <div class="form-group row">
-        <label for="editFirstName" class="col-sm-2 col-form-label">First Name:</label>
+        <label for="editFirstName" class="col-sm-2 col-form-label"
+          >First Name:</label
+        >
         <div class="col-sm-2">
-          <input type="firstName" class="form-control" id="inputFirstName">
+          <input
+            name="first_name"
+            type="firstName"
+            class="form-control"
+            id="editFirstName"
+            value="<%= user.first_name %>"
+          />
         </div>
       </div>
-    </form>
-    
-    <br>
-    <form>
+
+      <br />
       <div class="form-group row">
-        <label for="editLastName" class="col-sm-2 col-form-label">Last Name:</label>
+        <label for="editLastName" class="col-sm-2 col-form-label"
+          >Last Name:</label
+        >
         <div class="col-sm-2">
-          <input type="lastName" class="form-control" id="inputLastName">
+          <input
+            name="last_name"
+            type="lastName"
+            class="form-control"
+            id="editLastName"
+            value="<%= user.last_name %>"
+          />
         </div>
       </div>
-    </form>
 
-    <br>
+      <br />
 
-    <form>
       <div class="form-group row">
-        <label for="inputFontSize" class="col-sm-2 col-form-label">Font Size:</label>
+        <label for="inputFontSize" class="col-sm-2 col-form-label"
+          >Font Size:</label
+        >
         <div class="col-sm-2">
-
           <div class="form-group">
-            <select class="form-control" id="fontSizeSelect">
-              <option>12pt</option>
-              <option>14pt</option>
-              <option>16pt</option>
-              <option>18pt</option>
+            <select name="font_size" class="form-control" id="inputFontSize">
+              <% if(settings.font_size === '12pt') { %>
+              <option selected value="12pt">12pt</option>
+              <% } else { %>
+              <option value="12pt">12pt</option>
+              <% } %> <% if(settings.font_size === '14pt') { %>
+              <option selected value="14pt">14pt</option>
+              <% } else { %>
+              <option value="14pt">14pt</option>
+              <% } %> <% if(settings.font_size === '16pt') { %>
+              <option selected value="16pt">16pt</option>
+              <% } else { %>
+              <option value="16pt">16pt</option>
+              <% } %> <% if(settings.font_size === '18pt') { %>
+              <option selected value="18pt">18pt</option>
+              <% } else { %>
+              <option value="18pt">18pt</option>
+              <% } %>
             </select>
           </div>
-
         </div>
       </div>
-    </form>
 
-    <br>
+      <br />
 
-    <form>
       <div class="form-group row">
-        <label for="inputFontFamily" class="col-sm-2 col-form-label">Font Family:</label>
+        <label for="inputFontFamily" class="col-sm-2 col-form-label"
+          >Font Family:</label
+        >
         <div class="col-sm-2">
-
           <div class="form-group">
-            <select class="form-control" id="fontFamilySelect">
-              <option>Times New Roman</option>
-              <option>Sans-Serif</option>
-              <option>Helvetica</option>
-              <option>Arial</option>
+            <select
+              name="font_family"
+              class="form-control"
+              id="inputFontFamily"
+            >
+              <!-- Adds the options and selects the user's current setting. -->
+              <% let options = ["Times New Roman", "Sans-Serif", "Arial",
+              "Helvetica"]; options.forEach( (option) => { if
+              (settings.font_family === option) { %>
+              <option selected value="<%= option %>"><%= option %></option>
+              <% } else { %>
+              <option value="<%= option %>"><%= option %></option>
+              <% } }); %> } ); %>
             </select>
           </div>
         </div>
       </div>
-    </form>
 
-    <br>
-    <form>
+      <br />
       <div class="form-group row">
-        <label for="inputContrast" class="col-sm-2 col-form-label">Contrast:</label>
+        <label for="inputContrast" class="col-sm-2 col-form-label"
+          >Contrast:</label
+        >
         <div class="col-sm-1">
-          
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
-            <label class="form-check-label" for="gridRadios1">
-              Low
-            </label>
+            <input class="form-check-input" type="radio" name="contrast"
+            id="gridRadios1" value="Low" <% if(settings.contrast === 'Low') { %>
+            checked <% } %> />
+            <label class="form-check-label" for="gridRadios1"> Low </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
-            <label class="form-check-label" for="gridRadios2">
-              High
-            </label>
+            <input class="form-check-input" type="radio" name="contrast"
+            id="gridRadios2" value="High" <% if(settings.contrast === 'High') {
+            %> checked <% } %> />
+            <label class="form-check-label" for="gridRadios2"> High </label>
           </div>
-          
         </div>
-
       </div>
-    </form>
 
-    <br>
-    <form>
+      <br />
       <div class="form-group row">
         <label for="inputTheme" class="col-sm-2 col-form-label">Theme:</label>
         <div class="col-sm-2">
           <div class="form-group">
-            <select class="form-control" id="themeSelect">
-              <option>Light Mode</option>
-              <option>Dark Mode</option>
+            <select name="theme" class="form-control" id="inputTheme">
+              <!-- Adds the options and selects the user's current setting. -->
+              <% options = ["Light Theme", "Dark Theme"]; options.forEach(
+              (option) => { if (settings.theme === option) { %>
+              <option selected value="<%= option %>"><%= option %></option>
+              <% } else { %>
+              <option value="<%= option %>"><%= option %></option>
+              <% } }); %> } ); %>
             </select>
           </div>
         </div>
       </div>
-    </form>
 
-    <br>
-    <div class="col-sm-2">
-      <button class="button submit">Submit</button>
-    </div>
+      <br />
+      <div class="col-sm-2">
+        <button class="button submit">Submit</button>
+      </div>
+    </form>
 
     <%- include('../../partials/footer'); %>
   </body>

@@ -10,9 +10,11 @@ module.exports = function (app, path) {
    */
   app.get("/account/settings", isLoggedIn, (req, res) => {
     // Pass the user object to the settings page
+    const error = req.session.error;
+    req.session.error = null;
     res.render(path + "/account/settings/index", {
       user: req.session.user,
-      error: null,
+      error,
     });
   });
 
@@ -42,25 +44,23 @@ module.exports = function (app, path) {
   app.post("/account/settings/update", isLoggedIn, async (req, res) => {
     // Store the settings in the database for the user.
     const email = req.session.user.email;
+
+    console.log(req.body);
+
     const result = await updateSettings(email, req.body);
 
-    // If the update was successful, update the user's session and render the home page.
+    // If the update was successful, update the user's session and redirect to the home page.
     if (result) {
       req.session.user = {
         ...req.session.user,
-        settings: req.body,
+        settings: JSON.stringify(req.body),
       };
-      res.render(path + "/home/index", {
-        user: req.session.user,
-      });
+      res.redirect("/");
     }
 
-    // Otherwise, render the settings page with an error message.
+    // Otherwise, redirect to the settings page with an error message.
     else {
-      res.render(path + "/account/settings/index", {
-        user: req.session.user,
-        error: "There was an error updating the settings.",
-      });
+      res.redirect("/account/settings");
     }
   });
 };
