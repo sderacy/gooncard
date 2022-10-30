@@ -5,17 +5,6 @@
     <title>Profile</title>
     <link rel="stylesheet" href="/account/profile/style" />
     <script src="/account/profile/main" type="module"></script>
-
-    <!-- JQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-
-    <!-- Datatables.net JS -->
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
-    <!-- Datatables.net CSS -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css">
-
   </head>
   <body class="h-100 text-center text-white bg-dark">
     <div class="row col-12"><%- include('../../partials/navbar'); %></div>
@@ -25,32 +14,28 @@
     >
       <div class="row col-12">
         <main class="px-3">
-          <h1 class="display-4">Profile</h1>
-          <h1 id="casual-header">Casual</h1>
-          <table id="casual-table">
+          <h1 class="display-4">Social Media Accounts</h1>
+          <h1 id="edit-existing-header">Edit Existing</h1>
+          <table id="accounts-table" class="table table-dark table-borderless">
             <thead>
                 <tr>
                     <th>Label</th>
                     <th>Value</th>
-                    <th>Action</th>
+                    <th></th>
                 </tr>
             </thead>
-            <tbody id="casual-table-body">
+            <tbody id="accounts-table-body">
             </tbody>
           </table>
-          <br/>
-          <h1 id="professional-header">Profile</h1>
-          <table id="professional-table">
-            <thead>
-                <tr>
-                    <th>Label</th>
-                    <th>Value</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody id="professional-table-body">
-            </tbody>
-          </table>
+          <button class="btn btn-warning">Save Changes</button>
+          <br/><br/>
+          <h1 id="add-new-account-header">Add a New Account</h1>
+          <div>
+            <input class="form-control inline-block-child" placeholder="Label"/>
+            <input class="form-control inline-block-child" placeholder="Value"/>
+            <button class="btn btn-warning inline-block-child">Submit</button>
+          </div>
+          
         </main>
       </div>
     </div>
