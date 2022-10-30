@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="h-100">
+
   <head>
     <%- include('../../partials/header'); %>
     <title>Settings</title>
@@ -9,41 +10,113 @@
   <body class="h-100 text-center text-white bg-dark">
     <div class="row col-12"><%- include('../../partials/navbar'); %></div>
 
-    <div
-      class="cover-container w-100 d-flex align-items-center p-3 mx-auto"
-    >
-      <div class="row col-12">
-        <main class="px-3">
-          <h1 class="display-4">Goon up Brah.</h1>
-          <h1>Hello World!</h1>
-          <p>This file was served with Express.</p>
-          <p>Here is your information:</p>
-          <ul>
-            <li>First Name: <%= user.first_name %></li>
-            <li>Last Name: <%= user.last_name %></li>
-            <li>Email: <%= user.email %></li>
-            <li>Password: <%= user.password %></li>
-            <li>
-              Settings:
-              <ul>
-                <% var settings = JSON.parse(user.settings);
-                Object.keys(settings).forEach( (key) => { %>
-                <li><%= key %>: <%= settings[key] %></li>
-                <% }); %>
-              </ul>
-            </li>
-          </ul>
-
-          <a
-            href="#"
-            class="btn btn-warning btn-lg"
-            role="button"
-            aria-disabled="true"
-            >Generate</a
-          >
-        </main>
-      </div>
+    <div class="col-sm-2">
+      <br>
+      <h1>Settings</h1>
     </div>
+    
+    <br>
+    <form>
+      <div class="form-group row">
+        <label for="editFirstName" class="col-sm-2 col-form-label">First Name:</label>
+        <div class="col-sm-2">
+          <input type="firstName" class="form-control" id="inputFirstName">
+        </div>
+      </div>
+    </form>
+    
+    <br>
+    <form>
+      <div class="form-group row">
+        <label for="editLastName" class="col-sm-2 col-form-label">Last Name:</label>
+        <div class="col-sm-2">
+          <input type="lastName" class="form-control" id="inputLastName">
+        </div>
+      </div>
+    </form>
+
+    <br>
+
+    <form>
+      <div class="form-group row">
+        <label for="inputFontSize" class="col-sm-2 col-form-label">Font Size:</label>
+        <div class="col-sm-2">
+
+          <div class="form-group">
+            <select class="form-control" id="fontSizeSelect">
+              <option>12pt</option>
+              <option>14pt</option>
+              <option>16pt</option>
+              <option>18pt</option>
+            </select>
+          </div>
+
+        </div>
+      </div>
+    </form>
+
+    <br>
+
+    <form>
+      <div class="form-group row">
+        <label for="inputFontFamily" class="col-sm-2 col-form-label">Font Family:</label>
+        <div class="col-sm-2">
+
+          <div class="form-group">
+            <select class="form-control" id="fontFamilySelect">
+              <option>Times New Roman</option>
+              <option>Sans-Serif</option>
+              <option>Helvetica</option>
+              <option>Arial</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <br>
+    <form>
+      <div class="form-group row">
+        <label for="inputContrast" class="col-sm-2 col-form-label">Contrast:</label>
+        <div class="col-sm-1">
+          
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
+            <label class="form-check-label" for="gridRadios1">
+              Low
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+            <label class="form-check-label" for="gridRadios2">
+              High
+            </label>
+          </div>
+          
+        </div>
+      </div>
+    </form>
+
+    <br>
+    <form>
+      <div class="form-group row">
+        <label for="inputTheme" class="col-sm-2 col-form-label">Theme:</label>
+        <div class="col-sm-2">
+          <div class="form-group">
+            <select class="form-control" id="themeSelect">
+              <option>Light Mode</option>
+              <option>Dark Mode</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <br>
+    <div class="col-sm-2">
+      <button class="button submit">Submit</button>
+    </div>
+
     <%- include('../../partials/footer'); %>
   </body>
 </html>
