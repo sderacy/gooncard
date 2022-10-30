@@ -1,75 +1,3 @@
-/*
- * Globals
- */
-
-/* Custom default button */
-.btn-secondary,
-.btn-secondary:hover,
-.btn-secondary:focus {
-  color: #333;
-  text-shadow: none; /* Prevent inheritance from `body` */
-}
-
-/*
- * Base structure
- */
-
-body {
-  text-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, 0.5);
-  box-shadow: inset 0 0 5rem rgba(0, 0, 0, 0.5);
-}
-
-.cover-container {
-  max-width: 42em;
-}
-
-/*
- * Header
- */
-
-/* Dropdown menu background color*/
-
-.navbar-nav > li > .dropdown-menu {
-  background-color: #212529;
-}
-
-/* Dropdown menu font color*/
-
-.navbar-nav > li > .dropdown-menu a {
-  color: #fff;
-}
-
-.navbar.transparent.navbar-inverse .navbar-inner {
-  background: rgba(0, 0, 0, 0.4) !important;
-}
-
-.bd-placeholder-img {
-  font-size: 1.125rem;
-  text-anchor: middle;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
-}
-
-.h-75 {
-  height: 75%;
-}
-
-@media (min-width: 768px) {
-  .bd-placeholder-img-lg {
-    font-size: 3.5rem;
-  }
-}
-
-.footer {
-  position: fixed;
-  left: 0;
-  bottom: 2%;
-  width: 100%;
-  color: white;
-  text-align: center;
-}
-
 .form-switch.form-switch-xl {
   margin-bottom: 2rem;
 }
@@ -78,6 +6,7 @@ body {
   height: 2.5rem;
   width: calc(4rem + 0.75rem);
   border-radius: 5rem;
+  float: none;
 }
 
 /* Overriding bootstrap color from blue to yellow */
