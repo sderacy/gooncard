@@ -1,4 +1,4 @@
-const { getUser, updateSettings } = require("../db/users");
+const { updateName, updateSettings } = require("../db/users");
 const { isLoggedIn } = require("../util/middleware");
 
 module.exports = function (app, path) {
@@ -42,18 +42,21 @@ module.exports = function (app, path) {
    * Updates the user's settings.
    */
   app.post("/account/settings/update", isLoggedIn, async (req, res) => {
+    // Strip out the first and last name from the request body.
+    const { first_name, last_name, ...settings } = req.body;
+
     // Store the settings in the database for the user.
     const email = req.session.user.email;
-
-    console.log(req.body);
-
-    const result = await updateSettings(email, req.body);
+    const nameResult = await updateName(email, first_name, last_name);
+    const settingsResult = await updateSettings(email, settings);
 
     // If the update was successful, update the user's session and redirect to the home page.
-    if (result) {
+    if (nameResult && settingsResult) {
       req.session.user = {
         ...req.session.user,
-        settings: JSON.stringify(req.body),
+        first_name,
+        last_name,
+        settings: JSON.stringify(settings),
       };
       res.redirect("/");
     }
