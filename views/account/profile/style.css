@@ -1,0 +1,34 @@
+/* Centers the table and makes the width at make 75% of the width of browser */
+.dataTables_wrapper {
+  margin: auto;
+  max-width: 75vw;
+}
+
+/* Gives margin space to the datatables and makes background very light grey */
+#casual-table_wrapper,
+#professional-table_wrapper {
+  background-color: rgb(228, 228, 228);
+  padding: 3vh;
+}
+
+/* Makes the text align left for the datatables and makes text black */
+#casual-table,
+#professional-table {
+  color: #333;
+  text-align: left;
+}
+
+/* Make the plus signs for the responsive table match the yellow of the theme */
+table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control:before,
+table.dataTable.dtr-inline.collapsed > tbody > tr > th.dtr-control:before {
+  background-color: #ffc107 !important;
+}
+
+#casual-header,
+#professional-header {
+  color: #ffc107;
+}
+
+button {
+  margin: 5px;
+}

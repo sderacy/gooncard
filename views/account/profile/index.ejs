@@ -5,6 +5,17 @@
     <title>Profile</title>
     <link rel="stylesheet" href="/account/profile/style" />
     <script src="/account/profile/main" type="module"></script>
+
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+    <!-- Datatables.net JS -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
+    <!-- Datatables.net CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css">
+
   </head>
   <body class="h-100 text-center text-white bg-dark">
     <div class="row col-12"><%- include('../../partials/navbar'); %></div>
@@ -14,33 +25,32 @@
     >
       <div class="row col-12">
         <main class="px-3">
-          <h1 class="display-4">Goon up Brah.</h1>
-          <h1>Hello World!</h1>
-          <p>This file was served with Express.</p>
-          <p>Here is your information:</p>
-          <ul>
-            <li>First Name: <%= user.first_name %></li>
-            <li>Last Name: <%= user.last_name %></li>
-            <li>Email: <%= user.email %></li>
-            <li>Password: <%= user.password %></li>
-            <li>
-              Settings:
-              <ul>
-                <% var settings = JSON.parse(user.settings);
-                Object.keys(settings).forEach( (key) => { %>
-                <li><%= key %>: <%= settings[key] %></li>
-                <% }); %>
-              </ul>
-            </li>
-          </ul>
-
-          <a
-            href="#"
-            class="btn btn-warning btn-lg"
-            role="button"
-            aria-disabled="true"
-            >Generate</a
-          >
+          <h1 class="display-4">Profile</h1>
+          <h1 id="casual-header">Casual</h1>
+          <table id="casual-table">
+            <thead>
+                <tr>
+                    <th>Label</th>
+                    <th>Value</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="casual-table-body">
+            </tbody>
+          </table>
+          <br/>
+          <h1 id="professional-header">Profile</h1>
+          <table id="professional-table">
+            <thead>
+                <tr>
+                    <th>Label</th>
+                    <th>Value</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="professional-table-body">
+            </tbody>
+          </table>
         </main>
       </div>
     </div>
