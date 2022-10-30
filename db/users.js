@@ -48,4 +48,15 @@ const getUser = async (email) => {
     });
 };
 
-module.exports = { createUser, getUser };
+// Updates a user's settings in the database. Returns an array of a single value,
+// either the user object or a falsey value if the settings could not be updated.
+const updateSettings = async (email, settings) => {
+  return await knex("users")
+    .where("email", email)
+    .update({ settings: JSON.stringify(settings) }, ["settings"])
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+module.exports = { createUser, getUser, updateSettings };

@@ -1,7 +1,7 @@
 let qrcode_div = document.getElementById("qrcode-div");
 let qrcode_submit = document.getElementById("qr_submit");
-let url = document.getElementById('url');
-let size = document.getElementById('size');
+let url = document.getElementById("url");
+let size = document.getElementById("size");
 
 // Button submit
 let onGenerateSubmit = async function (e) {
