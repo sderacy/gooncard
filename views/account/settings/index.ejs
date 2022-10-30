@@ -12,10 +12,10 @@
     <!-- Parse the user's settings as JSON before using. -->
     <% var settings = JSON.parse(user.settings); %>
 
-    <!-- Set up each of the option sets for printing inputs. -->
-    <% var options = { font_size: ['12pt', '14pt', '16pt', '18pt'], font_family:
-    ['Times New Roman', 'Arial', 'Helvetica', "Sans-Serif"], contrast: ['Low',
-    'High'], theme: ['Light Theme', 'Dark Theme'], } %>
+    <!-- Create the options. -->
+    <%var options = { font_size: ["12pt", "14pt", "16pt", "18pt"], font_family:
+    ["Times New Roman", "Arial", "Helvetica", "Sans-Serif"], contrast: ["Low",
+    "High"], theme: ["Light Theme", "Dark Theme"], }; %>
 
     <div class="col-sm-2">
       <br />
