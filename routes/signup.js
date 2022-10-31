@@ -77,7 +77,7 @@ module.exports = function (app, path) {
       res.redirect("/account/signup");
     } else {
       req.session.user = user;
-      res.redirect("/account/settings");
+      res.redirect("/account/profile");
     }
   });
 };
