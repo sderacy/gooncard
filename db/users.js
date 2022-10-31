@@ -2,11 +2,6 @@
 const knex = require("./knex");
 const bcrypt = require("bcrypt");
 const SALT = 10;
-const DEFAULT_SETTINGS = {
-  theme: "light",
-  fontSize: "12px",
-  fontFamily: "sans-serif",
-};
 
 /**
  *
@@ -36,7 +31,7 @@ const createUser = async (first_name, last_name, email, password) => {
         last_name: last_name,
         email: email,
         password: bcrypt.hashSync(password, bcrypt.genSaltSync(SALT)),
-        settings: JSON.stringify(DEFAULT_SETTINGS),
+        settings: JSON.stringify(require("./defaultSettings")),
       },
       ["first_name", "last_name", "email", "password", "settings"]
     )
