@@ -8,32 +8,35 @@
   </head>
   <body class="h-100 text-center text-white bg-dark">
     <div class="row col-12"><%- include('../../partials/navbar'); %></div>
-    
+
     <!-- <h1>Social Media Platforms</h1> -->
-    <div
-      class="cover-container w-100 d-flex align-items-center p-3 mx-auto"
-    >
+    <div class="cover-container w-100 d-flex align-items-center p-3 mx-auto">
       <div class="row col-12">
         <main class="px-3">
           <h1 class="display-4">Social Media Accounts</h1>
           <h1 id="edit-existing-header">Edit Existing</h1>
-          <table id="accounts-table" class="table table-dark table-borderless">
+          <table id="accounts-table" class="table table-borderless">
             <thead>
-                <tr>
-                    <th>Label</th>
-                    <th>Value</th>
-                    <th></th>
-                </tr>
+              <tr>
+                <th>Label</th>
+                <th>Value</th>
+                <th></th>
+              </tr>
             </thead>
-            <tbody id="accounts-table-body">
-            </tbody>
+            <tbody id="accounts-table-body"></tbody>
           </table>
           <button class="btn btn-warning">Save Changes</button>
-          <br/><br/>
+          <br /><br />
           <h1 id="add-new-account-header">Add a New Account</h1>
           <div>
-            <input class="form-control inline-block-child" placeholder="Label"/>
-            <input class="form-control inline-block-child" placeholder="Value"/>
+            <input
+              class="form-control inline-block-child"
+              placeholder="Label"
+            />
+            <input
+              class="form-control inline-block-child"
+              placeholder="Value"
+            />
             <button class="btn btn-warning inline-block-child">Submit</button>
           </div>
         </main>

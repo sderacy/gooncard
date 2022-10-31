@@ -14,21 +14,23 @@ function populate_table(table, labels, values) {
     let tr = document.createElement("tr");
     let label = document.createElement("td");
     let label_input = document.createElement("input");
-    label_input.classList.add('form-control');
+    label_input.classList.add("form-control");
     let value = document.createElement("td");
     let value_input = document.createElement("input");
-    value_input.classList.add('form-control');
+    value_input.classList.add("form-control");
     let delete_td = document.createElement("td");
 
     let delete_btn = document.createElement("button");
     delete_btn.innerText = "Delete";
     delete_btn.classList.add("btn", "btn-danger", "btn-sm");
 
-    delete_btn.onclick = function() {
-      if (confirm("Are you sure you want to delete this account information?")) {
+    delete_btn.onclick = function () {
+      if (
+        confirm("Are you sure you want to delete this account information?")
+      ) {
         location.reload();
       }
-    }
+    };
 
     label_input.value = labels[i];
     label.appendChild(label_input);

@@ -2,46 +2,69 @@
 <html lang="en" class="h-100">
   <head>
     <%- include('../partials/header'); %>
+    <title>QR Code Generator</title>
     <link rel="stylesheet" href="/home/style" />
     <script src="/home/main" type="module"></script>
-    <title>The G.O.O.N. Card 2022</title>
   </head>
   <body class="h-100 text-center text-white bg-dark">
     <div class="row col-12"><%- include('../partials/navbar'); %></div>
 
-    <div class="cover-container w-100 d-flex align-items-center p-3 mx-auto">
-      <div class="row col-12">
+    <div
+      class="cover-container w-100 align-items-center p-3 mx-auto mt-3"
+    >
+      <div class="row col-12 mt-3">
         <main class="px-3">
-          <h1 class="display-4">Goon up Brah.</h1>
-          <h1>Hello World!</h1>
-          <p>This file was served with Express.</p>
-          <p>Here is your information:</p>
-          <ul>
-            <li>First Name: <%= user.first_name %></li>
-            <li>Last Name: <%= user.last_name %></li>
-            <li>Email: <%= user.email %></li>
-            <li>Password: <%= user.password %></li>
-            <li>
-              Settings:
-              <ul>
-                <% var settings = JSON.parse(user.settings);
-                Object.keys(settings).forEach( (key) => { %>
-                <li><%= key %>: <%= settings[key] %></li>
-                <% }); %>
-              </ul>
-            </li>
-          </ul>
+          <!--These buttons are to autmatically toggle all the switches for the user-->
+          <button class="btn btn-warning btn-lg" type="button">Casual</button>
+          <button class="btn btn-warning btn-lg" type="button">Professional</button>
+          <button class="btn btn-warning btn-lg" type="button">All</button>
 
-          <a
-            href="#"
-            class="btn btn-warning btn-lg"
-            role="button"
-            aria-disabled="true"
-            >Generate</a
-          >
+          <br/><br/>
+
+          <div class="form-check form-switch form-switch-xl">
+            <input class="form-check-input col-4" type="checkbox" role="switch" id="instagram">
+            <label class="form-check-label col-4" for="instagram">Instagram</label>
+          </div>
+          <div class="form-check form-switch form-switch-xl">
+            <input class="form-check-input col-4" type="checkbox" role="switch" id="facebook">
+            <label class="form-check-label col-4" for="facebook">Facebook</label>
+          </div>
+          <div class="form-check form-switch form-switch-xl">
+            <input class="form-check-input col-4" type="checkbox" role="switch" id="twitter">
+            <label class="form-check-label col-4" for="twitter">Twitter</label>
+          </div>
+
+          <form id="generate-form" class="mb-3">
+            <input
+              id="url"
+              type="url"
+              placeholder="Enter a URL"
+              class="w-full border-2 border-gray-200 rounded p-3 text-grey-dark mr-2 focus:outline-none"
+              required
+            />
+
+            <select
+              class="w-full border-2 border-gray-200 rounded p-3 text-grey-dark mr-2 focus:outline-none"
+              name="size"
+              id="size"
+            >
+              <option value="100x100">100x100</option>
+              <option value="200x200" selected>200x200</option>
+              <option value="300x300">300x300</option>
+            </select>
+            <a
+              id="qr_submit"
+              href="#"
+              class="btn btn-warning btn-lg"
+              role="button"
+              aria-disabled="true"
+              >Generate</a
+            >
+          </form>
+          <br/>
+          <div id="qrcode-div" class="m-auto"></div>
         </main>
       </div>
-    </div>
-    <%- include('../partials/footer'); %>
+      <%- include('../partials/footer'); %>
   </body>
 </html>
