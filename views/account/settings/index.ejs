@@ -17,8 +17,8 @@
     ["Times New Roman", "Arial", "Helvetica", "Sans-Serif"], contrast: ["Low",
     "High"], theme: ["Light Theme", "Dark Theme"], }; %>
 
-    <div class="row col-12 text-center justify-content-center">
-      <div class="col-sm-2 text-center">
+    <div class="row col-12 text-center justify-content-center m-auto">
+      <div class="text-center">
         <br />
         <h1>Settings</h1>
         <p class="message text-danger"><%= error %></p>
@@ -28,13 +28,11 @@
       <form
         action="/account/settings/update"
         method="POST"
-        class="w-100 text-center"
+        class="text-center w-50"
       >
         <div class="form-group row">
-          <label for="editFirstName" class="col-sm-2 col-form-label"
-            >First Name:</label
-          >
-          <div class="col-sm-2">
+          <label for="editFirstName" class="col-form-label">First Name:</label>
+          <div>
             <input
               name="first_name"
               type="firstName"
@@ -47,10 +45,8 @@
 
         <br />
         <div class="form-group row">
-          <label for="editLastName" class="col-sm-2 col-form-label"
-            >Last Name:</label
-          >
-          <div class="col-sm-2">
+          <label for="editLastName" class="col-form-label">Last Name:</label>
+          <div>
             <input
               name="last_name"
               type="lastName"
@@ -64,10 +60,8 @@
         <br />
 
         <div class="form-group row">
-          <label for="inputFontSize" class="col-sm-2 col-form-label"
-            >Font Size:</label
-          >
-          <div class="col-sm-2">
+          <label for="inputFontSize" class="col-form-label">Font Size:</label>
+          <div>
             <div class="form-group">
               <select name="font_size" class="form-control" id="inputFontSize">
                 <!-- Adds the options and selects the user's current setting. -->
@@ -85,10 +79,10 @@
         <br />
 
         <div class="form-group row">
-          <label for="inputFontFamily" class="col-sm-2 col-form-label"
+          <label for="inputFontFamily" class="col-form-label"
             >Font Family:
           </label>
-          <div class="col-sm-2">
+          <div>
             <div class="form-group">
               <select
                 name="font_family"
@@ -109,29 +103,27 @@
 
         <br />
         <div class="form-group row">
-          <label for="inputContrast" class="col-sm-2 col-form-label"
-            >Contrast:</label
-          >
-          <div class="col-sm-1">
+          <label for="inputContrast" class="col-form-label">Contrast:</label>
+          <div>
             <div class="form-check">
+              <label class="form-check-label" for="gridRadios1"> Low </label>
               <input class="form-check-input" type="radio" name="contrast"
               id="gridRadios1" value="Low" <% if(settings.contrast === 'Low') {
               %> checked <% } %> />
-              <label class="form-check-label" for="gridRadios1"> Low </label>
             </div>
             <div class="form-check">
+              <label class="form-check-label" for="gridRadios2"> High </label>
               <input class="form-check-input" type="radio" name="contrast"
               id="gridRadios2" value="High" <% if(settings.contrast === 'High')
               { %> checked <% } %> />
-              <label class="form-check-label" for="gridRadios2"> High </label>
             </div>
           </div>
         </div>
 
         <br />
         <div class="form-group row">
-          <label for="inputTheme" class="col-sm-2 col-form-label">Theme:</label>
-          <div class="col-sm-2">
+          <label for="inputTheme" class="col-form-label">Theme:</label>
+          <div>
             <div class="form-group">
               <select name="theme" class="form-control" id="inputTheme">
                 <!-- Adds the options and selects the user's current setting. -->
@@ -147,7 +139,7 @@
         </div>
 
         <br />
-        <div class="col-sm-2">
+        <div>
           <button class="button submit">Submit</button>
         </div>
       </form>
