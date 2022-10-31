@@ -1,3 +1,8 @@
+#qrcode-div {
+  height: 300px;
+  width: 300px;
+}
+
 .form-switch.form-switch-xl {
   margin-bottom: 2rem;
 }
