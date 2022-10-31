@@ -46,10 +46,10 @@ module.exports = function (app, path) {
    */
   app.post("/account/login", async (req, res) => {
     // Get the user from the database
-    const user = (await getUser(req.body.email))[0];
+    const user = await getUser(req.body.email);
 
     // If the user was found, make sure that their password matches (hashed)
-    if (bcrypt.compareSync(req.body.password, user?.password)) {
+    if (user && bcrypt.compareSync(req.body.password, user?.password)) {
       // Start the user's session and redirect them to the home page
       req.session.user = user;
       res.redirect("/");

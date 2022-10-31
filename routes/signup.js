@@ -43,10 +43,10 @@ module.exports = function (app, path) {
    * Requires a first name, last name, email, and password.
    */
   app.post("/account/signup", async (req, res) => {
-    let user = null;
+    let user = false;
 
     // FAILURE: Email is already in use
-    if ((await getUser(req.body.email)).length > 0) {
+    if (await getUser(req.body.email)) {
       req.session.error = "Email is already in use";
     }
 
@@ -58,14 +58,12 @@ module.exports = function (app, path) {
     // SUCCESS: Proceed as normal
     else {
       // Try to add the user to the database
-      user = (
-        await createUser(
-          req.body.first_name,
-          req.body.last_name,
-          req.body.email,
-          req.body.password
-        )
-      )[0];
+      user = await createUser(
+        req.body.first_name,
+        req.body.last_name,
+        req.body.email,
+        req.body.password
+      );
 
       // FAILURE: User could not be added to the database
       if (!user) {
