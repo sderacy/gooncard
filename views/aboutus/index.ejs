@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="h-100">
+<html lang="en">
   <head>
     <%- include('../partials/header'); %>
     <link rel="stylesheet" href="/aboutus/style" />
@@ -9,39 +9,23 @@
   <body class="h-100 text-center text-white bg-dark">
     <div class="row col-12"><%- include('../partials/navbar'); %></div>
 
-    <div
-      class="cover-container w-100 d-flex align-items-center p-3 mx-auto"
-    >
-      <div class="row col-12">
-        <main class="px-3">
-          <h1 class="display-4">Goon up Brah.</h1>
-          <h1>Hello World!</h1>
-          <p>This file was served with Express.</p>
-          <p>Here is your information:</p>
-          <ul>
-            <li>First Name: <%= user.first_name %></li>
-            <li>Last Name: <%= user.last_name %></li>
-            <li>Email: <%= user.email %></li>
-            <li>Password: <%= user.password %></li>
-            <li>
-              Settings:
-              <ul>
-                <% var settings = JSON.parse(user.settings);
-                Object.keys(settings).forEach( (key) => { %>
-                <li><%= key %>: <%= settings[key] %></li>
-                <% }); %>
-              </ul>
-            </li>
-          </ul>
-
-          <a
-            href="#"
-            class="btn btn-warning btn-lg"
-            role="button"
-            aria-disabled="true"
-            >Generate</a
-          >
-        </main>
+    <div class="row col-12">
+      <div class="w-50 m-auto mt-5 mb-5" style="border-radius: 15px">
+        <div class="text-white text-center pt-5 mb-5">
+          <h1>About Us</h1>
+          <!-- This creates a divider to indicate the jump from the header to the actual content -->
+          <hr />
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
+            mollitia, molestiae quas vel sint commodi repudiandae consequuntur
+            voluptatum laborum numquam blanditiis harum quisquam eius sed odit
+            fugiat iusto fuga praesentium optio, eaque rerum! Provident
+            similique accusantium nemo autem. Veritatis obcaecati tenetur iure
+            eius earum ut molestias architecto voluptate aliquam nihil, eveniet
+            aliquid culpa officia aut!
+          </p>
+        </div>
+        <br />
       </div>
     </div>
     <%- include('../partials/footer'); %>
