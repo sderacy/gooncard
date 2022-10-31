@@ -43,6 +43,10 @@ body {
   background: rgba(0, 0, 0, 0.4) !important;
 }
 
+.nav-link {
+  color: #ffc008;
+}
+
 .bd-placeholder-img {
   font-size: 1.125rem;
   text-anchor: middle;
@@ -57,7 +61,7 @@ body {
   }
 }
 
-.footer {
+footer {
   margin-top: 5%;
   width: 100%;
   text-align: center;
