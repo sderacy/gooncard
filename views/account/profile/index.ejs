@@ -15,33 +15,27 @@
     >
       <div class="row col-12">
         <main class="px-3">
-          <h1 class="display-4">Social Media Platforms</h1>
-          <h1>Hello World!</h1>
-          <p>This file was served with Express.</p>
-          <p>Here is your information:</p>
-          <ul>
-            <li>First Name: <%= user.first_name %></li>
-            <li>Last Name: <%= user.last_name %></li>
-            <li>Email: <%= user.email %></li>
-            <li>Password: <%= user.password %></li>
-            <li>
-              Settings:
-              <ul>
-                <% var settings = JSON.parse(user.settings);
-                Object.keys(settings).forEach( (key) => { %>
-                <li><%= key %>: <%= settings[key] %></li>
-                <% }); %>
-              </ul>
-            </li>
-          </ul>
-
-          <a
-            href="#"
-            class="btn btn-warning btn-lg"
-            role="button"
-            aria-disabled="true"
-            >Generate</a
-          >
+          <h1 class="display-4">Social Media Accounts</h1>
+          <h1 id="edit-existing-header">Edit Existing</h1>
+          <table id="accounts-table" class="table table-dark table-borderless">
+            <thead>
+                <tr>
+                    <th>Label</th>
+                    <th>Value</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="accounts-table-body">
+            </tbody>
+          </table>
+          <button class="btn btn-warning">Save Changes</button>
+          <br/><br/>
+          <h1 id="add-new-account-header">Add a New Account</h1>
+          <div>
+            <input class="form-control inline-block-child" placeholder="Label"/>
+            <input class="form-control inline-block-child" placeholder="Value"/>
+            <button class="btn btn-warning inline-block-child">Submit</button>
+          </div>
         </main>
       </div>
     </div>
