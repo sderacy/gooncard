@@ -8,8 +8,13 @@
   font-size: 16px;
   margin: 4px 2px;
   transition-duration: 0.4s;
-  cursor: pointer;
   border-radius: 20px;
+}
+
+.button:disabled {
+  background-color: #88690e;
+  color: black;
+  border: 2px solid black;
 }
 
 .submit {
@@ -18,7 +23,8 @@
   border: 2px solid black;
 }
 
-.submit:hover {
+.submit:enabled:hover {
   background-color: goldenrod;
   color: white;
+  cursor: pointer;
 }

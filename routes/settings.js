@@ -45,6 +45,13 @@ module.exports = function (app, path) {
     // Strip out the first and last name from the request body.
     const { first_name, last_name, ...settings } = req.body;
 
+    // If the first or last names are empty, redirect to the settings page with an error.
+    if (!first_name || !last_name) {
+      req.session.error = "First and last names may not be empty.";
+      res.redirect("/account/settings");
+      return;
+    }
+
     // Store the settings in the database for the user.
     const email = req.session.user.email;
     const nameResult = await updateName(email, first_name, last_name);
@@ -63,6 +70,7 @@ module.exports = function (app, path) {
 
     // Otherwise, redirect to the settings page with an error message.
     else {
+      req.session.error = "There was an error updating your settings.";
       res.redirect("/account/settings");
     }
   });

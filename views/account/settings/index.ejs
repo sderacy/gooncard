@@ -21,15 +21,17 @@
       <div class="text-center">
         <br />
         <h1>Settings</h1>
-        <p class="message text-danger"><%= error %></p>
       </div>
 
       <br />
+
       <form
         action="/account/settings/update"
         method="POST"
         class="text-center w-50"
       >
+        <p class="message text-danger"><%= error %></p>
+
         <div class="form-group row">
           <label for="editFirstName" class="col-form-label">First Name:</label>
           <div>
@@ -140,7 +142,7 @@
 
         <br />
         <div>
-          <button class="button submit">Submit</button>
+          <button class="button submit" id="submit" disabled>Submit</button>
         </div>
       </form>
     </div>
