@@ -27,6 +27,7 @@ app.use(
     resave: false,
     saveUninitialized: true,
     error: null,
+    success: null,
     loginValues: null,
     signupValues: null,
   })

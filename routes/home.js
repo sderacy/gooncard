@@ -10,8 +10,11 @@ module.exports = function (app, path) {
    */
   app.get("/", isLoggedIn, (req, res) => {
     // Pass the user object to the home page
+    const success = req.session.success;
+    req.session.success = null;
     res.render(path + "/home/index", {
       user: req.session.user,
+      success,
     });
   });
 

@@ -58,6 +58,7 @@ module.exports = function (app, path) {
         last_name,
         settings: JSON.stringify(settings),
       };
+      req.session.success = "Settings updated successfully!";
       res.redirect("/");
     }
 
