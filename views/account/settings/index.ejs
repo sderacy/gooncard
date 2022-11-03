@@ -7,145 +7,150 @@
     <script src="/account/settings/main" type="module"></script>
   </head>
   <body class="h-100 text-center text-white bg-dark">
-    <div class="row col-12"><%- include('../../partials/navbar'); %></div>
+    <div id="page-container">
+      <div class="row col-12"><%- include('../../partials/navbar'); %></div>
 
-    <!-- Parse the user's settings as JSON before using. -->
-    <% var settings = JSON.parse(user.settings); %>
+      <!-- Parse the user's settings as JSON before using. -->
+      <% var settings = JSON.parse(user.settings); %>
 
-    <!-- Create the options. -->
-    <%var options = { font_size: ["12pt", "14pt", "16pt", "18pt"], font_family:
-    ["Times New Roman", "Arial", "Helvetica", "Sans-Serif"], contrast: ["Low",
-    "High"], theme: ["Light Theme", "Dark Theme"], }; %>
+      <!-- Create the options. -->
+      <%var options = { font_size: ["12pt", "14pt", "16pt", "18pt"],
+      font_family: ["Times New Roman", "Arial", "Helvetica", "Sans-Serif"],
+      contrast: ["Low", "High"], theme: ["Light Theme", "Dark Theme"], }; %>
 
-    <div class="row col-12 text-center justify-content-center m-auto">
-      <div class="text-center">
-        <br />
-        <h1>Settings</h1>
-      </div>
-
-      <br />
-
-      <form
-        action="/account/settings/update"
-        method="POST"
-        class="text-center w-50"
-      >
-        <p class="message text-danger"><%= error %></p>
-
-        <div class="form-group row">
-          <label for="editFirstName" class="col-form-label">First Name:</label>
-          <div>
-            <input
-              name="first_name"
-              type="firstName"
-              class="form-control"
-              id="editFirstName"
-              value="<%= user.first_name %>"
-            />
-          </div>
+      <div class="row col-12 text-center justify-content-center m-auto">
+        <div class="text-center">
+          <br />
+          <h1>Settings</h1>
+          <p class="message text-danger"><%= error %></p>
         </div>
 
         <br />
-        <div class="form-group row">
-          <label for="editLastName" class="col-form-label">Last Name:</label>
-          <div>
-            <input
-              name="last_name"
-              type="lastName"
-              class="form-control"
-              id="editLastName"
-              value="<%= user.last_name %>"
-            />
-          </div>
-        </div>
-
-        <br />
-
-        <div class="form-group row">
-          <label for="inputFontSize" class="col-form-label">Font Size:</label>
-          <div>
-            <div class="form-group">
-              <select name="font_size" class="form-control" id="inputFontSize">
-                <!-- Adds the options and selects the user's current setting. -->
-                <% options.font_size.forEach( (option) => { if
-                (settings.font_size === option) { %>
-                <option selected value="<%= option %>"><%= option %></option>
-                <% } else { %>
-                <option value="<%= option %>"><%= option %></option>
-                <% } }); %> } ); %>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <br />
-
-        <div class="form-group row">
-          <label for="inputFontFamily" class="col-form-label"
-            >Font Family:
-          </label>
-          <div>
-            <div class="form-group">
-              <select
-                name="font_family"
+        <form
+          action="/account/settings/update"
+          method="POST"
+          class="text-center w-50"
+        >
+          <div class="form-group row">
+            <label for="editFirstName" class="col-form-label"
+              >First Name:</label
+            >
+            <div>
+              <input
+                name="first_name"
+                type="firstName"
                 class="form-control"
-                id="inputFontFamily"
-              >
-                <!-- Adds the options and selects the user's current setting. -->
-                <% options.font_family.forEach( (option) => { if
-                (settings.font_family === option) { %>
-                <option selected value="<%= option %>"><%= option %></option>
-                <% } else { %>
-                <option value="<%= option %>"><%= option %></option>
-                <% } }); %> } ); %>
-              </select>
+                id="editFirstName"
+                value="<%= user.first_name %>"
+              />
             </div>
           </div>
-        </div>
 
-        <br />
-        <div class="form-group row">
-          <label for="inputContrast" class="col-form-label">Contrast:</label>
+          <br />
+          <div class="form-group row">
+            <label for="editLastName" class="col-form-label">Last Name:</label>
+            <div>
+              <input
+                name="last_name"
+                type="lastName"
+                class="form-control"
+                id="editLastName"
+                value="<%= user.last_name %>"
+              />
+            </div>
+          </div>
+
+          <br />
+
+          <div class="form-group row">
+            <label for="inputFontSize" class="col-form-label">Font Size:</label>
+            <div>
+              <div class="form-group">
+                <select
+                  name="font_size"
+                  class="form-control"
+                  id="inputFontSize"
+                >
+                  <!-- Adds the options and selects the user's current setting. -->
+                  <% options.font_size.forEach( (option) => { if
+                  (settings.font_size === option) { %>
+                  <option selected value="<%= option %>"><%= option %></option>
+                  <% } else { %>
+                  <option value="<%= option %>"><%= option %></option>
+                  <% } }); %> } ); %>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <br />
+
+          <div class="form-group row">
+            <label for="inputFontFamily" class="col-form-label"
+              >Font Family:
+            </label>
+            <div>
+              <div class="form-group">
+                <select
+                  name="font_family"
+                  class="form-control"
+                  id="inputFontFamily"
+                >
+                  <!-- Adds the options and selects the user's current setting. -->
+                  <% options.font_family.forEach( (option) => { if
+                  (settings.font_family === option) { %>
+                  <option selected value="<%= option %>"><%= option %></option>
+                  <% } else { %>
+                  <option value="<%= option %>"><%= option %></option>
+                  <% } }); %> } ); %>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <br />
+          <div class="form-group row">
+            <label for="inputContrast" class="col-form-label">Contrast:</label>
+            <div>
+              <div class="form-check">
+                <label class="form-check-label" for="gridRadios1"> Low </label>
+                <input class="form-check-input" type="radio" name="contrast"
+                id="gridRadios1" value="Low" <% if(settings.contrast === 'Low')
+                { %> checked <% } %> />
+              </div>
+              <div class="form-check">
+                <label class="form-check-label" for="gridRadios2"> High </label>
+                <input class="form-check-input" type="radio" name="contrast"
+                id="gridRadios2" value="High" <% if(settings.contrast ===
+                'High') { %> checked <% } %> />
+              </div>
+            </div>
+          </div>
+
+          <br />
+          <div class="form-group row">
+            <label for="inputTheme" class="col-form-label">Theme:</label>
+            <div>
+              <div class="form-group">
+                <select name="theme" class="form-control" id="inputTheme">
+                  <!-- Adds the options and selects the user's current setting. -->
+                  <% options.theme.forEach( (option) => { if (settings.theme ===
+                  option) { %>
+                  <option selected value="<%= option %>"><%= option %></option>
+                  <% } else { %>
+                  <option value="<%= option %>"><%= option %></option>
+                  <% } }); %> } ); %>
+                </select>
+              </div>
+            </div>
+          </div>
+          <br />
           <div>
-            <div class="form-check">
-              <label class="form-check-label" for="gridRadios1"> Low </label>
-              <input class="form-check-input" type="radio" name="contrast"
-              id="gridRadios1" value="Low" <% if(settings.contrast === 'Low') {
-              %> checked <% } %> />
-            </div>
-            <div class="form-check">
-              <label class="form-check-label" for="gridRadios2"> High </label>
-              <input class="form-check-input" type="radio" name="contrast"
-              id="gridRadios2" value="High" <% if(settings.contrast === 'High')
-              { %> checked <% } %> />
-            </div>
+            <button class="button submit" id="submit" disabled>Submit</button>
           </div>
-        </div>
-
-        <br />
-        <div class="form-group row">
-          <label for="inputTheme" class="col-form-label">Theme:</label>
-          <div>
-            <div class="form-group">
-              <select name="theme" class="form-control" id="inputTheme">
-                <!-- Adds the options and selects the user's current setting. -->
-                <% options.theme.forEach( (option) => { if (settings.theme ===
-                option) { %>
-                <option selected value="<%= option %>"><%= option %></option>
-                <% } else { %>
-                <option value="<%= option %>"><%= option %></option>
-                <% } }); %> } ); %>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <br />
-        <div>
-          <button class="button submit" id="submit" disabled>Submit</button>
-        </div>
-      </form>
+        </form>
+      </div>
+      <div class="pt-3"><%- include('../../partials/footer'); %></div>
     </div>
-    <%- include('../../partials/footer'); %>
   </body>
 </html>
