@@ -66,8 +66,19 @@ body {
   }
 }
 
+#page-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+#content-wrap {
+  padding-bottom: 2.5rem;    /* Footer height */
+}
+
 footer {
-  margin-top: 5%;
+  position: absolute;
+  bottom: 0;
+  left:0;
   width: 100%;
-  text-align: center;
+  height: 2.5rem;            /* Footer height */
 }
