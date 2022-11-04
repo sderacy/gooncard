@@ -20,7 +20,6 @@ const createUserAccount = async (email, label, value, type) => {
 
   // Return null if the user could not be found.
   if (!user) {
-    console.log("User not found.");
     return null;
   }
 
@@ -45,7 +44,35 @@ const createUserAccount = async (email, label, value, type) => {
   return result ? result[0] : null;
 };
 
-const getUserAccounts = async (email) => {};
+/**
+ *
+ * Attempts to find all user_accounts for a given user.
+ *
+ * @param {string} email
+ * @returns {Promise<object[] | null>}
+ */
+const getUserAccounts = async (email) => {
+  // Get the ID of the user with the given email.
+  const user = await getUser(email);
+
+  // Return null if the user could not be found.
+  if (!user) {
+    return null;
+  }
+
+  // Otherwise, use the user's ID to find all associated user_account entries.
+  const userId = user.id;
+
+  // Find all user_accounts associated with the user's ID.
+  const result = await knex("user_accounts")
+    .select("*")
+    .where("user_id", userId)
+    .catch((err) => {
+      console.log(err);
+    });
+
+  return result.length > 0 ? result : null;
+};
 
 const updateUserAccount = async (userAccountId, label, value, type) => {};
 
