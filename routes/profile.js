@@ -1,6 +1,12 @@
 module.exports = function (app, path) {
   // Middleware that redirects to login page if user is not logged in
   isLoggedIn = require("../util/middleware").isLoggedIn;
+  const {
+    getUserAccounts,
+    createUserAccount,
+    updateUserAccount,
+    deleteUserAccount,
+  } = require("../db/userAccounts");
 
   /**
    * GET /account/profile
@@ -31,5 +37,16 @@ module.exports = function (app, path) {
    */
   app.get("/account/profile/main", (req, res) => {
     res.sendFile(path + "/account/profile/main.js");
+  });
+
+  app.get("/test", isLoggedIn, async (req, res) => {
+    res.json(
+      await createUserAccount(
+        req.session.user.email,
+        req.query.label,
+        req.query.value,
+        req.query.type
+      )
+    );
   });
 };

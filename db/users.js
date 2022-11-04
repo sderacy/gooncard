@@ -1,4 +1,4 @@
-// Functions for manipulating the users table
+// Functions for manipulating the users table.
 const knex = require("./knex");
 const bcrypt = require("bcrypt");
 const SALT = 10;
@@ -11,7 +11,7 @@ const SALT = 10;
  * @param {string} last_name The user's last name.
  * @param {string} email The email of the user to create.
  * @param {string} password The password to be hashed and stored in the db.
- * @returns Promise of the user object if the user was successfully created, or null if the user could not be created.
+ * @returns {Promise<object | null>} Promise of the user object if the user was successfully created, or null if the user could not be created.
  */
 const createUser = async (first_name, last_name, email, password) => {
   // Make sure params are not 0-length strings
