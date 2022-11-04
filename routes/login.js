@@ -1,6 +1,7 @@
 const session = require("express-session");
 const bcrypt = require("bcrypt");
 const { getUser } = require("../db/users");
+const { getUserAccounts } = require("../db/userAccounts");
 
 module.exports = function (app, path) {
   /**
@@ -50,6 +51,9 @@ module.exports = function (app, path) {
 
     // If the user was found, make sure that their password matches (hashed)
     if (user && bcrypt.compareSync(req.body.password, user?.password)) {
+      // Get all of the user's user_accounts from the database.
+      user.user_accounts = await getUserAccounts(user.email);
+
       // Start the user's session and redirect them to the home page
       req.session.user = user;
       res.redirect("/");
