@@ -16,6 +16,9 @@
           <main class="px-3">
             <h1>Profile</h1>
             <h1 id="edit-existing-header">Edit Existing</h1>
+
+            <div id="live-alert-placeholder"></div>
+
             <table id="accounts-table" class="table table-borderless">
               <thead>
                 <tr>
@@ -26,19 +29,19 @@
               </thead>
               <tbody id="accounts-table-body"></tbody>
             </table>
-            <button class="btn btn-warning">Save Changes</button>
-            <br /><br />
             <h1 id="add-new-account-header">Add a New Account</h1>
             <div>
               <input
+                id="add-new-label"
                 class="form-control inline-block-child"
                 placeholder="Label"
               />
               <input
+                id="add-new-value"
                 class="form-control inline-block-child"
                 placeholder="Value"
               />
-              <button class="btn btn-warning inline-block-child">Submit</button>
+              <button id="add-new-account-submit" class="btn btn-warning inline-block-child">Submit</button>
             </div>
           </main>
         </div>
