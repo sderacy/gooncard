@@ -106,7 +106,25 @@ const updateUserAccount = async (userAccountId, label, value, type) => {
   )[0];
 };
 
-const deleteUserAccount = async (userAccountId) => {};
+/**
+ *
+ * Attempts to delete a user_account in the database.
+ *
+ * @param {number} userAccountId The ID of the user_account to delete.
+ * @returns {Promise<boolean>} Promise of true if the user_account was
+ * successfully deleted, or false if the user_account could not be deleted.
+ */
+const deleteUserAccount = async (userAccountId) => {
+  // Simply delete the user_account entry with the given ID.
+  return (
+    (await knex("user_accounts")
+      .where("id", userAccountId)
+      .del()
+      .catch((err) => {
+        console.log(err);
+      })) > 0
+  );
+};
 
 module.exports = {
   createUserAccount,
