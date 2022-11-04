@@ -1,4 +1,4 @@
-// Functions for manipulating the users table
+// Functions for manipulating the users table.
 const knex = require("./knex");
 const bcrypt = require("bcrypt");
 const SALT = 10;
@@ -11,7 +11,7 @@ const SALT = 10;
  * @param {string} last_name The user's last name.
  * @param {string} email The email of the user to create.
  * @param {string} password The password to be hashed and stored in the db.
- * @returns Promise of the user object if the user was successfully created, or null if the user could not be created.
+ * @returns {Promise<object | null>} Promise of the user object if the user was successfully created, or null if the user could not be created.
  */
 const createUser = async (first_name, last_name, email, password) => {
   // Make sure params are not 0-length strings
@@ -47,7 +47,8 @@ const createUser = async (first_name, last_name, email, password) => {
  * Attempts to get a user from the database by their email.
  *
  * @param {string} email The email of the user to get.
- * @returns Promise of the user object if the user was found, or null if the user was not found.
+ * @returns {Promise<object | null>} Promise of the user object if the user
+ * was found, or null if the user was not found.
  */
 const getUser = async (email) => {
   const result = await knex("users")
@@ -66,7 +67,8 @@ const getUser = async (email) => {
  *
  * @param {string} email The email of the user to update.
  * @param {object} settings The settings object to be stored in the db.
- * @returns Promise of true or false depending on whether the update was successful.
+ * @returns {Promise<boolean>} Promise of true or false depending on whether
+ *  the update was successful.
  */
 const updateSettings = async (email, settings) => {
   return !!(
@@ -86,7 +88,8 @@ const updateSettings = async (email, settings) => {
  * @param {string} email The email of the user to update.
  * @param {string} first_name The first name of the user.
  * @param {string} last_name The user's last name.
- * @returns
+ * @returns {Promise<boolean>} Promise of true or false depending on whether
+ *  the update was successful.
  */
 const updateName = async (email, first_name, last_name) => {
   return !!(

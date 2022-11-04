@@ -6,6 +6,7 @@
 
 const fs = require("fs");
 const { createUser } = require("./users");
+const { createUserAccount } = require("./userAccounts");
 const sqlite3 = require("sqlite3").verbose();
 
 // Delete the old database if it exists
@@ -30,21 +31,34 @@ db.exec(sql, function (err) {
 // // Seed the database with some data
 console.log("Seeding database...");
 
-// Data to seed the database with
+// User data to seed the database with
 const promises = [
   createUser("John", "Doe", "johndoe@email.com", "password"),
   createUser("Jane", "Doe", "janedoe@email.com", "password"),
 ];
 
 // Wait for both promises to resolve
-Promise.all(promises)
-  .then(() => {
-    console.log("Done!");
-  })
-  .catch((err) => {
-    console.log(err);
-  })
-  .finally(() => {
-    db.close();
-    process.exit(0);
-  });
+Promise.all(promises).then(() => {
+  // User account data to seed the database with
+  const promises = [
+    createUserAccount("johndoe@email.com", "instagram", "@johndoe", 0),
+    createUserAccount("johndoe@email.com", "twitter", "@johndoe", 0),
+    createUserAccount("johndoe@email.com", "email", "johndoe@email.com", 1),
+    createUserAccount("janedoe@email.com", "instagram", "@janedoe", 0),
+    createUserAccount("janedoe@email.com", "twitter", "@janedoe", 0),
+    createUserAccount("janedoe@email.com", "email", "janedoe@email.com", 1),
+  ];
+
+  // Wait for all promises to resolve
+  Promise.all(promises)
+    .then(() => {
+      console.log("Done!");
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      db.close();
+      process.exit(0);
+    });
+});
