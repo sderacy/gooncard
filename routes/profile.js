@@ -42,6 +42,6 @@ module.exports = function (app, path) {
   });
 
   app.get("/test", isLoggedIn, async (req, res) => {
-    res.json(await getUserAccounts(req.session.user.email));
+    res.json(await updateUserAccount(2, "wrong", "false", 0));
   });
 };

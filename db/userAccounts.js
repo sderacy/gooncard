@@ -48,8 +48,10 @@ const createUserAccount = async (email, label, value, type) => {
  *
  * Attempts to find all user_accounts for a given user.
  *
- * @param {string} email
- * @returns {Promise<object[] | null>}
+ * @param {string} email The email of the user to get the accounts for.
+ * @returns {Promise<object[] | null>} Promise of the user_account objects if
+ * the user_accounts were successfully found, or null if the user_accounts
+ * could not be found.
  */
 const getUserAccounts = async (email) => {
   // Get the ID of the user with the given email.
@@ -74,7 +76,35 @@ const getUserAccounts = async (email) => {
   return result.length > 0 ? result : null;
 };
 
-const updateUserAccount = async (userAccountId, label, value, type) => {};
+/**
+ *
+ * Attempts to update a user_account in the database.
+ *
+ * @param {number} userAccountId The ID of the user_account to update.
+ * @param {string} label The new label of the account.
+ * @param {string} value The new value of the account.
+ * @param {number} type The new type of the account.
+ * @returns {Promise<boolean>} Promise of true if the user_account was
+ * successfully updated, or false if the user_account could not be updated.
+ */
+const updateUserAccount = async (userAccountId, label, value, type) => {
+  // Simply update the user_account entry with the given ID.
+  return !!(
+    await knex("user_accounts")
+      .where("id", userAccountId)
+      .update(
+        {
+          label: label,
+          value: value,
+          type: type,
+        },
+        ["id", "user_id", "label", "value", "type"]
+      )
+      .catch((err) => {
+        console.log(err);
+      })
+  )[0];
+};
 
 const deleteUserAccount = async (userAccountId) => {};
 
