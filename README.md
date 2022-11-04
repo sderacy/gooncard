@@ -60,12 +60,13 @@ If you get a message about files being modified and changing from LF to CLF for 
 
 ### Database Schema
 
-We are using an SQLite database in order to store users' preferred settings as well as their account information. Below is a diagram of the database's schema.
+We are using an SQLite database in order to store users' preferred settings as well as their account information. Below is a diagram of the database's current schema.
 
-![Database Schema](./docs/db-schema.png)
+![Database Schema](./docs/db/db-schema-v2.png)
 
 - Because each user will have the same set of options, it makes more sense to store this as a JSON object within the `users` table and parse it later.
 - Because each user will likely have a different number of social media accounts, it makes more sense to store these in a seperate table and link the two with a foreign key.
+- The `card_entries` table will be used to keep track of which social media accounts are linked to which card. This will allow us to quickly and efficiently generate new Goon Cards without needing to create a new file for each card.
 
 ### Local Database Setup
 

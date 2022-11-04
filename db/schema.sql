@@ -13,6 +13,7 @@ CREATE TABLE "user_accounts" (
 	"user_id"	INTEGER NOT NULL,
 	"label"	TEXT NOT NULL,
 	"value"	TEXT NOT NULL,
+	"type"	INTEGER NOT NULL,
 	FOREIGN KEY("user_id") REFERENCES "users"("id"),
 	PRIMARY KEY("id" AUTOINCREMENT)
 );
