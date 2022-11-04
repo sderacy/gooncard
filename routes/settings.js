@@ -11,10 +11,13 @@ module.exports = function (app, path) {
   app.get("/account/settings", isLoggedIn, (req, res) => {
     // Pass the user object to the settings page
     const error = req.session.error;
+    const success = req.session.success;
     req.session.error = null;
+    req.session.success = null;
     res.render(path + "/account/settings/index", {
       user: req.session.user,
       error,
+      success,
     });
   });
 
@@ -57,7 +60,7 @@ module.exports = function (app, path) {
     const nameResult = await updateName(email, first_name, last_name);
     const settingsResult = await updateSettings(email, settings);
 
-    // If the update was successful, update the user's session and redirect to the home page.
+    // If the update was successful, update the user's session and redirect to the settings page.
     if (nameResult && settingsResult) {
       req.session.user = {
         ...req.session.user,
@@ -65,7 +68,8 @@ module.exports = function (app, path) {
         last_name,
         settings: JSON.stringify(settings),
       };
-      res.redirect("/");
+      req.session.success = "Settings updated successfully!";
+      res.redirect("/account/settings");
     }
 
     // Otherwise, redirect to the settings page with an error message.
