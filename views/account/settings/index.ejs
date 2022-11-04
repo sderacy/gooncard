@@ -21,7 +21,11 @@
       <div class="text-center">
         <br />
         <h1>Settings</h1>
+        <% if (error) { %>
         <p class="message text-danger"><%= error %></p>
+        <% } else if(success) { %>
+        <p class="message text-success"><%= success %></p>
+        <% } %>
       </div>
 
       <br />
