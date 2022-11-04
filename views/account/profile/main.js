@@ -41,12 +41,16 @@ function add_row(table, label, value) {
   table.appendChild(tr);
 
   delete_btn.onclick = function () {
-    if (
-      confirm("Are you sure you want to delete this account information?")
-    ) {
+    if (confirm("Are you sure you want to delete this account information?")) {
       // REMOVE LABEL VALUE PAIR FROM THE DB
       table.removeChild(tr);
-      alert(label_input.value + "+" + value_input.value + " pair deleted successfully!", "warning");
+      alert(
+        label_input.value +
+          "+" +
+          value_input.value +
+          " pair deleted successfully!",
+        "warning"
+      );
     }
   };
 
@@ -68,32 +72,37 @@ function populate_table() {
 }
 
 const alert = (message, type) => {
-  const wrapper = document.createElement('div')
+  const wrapper = document.createElement("div");
   wrapper.innerHTML = [
     `<div id="dismissable-alert" class="alert alert-${type} alert-dismissible" role="alert">`,
     `   <div>${message}</div>`,
     '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
-    '</div>'
-  ].join('')
+    "</div>",
+  ].join("");
 
   live_alert_placeholder.append(wrapper);
 
-  $("#live-alert-placeholder").fadeTo(1500, 500).slideUp(500, function(){
-    $("#live-alert-placeholder").slideUp(500);
-    wrapper.innerHTML = "";
-  });
-}
+  $("#live-alert-placeholder")
+    .fadeTo(1500, 500)
+    .slideUp(500, function () {
+      $("#live-alert-placeholder").slideUp(500);
+      wrapper.innerHTML = "";
+    });
+};
 
 add_new_account_submit.onclick = function () {
   if (add_new_label.value == "" || add_new_value.value == "") {
-    alert("Your label or value is empty. Fill in both to successfully add a new account.", 'warning');
+    alert(
+      "Your label or value is empty. Fill in both to successfully add a new account.",
+      "warning"
+    );
   } else {
     // ADD LABEL VALUE PAIR IN THE DB
     add_row(accounts_table, add_new_label.value, add_new_value.value);
     add_new_label.value = "";
     add_new_value.value = "";
-    alert('You successfully added a new account!', 'warning');
+    alert("You successfully added a new account!", "warning");
   }
-}
+};
 
 populate_table();
