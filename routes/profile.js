@@ -41,6 +41,13 @@ module.exports = function (app, path) {
   app.post("/account/profile/add", isLoggedIn, (req, res) => {});
 
   /**
+   * GET /account/profile/getall
+   *
+   * Gets all user_accounts for the current user.
+   */
+  app.get("/account/profile/getall", isLoggedIn, (req, res) => {});
+
+  /**
    * POST /account/profile/delete
    *
    * Deletes a user_account for the current user.
