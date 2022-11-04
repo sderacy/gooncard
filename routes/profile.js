@@ -1,6 +1,6 @@
 module.exports = function (app, path) {
   // Middleware that redirects to login page if user is not logged in
-  isLoggedIn = require("../util/middleware").isLoggedIn;
+  const isLoggedIn = require("../util/middleware").isLoggedIn;
 
   /**
    * GET /account/profile
@@ -32,4 +32,25 @@ module.exports = function (app, path) {
   app.get("/account/profile/main", (req, res) => {
     res.sendFile(path + "/account/profile/main.js");
   });
+
+  /**
+   * POST /account/profile/add
+   *
+   * Adds a new user_account for the current user.
+   */
+  app.post("/account/profile/add", isLoggedIn, (req, res) => {});
+
+  /**
+   * POST /account/profile/delete
+   *
+   * Deletes a user_account for the current user.
+   */
+  app.post("/account/profile/update", isLoggedIn, (req, res) => {});
+
+  /**
+   * POST /account/profile/update
+   *
+   * Updates all user_accounts for the current user.
+   */
+  app.post("/account/profile/delete", isLoggedIn, (req, res) => {});
 };
