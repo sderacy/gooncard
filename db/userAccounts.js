@@ -15,6 +15,11 @@ const { getUser } = require("./users");
  * could not be created.
  */
 const createUserAccount = async (email, label, value, type) => {
+  // Label and value must be non-empty strings, and type must be 0 or 1
+  if (label.length < 1 || value.length < 1 || (type !== "0" && type !== "1")) {
+    return null;
+  }
+
   // Get the ID of the user with the given email.
   const user = await getUser(email);
 
