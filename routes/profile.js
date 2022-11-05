@@ -99,7 +99,7 @@ module.exports = function (app, path) {
         req.body.id,
         req.body.label,
         req.body.value,
-        0
+        req.body.type
       );
     }
 

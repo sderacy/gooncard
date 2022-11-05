@@ -37,6 +37,7 @@ input {
   display: inline-block;
 }
 
-button#add-new-type {
+button#add-new-type,
+button.update {
   width: 14ch;
 }
