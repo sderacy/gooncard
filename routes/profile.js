@@ -3,6 +3,7 @@ module.exports = function (app, path) {
   const {
     createUserAccount,
     getUserAccounts,
+    getUserAccount,
     updateUserAccount,
     deleteUserAccount,
   } = require("../db/userAccounts");
@@ -60,19 +61,35 @@ module.exports = function (app, path) {
    *
    * Gets all user_accounts for the current user.
    */
-  app.get("/account/profile/getall", isLoggedIn, (req, res) => {});
+  app.get("/account/profile/getall", isLoggedIn, async (req, res) => {
+    const result = await getUserAccounts(req.session.user.email);
+
+    // Respond with either the user_accounts array or null.
+    res.json(result);
+  });
 
   /**
    * POST /account/profile/delete
    *
    * Deletes a user_account for the current user.
    */
-  app.post("/account/profile/update", isLoggedIn, (req, res) => {});
+  app.post("/account/profile/delete", isLoggedIn, async (req, res) => {
+    // Only perform the delete if the user_account belongs to the current user.
+    let result = null;
+    const accountToDelete = await getUserAccount(req.body.id);
+    console.log(accountToDelete);
+    if (accountToDelete && accountToDelete.user_id === req.session.user.id) {
+      result = await deleteUserAccount(req.body.id);
+    }
+
+    // Respond with either the user_account object or null.
+    res.json(result);
+  });
 
   /**
    * POST /account/profile/update
    *
    * Updates all user_accounts for the current user.
    */
-  app.post("/account/profile/delete", isLoggedIn, (req, res) => {});
+  app.post("/account/profile/update", isLoggedIn, (req, res) => {});
 };

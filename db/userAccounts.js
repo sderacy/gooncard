@@ -16,7 +16,11 @@ const { getUser } = require("./users");
  */
 const createUserAccount = async (email, label, value, type) => {
   // Label and value must be non-empty strings, and type must be 0 or 1
-  if (label.length < 1 || value.length < 1 || (type !== "0" && type !== "1")) {
+  if (
+    label.length < 1 ||
+    value.length < 1 ||
+    (type !== "0" && type !== "1" && type !== 0 && type !== 1)
+  ) {
     return null;
   }
 
@@ -83,6 +87,27 @@ const getUserAccounts = async (email) => {
 
 /**
  *
+ * Attempts to find a user_account for a given user_account id.
+ *
+ * @param {number} userAccountId The ID of the user_account to get.
+ * @returns {Promise<object | null>} Promise of the user_account object if
+ * the user_account was successfully found, or null if the user_account
+ * could not be found.
+ */
+const getUserAccount = async (userAccountId) => {
+  // Find the user_account with the given ID.
+  const result = await knex("user_accounts")
+    .select("*")
+    .where("id", userAccountId)
+    .catch((err) => {
+      console.log(err);
+    });
+
+  return result && result[0] ? result[0] : null;
+};
+
+/**
+ *
  * Attempts to update a user_account in the database.
  *
  * @param {number} userAccountId The ID of the user_account to update.
@@ -134,6 +159,7 @@ const deleteUserAccount = async (userAccountId) => {
 module.exports = {
   createUserAccount,
   getUserAccounts,
+  getUserAccount,
   updateUserAccount,
   deleteUserAccount,
 };

@@ -5,16 +5,30 @@ let add_new_value = document.getElementById("add-new-value");
 let add_new_type = document.getElementById("add-new-type");
 let add_new_account_submit = document.getElementById("add-new-account-submit");
 
-// These are dummy values for now; we would need to pull the casual and professional info from the db
-let labels = ["Instagram", "Facebook", "Email", "LinkedIn"];
-let values = [
-  "lelekaz",
-  "Leah Kazenmayer",
-  "kazenml1@tcnj.edu",
-  "https://www.linkedin.com/in/leah-kazenmayer/",
-];
+// Fetch the user_accounts from the database.
+let user_accounts = await (
+  await fetch("/account/profile/getall", { method: "GET" })
+).json();
+console.log(user_accounts);
 
-function add_row(table, label, value) {
+// Store the labels, values, and ids into separate arrays.
+let labels = [];
+let values = [];
+let ids = [];
+user_accounts.forEach((account) => {
+  labels.push(account.label);
+  values.push(account.value);
+  ids.push(account.id);
+});
+
+/**
+ * Adds a new row to the accounts table.
+ * @param {HTMLTableElement} table The table to add the row to.
+ * @param {string} label The label of the account.
+ * @param {string} value The value of the account.
+ * @param {number} id The ID of the account.
+ */
+function add_row(table, label, value, id) {
   let tr = document.createElement("tr");
   let label_td = document.createElement("td");
   let label_input = document.createElement("input");
@@ -41,17 +55,47 @@ function add_row(table, label, value) {
 
   table.appendChild(tr);
 
-  delete_btn.onclick = function () {
+  /**
+   * 'Click' event listener for deleting an account.
+   *
+   * Calls the API endpoint with the row's ID.
+   */
+  delete_btn.onclick = async function () {
     if (confirm("Are you sure you want to delete this account information?")) {
-      // REMOVE LABEL VALUE PAIR FROM THE DB
-      table.removeChild(tr);
-      alert(
-        label_input.value +
-          "+" +
-          value_input.value +
-          " pair deleted successfully!",
-        "warning"
-      );
+      // Try to delete the account in the database.
+      const response = await (
+        await fetch("/account/profile/delete", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ id: id }),
+        })
+      ).json();
+
+      // If the account was successfully deleted, remove the row from the table.
+      if (response) {
+        table.removeChild(tr);
+        alert(
+          label_input.value +
+            "+" +
+            value_input.value +
+            " pair deleted successfully!",
+          "warning"
+        );
+      }
+
+      // If the account was not successfully deleted, display an error message.
+      else {
+        alert(
+          "An error occurred while deleting " +
+            label_input.value +
+            "+" +
+            value_input.value +
+            " pair.",
+          "danger"
+        );
+      }
     }
   };
 
@@ -68,7 +112,7 @@ function add_row(table, label, value) {
 
 function populate_table() {
   for (let i = 0; i < labels.length; i++) {
-    add_row(accounts_table, labels[i], values[i]);
+    add_row(accounts_table, labels[i], values[i], ids[i]);
   }
 }
 
