@@ -1,6 +1,11 @@
 module.exports = function (app, path) {
-  // Middleware that redirects to login page if user is not logged in
   const isLoggedIn = require("../util/middleware").isLoggedIn;
+  const {
+    createUserAccount,
+    getUserAccounts,
+    updateUserAccount,
+    deleteUserAccount,
+  } = require("../db/userAccounts");
 
   /**
    * GET /account/profile
@@ -38,7 +43,17 @@ module.exports = function (app, path) {
    *
    * Adds a new user_account for the current user.
    */
-  app.post("/account/profile/add", isLoggedIn, (req, res) => {});
+  app.post("/account/profile/add", isLoggedIn, async (req, res) => {
+    const result = await createUserAccount(
+      req.session.user.email,
+      req.body.label,
+      req.body.value,
+      req.body.type
+    );
+
+    // Respond with either the new user_account object or null.
+    res.json(result);
+  });
 
   /**
    * GET /account/profile/getall

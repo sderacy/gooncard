@@ -36,3 +36,7 @@ input {
 .inline-block-child {
   display: inline-block;
 }
+
+button#add-new-type {
+  width: 12ch;
+}
