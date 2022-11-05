@@ -77,7 +77,6 @@ module.exports = function (app, path) {
     // Only perform the delete if the user_account belongs to the current user.
     let result = null;
     const accountToDelete = await getUserAccount(req.body.id);
-    console.log(accountToDelete);
     if (accountToDelete && accountToDelete.user_id === req.session.user.id) {
       result = await deleteUserAccount(req.body.id);
     }
@@ -91,5 +90,20 @@ module.exports = function (app, path) {
    *
    * Updates all user_accounts for the current user.
    */
-  app.post("/account/profile/update", isLoggedIn, (req, res) => {});
+  app.post("/account/profile/update", isLoggedIn, async (req, res) => {
+    // Only perform the update if the user_account belongs to the current user.
+    let result = null;
+    const accountToUpdate = await getUserAccount(req.body.id);
+    if (accountToUpdate && accountToUpdate.user_id === req.session.user.id) {
+      result = await updateUserAccount(
+        req.body.id,
+        req.body.label,
+        req.body.value,
+        0
+      );
+    }
+
+    // Respond with either the user_account object or null.
+    res.json(result);
+  });
 };

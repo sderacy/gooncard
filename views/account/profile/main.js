@@ -9,24 +9,25 @@ let add_new_account_submit = document.getElementById("add-new-account-submit");
 let user_accounts = await (
   await fetch("/account/profile/getall", { method: "GET" })
 ).json();
-console.log(user_accounts);
 
 // Store the labels, values, and ids into separate arrays.
 let labels = [];
 let values = [];
 let ids = [];
-user_accounts.forEach((account) => {
-  labels.push(account.label);
-  values.push(account.value);
-  ids.push(account.id);
-});
+if (user_accounts) {
+  user_accounts.forEach((account) => {
+    labels.push(account.label);
+    values.push(account.value);
+    ids.push(account.id);
+  });
+}
 
 /**
  * Adds a new row to the accounts table.
  * @param {HTMLTableElement} table The table to add the row to.
- * @param {string} label The label of the account.
- * @param {string} value The value of the account.
- * @param {number} id The ID of the account.
+ * @param {string} label The label of the user_account.
+ * @param {string} value The value of the user_account.
+ * @param {number} id The ID of the user_account.
  */
 function add_row(table, label, value, id) {
   let tr = document.createElement("tr");
@@ -99,15 +100,38 @@ function add_row(table, label, value, id) {
     }
   };
 
-  label_input.onchange = function () {
-    // MODIFY LABEL IN THE DB
-    alert("The new label is now: " + label_input.value, "warning");
+  /**
+   * 'Change' event listener for updating an account label.
+   */
+  const changeFunction = async function () {
+    const response = await (
+      await fetch("/account/profile/update", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id: id,
+          label: label_input.value,
+          value: value_input.value,
+        }),
+      })
+    ).json();
+
+    // If the account was successfully updated, display a success message.
+    if (response) {
+      alert(
+        "The new account is: " + label_input.value + ": " + value_input.value,
+        "warning"
+      );
+    }
+
+    // If the account was not successfully updated, display an error message.
+    else {
+      alert("An error occurred while updating the label.", "danger");
+    }
   };
 
-  value_input.onchange = function () {
-    // MODIFY LABEL IN THE DB
-    alert("The new value is now: " + value_input.value, "warning");
-  };
+  label_input.onchange = changeFunction;
+  value_input.onchange = changeFunction;
 }
 
 function populate_table() {
@@ -180,7 +204,12 @@ add_new_account_submit.onclick = async function () {
 
     // If it was successful, alert the user and clear the form.
     if (response) {
-      add_row(accounts_table, add_new_label.value, add_new_value.value);
+      add_row(
+        accounts_table,
+        add_new_label.value,
+        add_new_value.value,
+        response.id
+      );
       add_new_label.value = "";
       add_new_value.value = "";
       alert("You successfully added a new account!", "warning");
