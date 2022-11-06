@@ -3,38 +3,76 @@ let qrcode_div = document.getElementById("qrcode-div");
 let qrcode_submit = document.getElementById("qr_submit");
 let size = document.getElementById("size");
 
-// These social medias will be pulled from the DB
-let social_medias = ["Instagram", "Facebook", "LinkedIn", "Email", "Number"];
-// URL will be changed to the page that displays all of the info of the user
-let url = "http://www.google.com";
+// Fetch the user_accounts from the database.
+let user_accounts = await (
+  await fetch("/account/profile/getall", { method: "GET" })
+).json();
 
-for (let i = 0; i < social_medias.length; i++) {
+// Store the labels, values, types, and ids into separate arrays.
+let labels = [];
+let values = [];
+let types = [];
+let ids = [];
+if (user_accounts) {
+  user_accounts.forEach((account) => {
+    labels.push(account.label);
+    values.push(account.value);
+    types.push(account.type);
+    ids.push(account.id);
+  });
+}
+
+// Need to maintain the checked state of the toggle buttons.
+let toggles = [];
+
+for (let i = 0; i < labels.length; i++) {
   let toggle_div = document.createElement("div");
   toggle_div.classList.add("form-check", "form-switch", "form-switch-xl");
+
   let toggle = document.createElement("input");
   toggle.classList.add("form-check-input", "col-4");
   toggle.type = "checkbox";
   toggle.role = "switch";
-  toggle.id = social_medias[i];
+  toggle.id = ids[i];
+
+  /**
+   * Keeps track of the activated accounts.
+   * Stores the account ID in the 'toggles' array.
+   */
+  toggle.onchange = function () {
+    if (this.checked) {
+      toggles.push(this.id);
+    } else {
+      toggles = toggles.filter((id) => id != this.id);
+    }
+    console.log(toggles);
+  };
+
   let toggle_label = document.createElement("label");
   toggle_label.classList.add("form-check-label", "col-4");
-  toggle_label.for = social_medias[i];
-  toggle_label.innerText = social_medias[i];
+  toggle_label.for = ids[i];
+  toggle_label.innerText = `${labels[i]}: ${values[i]}`;
 
   toggle_div.appendChild(toggle);
   toggle_div.appendChild(toggle_label);
-
   toggles_div.appendChild(toggle_div);
 }
 
-// Button submit
+/**
+ * QR Code submission handler.
+ * @param {Event} e The event to be handled.
+ */
 let onGenerateSubmit = async function (e) {
   e.preventDefault();
+
+  // CALL THE GENERATE QR CODE API ENDPOINT WITH TOGGLES ARRAY
+  // DISPLAY THE RESPONDED QR CODE IMAGE
 
   // Clear the div's contents
   qrcode_div.innerHTML = "";
 
   // Create the QR code using the google charts api
+  let url = "You toggled the following accounts: " + toggles.join(", ");
   let qrcode = document.createElement("img");
   let qrcode_url = new URL("https://chart.googleapis.com/chart?");
   qrcode_url.searchParams.append("chs", size.value);

@@ -10,7 +10,7 @@ let user_accounts = await (
   await fetch("/account/profile/getall", { method: "GET" })
 ).json();
 
-// Store the labels, values, and ids into separate arrays.
+// Store the labels, values, types, and ids into separate arrays.
 let labels = [];
 let values = [];
 let types = [];
