@@ -2,6 +2,7 @@ module.exports = function (app, path) {
   // Middleware that redirects to login page if user is not logged in
   const isLoggedIn = require("../util/middleware").isLoggedIn;
   const { getUserAccounts } = require("../db/userAccounts");
+  const { v4: uuidv4 } = require("uuid");
 
   /**
    * GET /
@@ -46,17 +47,42 @@ module.exports = function (app, path) {
       (account) => account.id
     );
 
-    // If the user has no user_accounts, return an error.
-    if (ids.length === 0) {
+    // If the user has no user_accounts or no submitted ids, return an error.
+    const submittedIds = req.body.ids;
+    if (ids.length === 0 || submittedIds.length === 0) {
       res.json(null);
       return;
     }
 
     // Make sure that each id in the body is an account id for the user.
-    const valid = req.body.ids.every((id) => ids.includes(id));
+    const valid = submittedIds.every((id) => ids.includes(id));
     if (!valid) {
       res.json(null);
       return;
     }
+
+    // Generate a UUID and make sure it does not already exist in the database.
+    let generated = false;
+    let uuid = null;
+    while (!generated) {
+      // Generate a UUID.
+      uuid = uuidv4();
+
+      // TODO Try and find this UUID in the database.
+      const hardCoded = false;
+
+      // If the UUID does not exist in the database, use it
+      if (!hardCoded) {
+        generated = true;
+      }
+    }
+
+    // Use the UUID to create new card_entries in the database.
+    submittedIds.forEach((id) => {
+      // TODO Create a new card_entry in the database with id and uuid.
+    });
+
+    // Finally, return the UUID.
+    res.json(uuid);
   });
 };
