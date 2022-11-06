@@ -68,7 +68,9 @@ module.exports = function (app, path) {
       // Generate a UUID.
       uuid = uuidv4();
 
-      // TODO Try and find this UUID in the database.
+      /**
+       * TODO: Check if the UUID already exists in the database.
+       */
       const hardCoded = false;
 
       // If the UUID does not exist in the database, use it
@@ -79,7 +81,9 @@ module.exports = function (app, path) {
 
     // Use the UUID to create new card_entries in the database.
     submittedIds.forEach((id) => {
-      // TODO Create a new card_entry in the database with id and uuid.
+      /**
+       * TODO: Create a new card_entry in the database.
+       */
     });
 
     // Finally, return the UUID.
