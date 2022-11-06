@@ -1,6 +1,7 @@
 module.exports = function (app, path) {
   // Middleware that redirects to login page if user is not logged in
-  isLoggedIn = require("../util/middleware").isLoggedIn;
+  const isLoggedIn = require("../util/middleware").isLoggedIn;
+  const { getUserAccounts } = require("../db/userAccounts");
 
   /**
    * GET /
@@ -31,5 +32,31 @@ module.exports = function (app, path) {
    */
   app.get("/home/main", (req, res) => {
     res.sendFile(path + "/home/main.js");
+  });
+
+  /**
+   * POST /home/generate
+   *
+   * Generates a UUID for the user's new Goon Card.
+   * Returns the UUID if successful, or null if unsuccessful.
+   */
+  app.post("/home/generate", isLoggedIn, async (req, res) => {
+    // Retrieve all of the user's user_account ids from the database.
+    const ids = (await getUserAccounts(req.session.user.email)).map(
+      (account) => account.id
+    );
+
+    // If the user has no user_accounts, return an error.
+    if (ids.length === 0) {
+      res.json(null);
+      return;
+    }
+
+    // Make sure that each id in the body is an account id for the user.
+    const valid = req.body.ids.every((id) => ids.includes(id));
+    if (!valid) {
+      res.json(null);
+      return;
+    }
   });
 };
