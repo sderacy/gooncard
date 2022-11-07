@@ -3,10 +3,16 @@ let qrcode_div = document.getElementById("qrcode-div");
 let qrcode_submit = document.getElementById("qr_submit");
 let size = document.getElementById("size");
 
+let { settings } = require("../public/common");
+
 // Fetch the user_accounts from the database.
 let user_accounts = await (
   await fetch("/account/profile/getall", { method: "GET" })
 ).json();
+
+var htmlElement = document.getElementById('html')
+htmlElement.style.fontSize = settings.font_size
+htmlElement.style.fontFamily = settings.font_family
 
 // Store the labels, values, types, and ids into separate arrays.
 let labels = [];
