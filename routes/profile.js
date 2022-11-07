@@ -22,6 +22,19 @@ module.exports = function (app, path) {
   });
 
   /**
+   * GET /account/profile/getsettings
+   *
+   * Returns the user's settings
+   *
+   */
+     app.get("/account/profile/getsettings", isLoggedIn, (req, res) => {
+      // Pass the user's email to the profile page
+      res.json(JSON.parse(req.session.user.settings));
+  
+    });
+  
+
+  /**
    * GET /account/profile/style
    *
    * Serves the profile page's stylesheet.
