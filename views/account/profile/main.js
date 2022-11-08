@@ -15,9 +15,15 @@ const settings = await (
   await fetch("/account/profile/getsettings", { method: "GET" })
 ).json();
 
+// Apply the settings to the page.
 var htmlElement = document.getElementById("html");
 htmlElement.style.fontSize = settings.font_size;
 htmlElement.style.fontFamily = settings.font_family;
+
+// Create different event arrays for editing the accounts.
+const add = [];
+const edit = [];
+const remove = [];
 
 // Store the labels, values, types, and ids into separate arrays.
 let labels = [];
@@ -82,132 +88,24 @@ function add_row(table, label, value, type, id) {
 
   table.appendChild(tr);
 
-  /**
-   * 'Change' event listener for updating an account label and values.
-   *
-   * If a change fails, the input field will be reverted to its previous value.
-   * This prevents accidental updates in the database if type is changed when
-   * a textbox is blank.
-   */
-  const changeFunction = async function () {
-    // Only proceed if the values are not empty.
-    if (label_input.value != "" && value_input.value != "") {
-      const response = await (
-        await fetch("/account/profile/update", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            id: id,
-            label: label_input.value,
-            value: value_input.value,
-            type: toggle.checked ? 1 : 0,
-          }),
-        })
-      ).json();
-
-      // If the account was successfully updated, display a success message.
-      if (response) {
-        alert(
-          "The new account is: " + label_input.value + ": " + value_input.value,
-          "warning"
-        );
-
-        // Should update the oldvalue to the new value.
-        label_input.oldvalue = label_input.value;
-        value_input.oldvalue = value_input.value;
-      }
-
-      // If the account was not successfully updated, display an error message.
-      else {
-        alert("An error occurred while updating the label.", "danger");
-
-        // Should reset the values to their previous values.
-        label_input.value = label_input.oldvalue;
-        value_input.value = value_input.oldvalue;
-      }
-    }
-
-    // If the values are empty, display an error message.
-    else {
-      alert("The label and value cannot be empty.", "danger");
-
-      // Should reset the values to their previous values.
-      label_input.value = label_input.oldvalue;
-      value_input.value = value_input.oldvalue;
-    }
+  // When a row is modified, need to take appropriate action.
+  const modifyTable = (id) => {
+    console.log(
+      "editRow: " +
+        id +
+        " " +
+        label_input.value +
+        " " +
+        value_input.value +
+        " " +
+        toggle.checked
+    );
   };
 
-  label_input.onchange = changeFunction;
-  value_input.onchange = changeFunction;
-
-  /**
-   * 'Click' event listener for the updating an account type.
-   */
-  toggle.onchange = async function () {
-    const response = await (
-      await fetch("/account/profile/update", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          id: id,
-          label: label_input.value,
-          value: value_input.value,
-          type: toggle.checked ? 1 : 0,
-        }),
-      })
-    ).json();
-
-    // If the update was successful, update the button text.
-    if (!response) {
-      alert("There was an error updating the account type.", "danger");
-    }
-  };
-
-  /**
-   * 'Click' event listener for deleting an account.
-   *
-   * Calls the API endpoint with the row's ID.
-   */
-  delete_btn.onclick = async function () {
-    if (confirm("Are you sure you want to delete this account information?")) {
-      // Try to delete the account in the database.
-      const response = await (
-        await fetch("/account/profile/delete", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ id: id }),
-        })
-      ).json();
-
-      // If the account was successfully deleted, remove the row from the table.
-      if (response) {
-        table.removeChild(tr);
-        alert(
-          label_input.value +
-            "+" +
-            value_input.value +
-            " pair deleted successfully!",
-          "warning"
-        );
-      }
-
-      // If the account was not successfully deleted, display an error message.
-      else {
-        alert(
-          "An error occurred while deleting " +
-            label_input.value +
-            "+" +
-            value_input.value +
-            " pair.",
-          "danger"
-        );
-      }
-    }
-  };
+  label_input.oninput = () => modifyTable(id);
+  value_input.oninput = () => modifyTable(id);
+  toggle.onchange = () => modifyTable(id);
+  delete_btn.onclick = () => modifyTable(id);
 }
 
 /**
