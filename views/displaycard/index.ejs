@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../partials/header'); %>
+    <link rel="stylesheet" href="/displaycard/style" />
+    <script src="/displaycard/main" type="module"></script>
+    <title>Business Card</title>
+  </head>
+  <body class="h-100 text-center text-white bg-dark">
+    <div id="page-container">
+      <div
+        class="cover-container h-100 w-100 align-items-center p-3 mx-auto mt-3"
+      >
+          <main class="px-3">
+            <h1 id="profile-owner-name"></h1>
+            <!-- This creates a divider to indicate the jump from the header to the actual content -->
+            <hr />
+            <div id="profile-contents">
+            </div>
+            <p id="interested-message">Interested in your own GOON card? <a class="text-warning" href="/views/account/signup/">Sign up here</a></p>
+          </main>
+      </div>
+      <%- include('../partials/footer'); %>
+    </div>
+  </body>
+</html>
