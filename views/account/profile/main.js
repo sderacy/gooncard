@@ -10,13 +10,9 @@ let user_accounts = await (
   await fetch("/account/profile/getall", { method: "GET" })
 ).json();
 
-let settings = await (
-  await fetch("/account/profile/getsettings", { method: "GET" })
-).json();
-
-var htmlElement = document.getElementById('html')
-htmlElement.style.fontSize = settings.font_size
-htmlElement.style.fontFamily = settings.font_family
+var htmlElement = document.getElementById("html");
+htmlElement.style.fontSize = window.globalSettings.font_size;
+htmlElement.style.fontFamily = window.globalSettings.font_family;
 // Store the labels, values, types, and ids into separate arrays.
 let labels = [];
 let values = [];
