@@ -5,6 +5,13 @@
     <title>Profile</title>
     <link rel="stylesheet" href="/account/profile/style" />
     <script src="/account/profile/main" type="module"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+      integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
   </head>
   <body class="h-100 text-center text-white bg-dark">
     <div id="page-container">
@@ -24,7 +31,8 @@
                 <tr>
                   <th>Label</th>
                   <th>Value</th>
-                  <th colspan="2">Actions</th>
+                  <th>Professional</th>
+                  <th>Delete</th>
                 </tr>
               </thead>
               <tbody id="accounts-table-body"></tbody>
@@ -41,14 +49,19 @@
                 class="form-control inline-block-child"
                 placeholder="Value"
               />
-              <button
+              <select class="form-select inline-block-child" id="add-new-type">
+                <option value="" selected disabled>Account Type</option>
+                <option value="0">Casual</option>
+                <option value="1">Professional</option>
+              </select>
+              <!-- <button
                 type="button"
                 id="add-new-type"
                 class="form-control inline-block-child"
                 value="0"
               >
                 Casual
-              </button>
+              </button> -->
               <button
                 type="submit"
                 id="add-new-account-submit"

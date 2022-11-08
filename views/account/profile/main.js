@@ -13,6 +13,7 @@ let user_accounts = await (
 var htmlElement = document.getElementById("html");
 htmlElement.style.fontSize = window.globalSettings.font_size;
 htmlElement.style.fontFamily = window.globalSettings.font_family;
+
 // Store the labels, values, types, and ids into separate arrays.
 let labels = [];
 let values = [];
@@ -44,14 +45,18 @@ function add_row(table, label, value, type, id) {
   value_input.classList.add("form-control");
 
   let type_td = document.createElement("td");
-  let type_btn = document.createElement("button");
-  type_btn.innerText = type == 0 ? "Casual" : "Professional";
-  type_btn.value = type;
-  type_btn.classList.add("btn", "btn-warning", "update", "btn-sm");
+  let type_switch_div = document.createElement("div");
+  type_switch_div.classList.add("form-check", "form-switch", "form-switch-m");
+  let toggle = document.createElement("input");
+  toggle.classList.add("form-check-input", "col-4");
+  toggle.type = "checkbox";
+  toggle.role = "switch";
+  toggle.id = id;
+  toggle.checked = type == 0 ? false : true;
 
   let delete_td = document.createElement("td");
   let delete_btn = document.createElement("button");
-  delete_btn.innerText = "Delete";
+  delete_btn.innerHTML = `<i class="fa-solid fa-trash-can"></i>`;
   delete_btn.classList.add("btn", "btn-danger", "btn-sm");
 
   label_input.value = label;
@@ -61,7 +66,8 @@ function add_row(table, label, value, type, id) {
   value_input.oldvalue = value;
   value_td.appendChild(value_input);
 
-  type_td.appendChild(type_btn);
+  type_td.appendChild(type_switch_div);
+  type_switch_div.appendChild(toggle);
   delete_td.appendChild(delete_btn);
 
   tr.appendChild(label_td);
@@ -89,7 +95,7 @@ function add_row(table, label, value, type, id) {
             id: id,
             label: label_input.value,
             value: value_input.value,
-            type: type_btn.value,
+            type: toggle.checked ? 1 : 0,
           }),
         })
       ).json();
@@ -132,7 +138,7 @@ function add_row(table, label, value, type, id) {
   /**
    * 'Click' event listener for the updating an account type.
    */
-  type_btn.onclick = async function () {
+  toggle.onchange = async function () {
     const response = await (
       await fetch("/account/profile/update", {
         method: "POST",
@@ -143,24 +149,13 @@ function add_row(table, label, value, type, id) {
           id: id,
           label: label_input.value,
           value: value_input.value,
-          type: type_btn.value == 0 ? 1 : 0,
+          type: toggle.checked ? 1 : 0,
         }),
       })
     ).json();
 
     // If the update was successful, update the button text.
-    if (response) {
-      if (type_btn.value == 0) {
-        type_btn.value = 1;
-        type_btn.innerText = "Professional";
-      } else {
-        type_btn.value = 0;
-        type_btn.innerText = "Casual";
-      }
-    }
-
-    // Otherwise display an error message.
-    else {
+    if (!response) {
       alert("There was an error updating the account type.", "danger");
     }
   };
@@ -247,26 +242,17 @@ const alert = (message, type) => {
 };
 
 /**
- * 'Click' event listener for toggling new account type.
- */
-add_new_type.onclick = function () {
-  if (add_new_type.value == 0) {
-    add_new_type.value = 1;
-    add_new_type.innerText = "Professional";
-  } else {
-    add_new_type.value = 0;
-    add_new_type.innerText = "Casual";
-  }
-};
-
-/**
  * 'Click' event listener for submitting new account information.
  */
 add_new_account_submit.onclick = async function () {
   // Prevent submission if either label or value is empty.
-  if (add_new_label.value == "" || add_new_value.value == "") {
+  if (
+    add_new_label.value == "" ||
+    add_new_value.value == "" ||
+    add_new_type.value == ""
+  ) {
     alert(
-      "Your label or value is empty. Fill in both to successfully add a new account.",
+      "Your label, value, or type is empty. Fill in both to successfully add a new account.",
       "danger"
     );
   }
@@ -300,6 +286,7 @@ add_new_account_submit.onclick = async function () {
       );
       add_new_label.value = "";
       add_new_value.value = "";
+      add_new_type.value = "";
       alert("You successfully added a new account!", "warning");
     }
 
