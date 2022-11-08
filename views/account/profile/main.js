@@ -4,6 +4,7 @@ let add_new_label = document.getElementById("add-new-label");
 let add_new_value = document.getElementById("add-new-value");
 let add_new_type = document.getElementById("add-new-type");
 let add_new_account_submit = document.getElementById("add-new-account-submit");
+let dummyCounter = 0;
 
 // Fetch the user_accounts from the database.
 let user_accounts = await (
@@ -38,6 +39,11 @@ if (user_accounts) {
     ids.push(account.id);
   });
 }
+
+const getDummyId = () => {
+  dummyCounter++;
+  return "dummy-" + dummyCounter;
+};
 
 /**
  * Adds a new row to the accounts table.
@@ -155,51 +161,21 @@ add_new_account_submit.onclick = async function () {
     add_new_type.value == ""
   ) {
     alert(
-      "Your label, value, or type is empty. Fill in both to successfully add a new account.",
+      "Your label, value, or type is empty. Fill in all three to successfully add a new account.",
       "danger"
     );
-  }
-
-  // Attempt a database insertion.
-  else {
-    // Make the call to the API endpoint for adding a new account.
-    const response = await (
-      await fetch("/account/profile/add", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          label: add_new_label.value,
-          value: add_new_value.value,
-          type: add_new_type.value,
-        }),
-      })
-    ).json();
-
-    // If it was successful, alert the user and clear the form.
-    if (response) {
-      add_row(
-        accounts_table,
-        add_new_label.value,
-        add_new_value.value,
-        add_new_type.value,
-        response.id
-      );
-      add_new_label.value = "";
-      add_new_value.value = "";
-      add_new_type.value = "";
-      alert("You successfully added a new account!", "warning");
-    }
-
-    // If it was not successful, alert the user.
-    else {
-      alert(
-        "There was an error adding your account. Please try again later.",
-        "danger"
-      );
-    }
+  } else {
+    add_row(
+      accounts_table,
+      add_new_label.value,
+      add_new_value.value,
+      add_new_type.value,
+      getDummyId()
+    );
+    add_new_label.value = "";
+    add_new_value.value = "";
+    add_new_type.value = "";
+    alert("You successfully added a new account!", "warning");
   }
 };
 
