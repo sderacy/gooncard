@@ -12,7 +12,7 @@ const settings = await (
 
 var htmlElement = document.getElementById("html");
 htmlElement.style.fontSize = settings.font_size;
-htmlElement.style.fontFamily = settings.font_family;
+htmlElement.setAttribute("style", "--bs-body-font-family: "+settings.font_family)
 
 // Add the options to the select elements.
 let selectFontSize = document.getElementById("editFontSize");
