@@ -10,6 +10,10 @@ const settings = await (
   await fetch("/account/profile/getsettings", { method: "GET" })
 ).json();
 
+var htmlElement = document.getElementById("html");
+htmlElement.style.fontSize = settings.font_size;
+htmlElement.style.fontFamily = settings.font_family;
+
 // Add the options to the select elements.
 let selectFontSize = document.getElementById("editFontSize");
 options.font_size.forEach((option) => {
