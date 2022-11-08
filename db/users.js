@@ -33,7 +33,7 @@ const createUser = async (first_name, last_name, email, password) => {
         password: bcrypt.hashSync(password, bcrypt.genSaltSync(SALT)),
         settings: JSON.stringify(require("./defaultSettings")),
       },
-      ["first_name", "last_name", "email", "password", "settings"]
+      ["id", "first_name", "last_name", "email", "password", "settings"]
     )
     .catch((err) => {
       console.log(err);
