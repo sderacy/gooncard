@@ -5,4 +5,7 @@ const settings = await (
 
 var htmlElement = document.getElementById("html");
 htmlElement.style.fontSize = settings.font_size;
-htmlElement.setAttribute("style", "--bs-body-font-family: "+settings.font_family)
+htmlElement.setAttribute(
+  "style",
+  "--bs-body-font-family: " + settings.font_family
+);
