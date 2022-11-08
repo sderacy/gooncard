@@ -14,7 +14,6 @@ let settings = await (
   await fetch("/account/profile/getsettings", { method: "GET" })
 ).json();
 
-
 // Store the labels, values, types, and ids into separate arrays.
 let labels = [];
 let values = [];
@@ -53,7 +52,7 @@ function add_row(table, label, value, type, id) {
 
   let delete_td = document.createElement("td");
   let delete_btn = document.createElement("button");
-  delete_btn.innerText = "Delete";
+  delete_btn.innerHTML = `<i class="fa-solid fa-trash-can"></i>`;
   delete_btn.classList.add("btn", "btn-danger", "btn-sm");
 
   label_input.value = label;
