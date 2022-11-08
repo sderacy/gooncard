@@ -45,10 +45,14 @@ function add_row(table, label, value, type, id) {
   value_input.classList.add("form-control");
 
   let type_td = document.createElement("td");
-  let type_btn = document.createElement("button");
-  type_btn.innerText = type == 0 ? "Casual" : "Professional";
-  type_btn.value = type;
-  type_btn.classList.add("btn", "btn-warning", "update", "btn-sm");
+  let type_switch_div = document.createElement("div");
+  type_switch_div.classList.add("form-check", "form-switch", "form-switch-m");
+  let toggle = document.createElement("input");
+  toggle.classList.add("form-check-input", "col-4");
+  toggle.type = "checkbox";
+  toggle.role = "switch";
+  toggle.id = id;
+  toggle.checked = type == 0 ? false : true;
 
   let delete_td = document.createElement("td");
   let delete_btn = document.createElement("button");
@@ -62,7 +66,8 @@ function add_row(table, label, value, type, id) {
   value_input.oldvalue = value;
   value_td.appendChild(value_input);
 
-  type_td.appendChild(type_btn);
+  type_td.appendChild(type_switch_div);
+  type_switch_div.appendChild(toggle);
   delete_td.appendChild(delete_btn);
 
   tr.appendChild(label_td);
@@ -90,7 +95,7 @@ function add_row(table, label, value, type, id) {
             id: id,
             label: label_input.value,
             value: value_input.value,
-            type: type_btn.value,
+            type: toggle.checked ? 1 : 0,
           }),
         })
       ).json();
@@ -133,7 +138,7 @@ function add_row(table, label, value, type, id) {
   /**
    * 'Click' event listener for the updating an account type.
    */
-  type_btn.onclick = async function () {
+  toggle.onchange = async function () {
     const response = await (
       await fetch("/account/profile/update", {
         method: "POST",
@@ -144,24 +149,13 @@ function add_row(table, label, value, type, id) {
           id: id,
           label: label_input.value,
           value: value_input.value,
-          type: type_btn.value == 0 ? 1 : 0,
+          type: toggle.checked ? 1 : 0,
         }),
       })
     ).json();
 
     // If the update was successful, update the button text.
-    if (response) {
-      if (type_btn.value == 0) {
-        type_btn.value = 1;
-        type_btn.innerText = "Professional";
-      } else {
-        type_btn.value = 0;
-        type_btn.innerText = "Casual";
-      }
-    }
-
-    // Otherwise display an error message.
-    else {
+    if (!response) {
       alert("There was an error updating the account type.", "danger");
     }
   };
