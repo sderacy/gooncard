@@ -95,23 +95,59 @@ function add_row(table, label, value, type, id) {
   table.appendChild(tr);
 
   // When a row is modified, need to take appropriate action.
-  const modifyTable = (id) => {
-    console.log(
-      "editRow: " +
-        id +
-        " " +
-        label_input.value +
-        " " +
-        value_input.value +
-        " " +
-        toggle.checked
-    );
+  const editRow = (id) => {
+    // If we are dealing with a valid ID, then we are editing an existing account.
+    if (typeof id === "number") {
+      // If the values are the same as the original, remove the object from the edit array.
+      if (
+        label_input.value == label &&
+        value_input.value == value &&
+        toggle.checked == (type == 0 ? false : true)
+      ) {
+        console.log("Back to original!");
+        edit.splice(edit.indexOf(edit.find((obj) => obj.id == id)), 1);
+      }
+      // Otherwise, add or update the object in the edit array.
+      else {
+        // If the edit array contains an object with id, then we are editing an existing account.
+        const existing = edit.find((e) => e.id === id);
+        if (existing) {
+          existing.label = label_input.value;
+          existing.value = value_input.value;
+          existing.type = toggle.checked ? 1 : 0;
+        }
+        // Otherwise, add the account to the edit array.
+        else {
+          edit.push({
+            id: id,
+            label: label_input.value,
+            value: value_input.value,
+            type: toggle.checked ? 1 : 0,
+          });
+        }
+      }
+    }
+
+    // If we are dealing with a dummy ID, modify the accoun in the add array.
+    else {
+      const existing = add.find((e) => e.id === id);
+      if (existing) {
+        existing.label = label_input.value;
+        existing.value = value_input.value;
+        existing.type = toggle.checked ? 1 : 0;
+      }
+    }
+    console.log("add:", add);
+    console.log("edit", edit);
   };
 
-  label_input.oninput = () => modifyTable(id);
-  value_input.oninput = () => modifyTable(id);
-  toggle.onchange = () => modifyTable(id);
-  delete_btn.onclick = () => modifyTable(id);
+  // When a row is deleted, need to take appropriate action.
+  const deleteRow = (id) => {};
+
+  label_input.oninput = () => editRow(id);
+  value_input.oninput = () => editRow(id);
+  toggle.onchange = () => editRow(id);
+  delete_btn.onclick = () => deleteRow(id);
 }
 
 /**
@@ -165,13 +201,24 @@ add_new_account_submit.onclick = async function () {
       "danger"
     );
   } else {
+    const id = getDummyId();
     add_row(
       accounts_table,
       add_new_label.value,
       add_new_value.value,
       add_new_type.value,
-      getDummyId()
+      id
     );
+
+    // Additionally, add the new account to the add array.
+    add.push({
+      label: add_new_label.value,
+      value: add_new_value.value,
+      type: add_new_type.value,
+      id,
+    });
+
+    // Reset the input fields.
     add_new_label.value = "";
     add_new_value.value = "";
     add_new_type.value = "";
