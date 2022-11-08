@@ -242,26 +242,17 @@ const alert = (message, type) => {
 };
 
 /**
- * 'Click' event listener for toggling new account type.
- */
-add_new_type.onclick = function () {
-  if (add_new_type.value == 0) {
-    add_new_type.value = 1;
-    add_new_type.innerText = "Professional";
-  } else {
-    add_new_type.value = 0;
-    add_new_type.innerText = "Casual";
-  }
-};
-
-/**
  * 'Click' event listener for submitting new account information.
  */
 add_new_account_submit.onclick = async function () {
   // Prevent submission if either label or value is empty.
-  if (add_new_label.value == "" || add_new_value.value == "") {
+  if (
+    add_new_label.value == "" ||
+    add_new_value.value == "" ||
+    add_new_type.value == ""
+  ) {
     alert(
-      "Your label or value is empty. Fill in both to successfully add a new account.",
+      "Your label, value, or type is empty. Fill in both to successfully add a new account.",
       "danger"
     );
   }
@@ -295,6 +286,7 @@ add_new_account_submit.onclick = async function () {
       );
       add_new_label.value = "";
       add_new_value.value = "";
+      add_new_type.value = "";
       alert("You successfully added a new account!", "warning");
     }
 

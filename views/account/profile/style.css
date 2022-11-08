@@ -1,6 +1,6 @@
 @media screen and (max-width: 850px) {
   input {
-    max-width: 25vw;
+    max-width: 15vw;
   }
 }
 
@@ -55,4 +55,8 @@ input {
   width: calc(3rem + 0.75rem);
   border-radius: 5rem;
   float: none;
+}
+
+select {
+  max-width: fit-content;
 }
