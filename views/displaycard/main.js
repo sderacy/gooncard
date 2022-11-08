@@ -26,7 +26,7 @@ let profile_values = [
 
 for (let i = 0; i < profile_labels.length; i++) {
   let profile_info_div = document.createElement("div");
-  profile_info_div.classList.add("profile-info-div");
+  profile_info_div.classList.add("bg-white", "rounded-3", "m-3", "p-2");
 
   let icon_i = document.createElement("i");
   switch (profile_labels[i].toLowerCase()) {
