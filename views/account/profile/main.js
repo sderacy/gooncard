@@ -255,6 +255,19 @@ add_new_account_submit.onclick = () => {
 };
 
 /**
+ * Performs a page refresh in order to clear the user's input.
+ */
+cancel_changes.onclick = () => {
+  if (
+    confirm(
+      "Are you sure you want to cancel? All changes since your last save will be lost."
+    )
+  ) {
+    location.reload();
+  }
+};
+
+/**
  * Performs client-side validation on the form.
  * If the form is valid, then the form is submitted.
  */
