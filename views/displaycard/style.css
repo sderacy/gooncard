@@ -1,0 +1,17 @@
+#profile-owner-name {
+  color: #ffc107;
+}
+
+.profile-info-value {
+  color: black;
+}
+
+#interested-message {
+  margin-top: 3rem;
+}
+
+i {
+  color: black;
+  margin: 0px 10px;
+  font-size: 25px;
+}
