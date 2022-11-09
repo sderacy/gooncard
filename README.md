@@ -19,7 +19,8 @@ The Goon Squad's Goon Card Project for CSC 355 ('22)
 3. [Accessibility](#accessibility)
 4. [Features](#features)
 5. [Use Cases](#use-cases)
-6. [Routes](#configured-routes)
+6. [Concerns/Guidelines](#concernsguidelines)
+7. [Routes](#configured-routes)
 
 ## -- Prettier Formatting --
 
