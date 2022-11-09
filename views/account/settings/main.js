@@ -42,6 +42,9 @@ options.theme.forEach((option) => {
   selectTheme.appendChild(optionElement);
 });
 
+let save_changes = document.getElementById("save-changes");
+let cancel_changes = document.getElementById("cancel-changes");
+
 // Set the correct checked radio button for the contrast option.
 let highContrast = document.getElementById("highContrast");
 let lowContrast = document.getElementById("lowContrast");
@@ -52,30 +55,56 @@ if (settings.contrast === "High") {
 }
 
 // Set the default settings in the DOM.
+let originalFirstName = document.getElementById("editFirstName").value;
+let originalLastName = document.getElementById("editLastName").value;
 document.getElementById("editFontSize").value = settings.font_size;
 document.getElementById("editFontFamily").value = settings.font_family;
 document.getElementById("editTheme").value = settings.theme;
 
-// Determine if the user can save their settings.
-const canSubmit = () => {
-  // Get the values of the first and last name fields
+/**
+ * Function to be run whenever any user input is detected. This method ensures
+ * that all buttons on the page are either enabled or disabled as appropriate.
+ */
+const updateFormButtons = () => {
+  // Default status of the buttons.
+  let submitDisabled = true;
+  let cancelDisabled = true;
+
+  // If any of the input fields have changed, enable both buttons.
+  if (
+    document.getElementById("editFirstName").value !== originalFirstName ||
+    document.getElementById("editLastName").value !== originalLastName ||
+    document.getElementById("editFontSize").value !== settings.font_size ||
+    document.getElementById("editFontFamily").value !== settings.font_family ||
+    document.getElementById("editTheme").value !== settings.theme ||
+    document.getElementById("highContrast").checked !==
+      (settings.contrast === "High")
+  ) {
+    submitDisabled = false;
+    cancelDisabled = false;
+  } else {
+    // If the input fields have not changed, disable the submit and cancel buttons.
+    submitDisabled = true;
+    cancelDisabled = true;
+  }
+
+  // If any text boxes are empty, disable the submit button.
   var firstName = document.getElementById("editFirstName").value;
   var lastName = document.getElementById("editLastName").value;
-
-  // First and last name must be at least 1 character long
-  return firstName.length > 0 && lastName.length > 0;
-};
-
-const checkSubmit = () => {
-  if (canSubmit()) {
-    document.getElementById("save-changes").disabled = false;
-  } else {
-    document.getElementById("save-changes").disabled = true;
+  if (firstName === "" || lastName === "") {
+    submitDisabled = true;
   }
+
+  // Set the state of the buttons accordingly.
+  save_changes.disabled = submitDisabled;
+  cancel_changes.disabled = cancelDisabled;
 };
 
-// Should check if the user can log in when the document loads
-checkSubmit();
-
-// Add a keyup event listener for the document
-document.addEventListener("keyup", checkSubmit);
+// Add event listeners to the input fields.
+document.getElementById("editFirstName").oninput = updateFormButtons;
+document.getElementById("editLastName").oninput = updateFormButtons;
+document.getElementById("editFontSize").onchange = updateFormButtons;
+document.getElementById("editFontFamily").onchange = updateFormButtons;
+document.getElementById("editTheme").onchange = updateFormButtons;
+document.getElementById("highContrast").onchange = updateFormButtons;
+document.getElementById("lowContrast").onchange = updateFormButtons;
