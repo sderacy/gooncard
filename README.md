@@ -56,7 +56,7 @@ We are using an SQLite database in order to store users' preferred settings as w
 - Because each user will likely have a different number of social media accounts, it makes more sense to store these in a seperate table and link the two with a foreign key.
 - The `card_entries` table will be used to keep track of which social media accounts are linked to which card. This will allow us to quickly and efficiently generate new Goon Cards without needing to create a new file for each card.
 
-## Development Process
+## -- Development Process --
 
 We currently have 4 commands:
 
@@ -73,14 +73,14 @@ If you get a message about files being modified and changing from LF to CLF for 
 
 Below are some accessibility features and concerns that the application has.
 
-## Features
+## -- Features --
 
 - Settings Page allows users to customize their display. For example, a user can modify their name, font-size, font-family, contrast, and theme. This functionality was implemented to let users with visual or other limitations to have a more user-friendly accessible application.
 - The web application is responsive on both mobile versions and desktop versions for users with a wide variety of devices.
 - We will implement a speech recognition feature where users can dictate a command into the device's microphone after selecting the microphone icon and have the action be carried out. This feature is to help users with physical impairments or restrictions.
 - Visual displays such as icons or codes or potentially unrecognizable entities will have alt tags for users with screen readers to be able to identify.
 
-## Concerns/Guidelines
+## -- Concerns/Guidelines --
 
 - Check out [this link](https://www.smashingmagazine.com/2021/03/complete-guide-accessible-front-end-components/) for accessiblity guidelines to consider.
 
@@ -90,7 +90,7 @@ Below are some accessibility features and concerns that the application has.
 - A user can input, edit, and delete their social media information.
 - A user can select which social media information to share and generate a QR code associated with their selections to share with others.
 
-### Configured Routes
+## -- Configured Routes --
 
 #### `home` Routes
 
