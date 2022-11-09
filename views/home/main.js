@@ -14,11 +14,11 @@ const settings = await (
 ).json();
 
 var htmlElement = document.getElementById("html");
-htmlElement.style.fontSize = settings.font_size;
 htmlElement.setAttribute(
   "style",
   "--bs-body-font-family: " + settings.font_family
 );
+htmlElement.style.fontSize = settings.font_size;
 
 // Store the labels, values, types, and ids into separate arrays.
 let labels = [];
