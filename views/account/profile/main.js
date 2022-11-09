@@ -128,7 +128,7 @@ function add_row(table, label, value, type, id) {
       }
     }
 
-    // If we are dealing with a dummy ID, modify the accoun in the add array.
+    // If we are dealing with a dummy ID, modify the account in the add array.
     else {
       const existing = add.find((e) => e.id === id);
       if (existing) {
@@ -139,10 +139,35 @@ function add_row(table, label, value, type, id) {
     }
     console.log("add:", add);
     console.log("edit", edit);
+    console.log("remove", remove);
   };
 
   // When a row is deleted, need to take appropriate action.
-  const deleteRow = (id) => {};
+  const deleteRow = (id) => {
+    if (confirm("Are you sure you want to delete this account information?")) {
+      // If we are dealing with a valid ID, then we are deleting an existing account.
+      if (typeof id === "number") {
+        // If the account is already in the edit array, remove it from the edit array.
+        if (edit.find((obj) => obj.id == id)) {
+          edit.splice(edit.indexOf(edit.find((obj) => obj.id == id)), 1);
+        }
+        // Always add the account to the remove array.
+        remove.push(id);
+      }
+
+      // If we are dealing with a dummy ID, remove the account from the add array.
+      else {
+        add.splice(add.indexOf(add.find((obj) => obj.id == id)), 1);
+      }
+
+      // Finally, remove the row from the table.
+      table.removeChild(tr);
+
+      console.log("add:", add);
+      console.log("edit", edit);
+      console.log("remove", remove);
+    }
+  };
 
   label_input.oninput = () => editRow(id);
   value_input.oninput = () => editRow(id);
@@ -206,16 +231,16 @@ add_new_account_submit.onclick = async function () {
       accounts_table,
       add_new_label.value,
       add_new_value.value,
-      add_new_type.value,
+      add_new_type.value == "0" ? 0 : 1,
       id
     );
 
     // Additionally, add the new account to the add array.
     add.push({
+      id,
       label: add_new_label.value,
       value: add_new_value.value,
-      type: add_new_type.value,
-      id,
+      type: add_new_type.value == "0" ? 0 : 1,
     });
 
     // Reset the input fields.
