@@ -14,13 +14,13 @@ The Goon Squad's Goon Card Project for CSC 355 ('22)
 
 ## -- Tables of Contents --
 
-1. [Setup](#general-setup)
-2. [Development Process](#development-process)
-3. [Accessibility](#accessibility)
-4. [Features](#features)
-5. [Use Cases](#use-cases)
-6. [Concerns/Guidelines](#concernsguidelines)
-7. [Routes](#configured-routes)
+1. [Setup](#---general-setup---)
+2. [Development Process](#---development-process---)
+3. [Accessibility](#---accessibility---)
+4. [Features](#---features---)
+5. [Use Cases](#---use-cases---)
+6. [Concerns/Guidelines](#---concernsguidelines---)
+7. [Routes](#---configured-routes---)
 
 ## -- Prettier Formatting --
 
