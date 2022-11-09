@@ -1,3 +1,6 @@
+let casual_btn = document.getElementById("casual-btn");
+let professional_btn = document.getElementById("professional-btn");
+let all_btn = document.getElementById("all-btn");
 let toggles_div = document.getElementById("toggles-div");
 let qrcode_div = document.getElementById("qrcode-div");
 let qrcode_submit = document.getElementById("qr_submit");
@@ -36,6 +39,7 @@ if (user_accounts) {
 
 // Need to maintain the checked state of the toggle buttons.
 let toggles = [];
+let toggle_switch_elements = [];
 
 for (let i = 0; i < labels.length; i++) {
   let toggle_div = document.createElement("div");
@@ -46,6 +50,7 @@ for (let i = 0; i < labels.length; i++) {
   toggle.type = "checkbox";
   toggle.role = "switch";
   toggle.id = ids[i];
+  toggle_switch_elements.push(toggle);
 
   /**
    * Keeps track of the activated accounts.
@@ -68,6 +73,25 @@ for (let i = 0; i < labels.length; i++) {
   toggle_div.appendChild(toggle);
   toggle_div.appendChild(toggle_label);
   toggles_div.appendChild(toggle_div);
+}
+
+function toggle_switches(account_type) {
+  for (let i = 0; i < types.length; i++) {
+    if (types[i] == account_type) {
+      toggle_switch_elements[i].click();
+    }
+  } 
+}
+
+casual_btn.onclick = function() {
+  toggle_switches(0);
+}
+professional_btn.onclick = function() {
+  toggle_switches(1);
+}
+all_btn.onclick = function() {
+  toggle_switches(0);
+  toggle_switches(1);
 }
 
 /**
