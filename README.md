@@ -93,22 +93,30 @@ Below are some accessibility features and concerns that the application has.
 
 ## -- Configured Routes --
 
-#### `home` Routes
+### `home` Routes
 
 - `GET /` - Loads the home page if logged in, otherwise redirects to the login page. The home page is passed the user object for displaying information about the user.
 - `GET /home/style` - Serves the home page's stylesheet.
 - `GET /home/main` - Serves the home page's JavaScript.
 
-#### `account/login` Routes
+### `account/login` Routes
 
 - `GET /account/login` - Loads the login page, passing it an error that can be optionally displayed.
 - `POST /account/login` - Attempts to log the user in. If successful, redirects to the home page. If unsuccessful, redirects to the login page with an error message. Used in form submission.
 
-#### `account/logout` Routes
+### `account/logout` Routes
 
 - `GET /account/logout` - Logs the user out and redirects to the login page. This is implemented as a GET method in order to use it in an `<a>` tag.
 
-#### `account/signup` Routes
+### `account/signup` Routes
 
 - `GET /account/signup`- Loads the signup page, passing it an error that can be optinally displayed.
 - `POST /account/signup` - Attempts to create a new user. If successful, redirects to the home page. If unsuccessful, redirects to the signup page with an error message. Used in form submission.
+
+### `account/profile` Routes
+
+### `account/settings` Routes
+
+### `account/aboutus` Routes
+
+### `account/display` Routes
