@@ -27,9 +27,14 @@ module.exports = function (app, path) {
    * Returns the user's settings
    *
    */
-  app.get("/account/profile/getsettings", isLoggedIn, (req, res) => {
-    // Pass the user's email to the profile page
-    res.json(JSON.parse(req.session.user.settings));
+  app.get("/account/profile/getsettings", (req, res) => {
+    // Never want to redirect, so perform login check here.
+    if (!req.session.user) {
+      res.json({ error: "Not logged in." });
+    } else {
+      // Pass the user's email to the profile page
+      res.json(JSON.parse(req.session.user.settings));
+    }
   });
 
   /**
