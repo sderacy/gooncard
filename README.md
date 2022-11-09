@@ -81,15 +81,15 @@ Below are some accessibility features and concerns that the application has.
 - We will implement a speech recognition feature where users can dictate a command into the device's microphone after selecting the microphone icon and have the action be carried out. This feature is to help users with physical impairments or restrictions.
 - Visual displays such as icons or codes or potentially unrecognizable entities will have alt tags for users with screen readers to be able to identify.
 
-## -- Concerns/Guidelines --
-
-- Check out [this link](https://www.smashingmagazine.com/2021/03/complete-guide-accessible-front-end-components/) for accessiblity guidelines to consider.
-
 ## -- Use Cases --
 
 - A user can register an account on this application
 - A user can input, edit, and delete their social media information.
 - A user can select which social media information to share and generate a QR code associated with their selections to share with others.
+
+## -- Concerns/Guidelines --
+
+- Check out [this link](https://www.smashingmagazine.com/2021/03/complete-guide-accessible-front-end-components/) for accessiblity guidelines to consider.
 
 ## -- Configured Routes --
 
