@@ -118,6 +118,15 @@ const getUserAccount = async (userAccountId) => {
  * successfully updated, or false if the user_account could not be updated.
  */
 const updateUserAccount = async (userAccountId, label, value, type) => {
+  // Label and value must be non-empty strings, and type must be 0 or 1
+  if (
+    label.length < 1 ||
+    value.length < 1 ||
+    (type !== "0" && type !== "1" && type !== 0 && type !== 1)
+  ) {
+    return false;
+  }
+
   // Simply update the user_account entry with the given ID.
   return !!(
     await knex("user_accounts")

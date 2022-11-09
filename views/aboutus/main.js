@@ -7,6 +7,5 @@ var htmlElement = document.getElementById("html");
 htmlElement.setAttribute(
   "style",
   "--bs-body-font-family: " + settings.font_family
-  );
+);
 htmlElement.style.fontSize = settings.font_size;
-  
