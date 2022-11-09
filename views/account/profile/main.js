@@ -1,3 +1,4 @@
+// Store references to inportant elements.
 let accounts_table = document.getElementById("accounts-table-body");
 let add_new_label = document.getElementById("add-new-label");
 let add_new_value = document.getElementById("add-new-value");
@@ -5,34 +6,37 @@ let add_new_type = document.getElementById("add-new-type");
 let add_new_account_submit = document.getElementById("add-new-account-submit");
 let save_changes = document.getElementById("save-changes");
 let cancel_changes = document.getElementById("cancel-changes");
+
+// In order to know which buttons to enable/disable, we need to keep track of
+// which textboxes have content in them.
 const allTextboxes = [];
-let dummyCounter = 0;
 
-// Fetch the user_accounts from the database.
-let user_accounts = await (
-  await fetch("/account/profile/getall", { method: "GET" })
-).json();
+// Create different event arrays for editing the accounts. At any point,
+// these arrays store ONLY changes that have been made to a user's accounts.
+const add = [];
+const edit = [];
+const remove = [];
 
-// Make sure the settings are fetched.
+// Fetch the settings from the database for the current user.
 const settings = await (
   await fetch("/account/profile/getsettings", { method: "GET" })
 ).json();
 
 // Apply the settings to the page.
-var htmlElement = document.getElementById("html");
+const htmlElement = document.getElementById("html");
 htmlElement.style.fontSize = settings.font_size;
 htmlElement.style.fontFamily = settings.font_family;
 
-// Create different event arrays for editing the accounts.
-const add = [];
-const edit = [];
-const remove = [];
+// Fetch the user_accounts from the database.
+const user_accounts = await (
+  await fetch("/account/profile/getall", { method: "GET" })
+).json();
 
 // Store the labels, values, types, and ids into separate arrays.
-let labels = [];
-let values = [];
-let types = [];
-let ids = [];
+const labels = [];
+const values = [];
+const types = [];
+const ids = [];
 if (user_accounts) {
   user_accounts.forEach((account) => {
     labels.push(account.label);
@@ -42,17 +46,21 @@ if (user_accounts) {
   });
 }
 
+/**
+ * Function that returns a new dummy ID for a new account. Because new accounts
+ * are not immediately stored in the database, we need to give them a dummy ID
+ * in case the user decides to update or delete them before saving.
+ */
+let dummyCounter = 0;
 const getDummyId = () => {
   dummyCounter++;
   return "dummy-" + dummyCounter;
 };
 
-const printStatus = () => {
-  console.log("add", add);
-  console.log("edit", edit);
-  console.log("remove", remove);
-};
-
+/**
+ * Function to be run whenever any user input is detected. This method ensures
+ * that all buttons on the page are either enabled or disabled as appropriate.
+ */
 const updateFormButtons = () => {
   // If any text boxes are empty, disable the submit button.
   let submitDisabled = false;
@@ -97,16 +105,26 @@ const updateFormButtons = () => {
  * @param {number} id The ID of the user_account.
  */
 function add_row(table, label, value, type, id) {
-  let tr = document.createElement("tr");
+  // Creates the table data for the label input.
+
   let label_td = document.createElement("td");
   let label_input = document.createElement("input");
-  allTextboxes.push(label_input);
   label_input.classList.add("form-control");
+  label_input.value = label;
+  label_input.oldvalue = label;
+  label_td.appendChild(label_input);
+  allTextboxes.push(label_input);
+
+  // Creates the table data for the value input.
   let value_td = document.createElement("td");
   let value_input = document.createElement("input");
-  allTextboxes.push(value_input);
   value_input.classList.add("form-control");
+  value_input.value = value;
+  value_input.oldvalue = value;
+  value_td.appendChild(value_input);
+  allTextboxes.push(value_input);
 
+  // Creates the table data for the type input.
   let type_td = document.createElement("td");
   let type_switch_div = document.createElement("div");
   type_switch_div.classList.add("form-check", "form-switch", "form-switch-m");
@@ -116,28 +134,24 @@ function add_row(table, label, value, type, id) {
   toggle.role = "switch";
   toggle.id = id;
   toggle.checked = type == 0 ? false : true;
+  type_td.appendChild(type_switch_div);
+  type_switch_div.appendChild(toggle);
 
+  // Creates the table data for the delete button.
   let delete_td = document.createElement("td");
   let delete_btn = document.createElement("button");
   delete_btn.innerHTML = `<i class="fa-solid fa-trash-can"></i>`;
   delete_btn.classList.add("btn", "btn-danger", "btn-sm");
-
-  label_input.value = label;
-  label_input.oldvalue = label;
-  label_td.appendChild(label_input);
-  value_input.value = value;
-  value_input.oldvalue = value;
-  value_td.appendChild(value_input);
-
-  type_td.appendChild(type_switch_div);
-  type_switch_div.appendChild(toggle);
   delete_td.appendChild(delete_btn);
 
+  // Creates the table row and adds the table data to it.
+  let tr = document.createElement("tr");
   tr.appendChild(label_td);
   tr.appendChild(value_td);
   tr.appendChild(type_td);
   tr.appendChild(delete_td);
 
+  // Adds the row to the table.
   table.appendChild(tr);
 
   // When a row is modified, need to take appropriate action.
@@ -150,7 +164,6 @@ function add_row(table, label, value, type, id) {
         value_input.value == value &&
         toggle.checked == (type == 0 ? false : true)
       ) {
-        console.log("Back to original!");
         edit.splice(edit.indexOf(edit.find((obj) => obj.id == id)), 1);
       }
       // Otherwise, add or update the object in the edit array.
@@ -183,9 +196,7 @@ function add_row(table, label, value, type, id) {
         existing.type = toggle.checked ? 1 : 0;
       }
     }
-
     updateFormButtons();
-    printStatus();
   };
 
   // When a row is deleted, need to take appropriate action.
@@ -208,28 +219,26 @@ function add_row(table, label, value, type, id) {
 
       // Finally, remove the row from the table.
       table.removeChild(tr);
-
       updateFormButtons();
-      printStatus();
     }
   };
 
+  // Set the event handlers for editing and deleting the row.
   label_input.oninput = () => editRowAction(id);
   value_input.oninput = () => editRowAction(id);
   toggle.onchange = () => editRowAction(id);
   delete_btn.onclick = () => deleteRowAction(id);
 }
 
-add_new_label.oninput = () => updateFormButtons();
-add_new_value.oninput = () => updateFormButtons();
-add_new_type.onchange = () => updateFormButtons();
-
 /**
- * Adds a new row to the accounts table and event arrays.
- * This is used as the onlick handler by the 'new account' button.
+ * Adds a new row to the accounts table and event arrays. This is used when the user
+ * clicks the "Add Account" button. Client-side validation is performed to ensure
+ * that the user has entered a label, value, and type.
  */
 add_new_account_submit.onclick = () => {
   const id = getDummyId();
+
+  // Add the row to the table.
   add_row(
     accounts_table,
     add_new_label.value,
@@ -238,7 +247,7 @@ add_new_account_submit.onclick = () => {
     id
   );
 
-  // Additionally, add the new account to the add array.
+  // Add the new account to the add array.
   add.push({
     id,
     label: add_new_label.value,
@@ -252,11 +261,11 @@ add_new_account_submit.onclick = () => {
   add_new_type.value = "";
 
   updateFormButtons();
-  printStatus();
 };
 
 /**
- * Performs a page refresh in order to clear the user's input.
+ * When the user clicks on the cancel button, the page is reloaded after confirmation
+ * in order to reset the user's account changes since the last save.
  */
 cancel_changes.onclick = () => {
   if (
@@ -269,23 +278,22 @@ cancel_changes.onclick = () => {
 };
 
 /**
- * Performs client-side validation on the form.
- * If the form is valid, then the form is submitted.
+ * Submits the form to the backend API via a POST request. The request body contains
+ * the add, edit, and remove arrays, which are used to update the user's accounts
+ * accordingly in the backend.
  */
 save_changes.onclick = async () => {
-  // Send the data to the backend.
-  const data = {
-    add,
-    edit,
-    remove,
-  };
-
   // Send the data to the backend, reload the page.
   fetch("/account/profile/update", {
     method: "POST",
-    body: JSON.stringify(data),
+    body: JSON.stringify({
+      add,
+      edit,
+      remove,
+    }),
     headers: { "Content-Type": "application/json" },
   }).then(() => {
+    // Reload the page with the new session data to reflect the changes.
     window.location.href = "/account/profile";
   });
 };
@@ -301,6 +309,11 @@ function populate_table() {
     add_row(accounts_table, labels[i], values[i], types[i], ids[i]);
   }
 }
+
+// When new account inputs are changed, update the form buttons.
+add_new_label.oninput = () => updateFormButtons();
+add_new_value.oninput = () => updateFormButtons();
+add_new_type.onchange = () => updateFormButtons();
 
 // Populate the table with the user's accounts.
 populate_table();
