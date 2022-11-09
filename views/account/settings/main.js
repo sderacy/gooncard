@@ -42,24 +42,23 @@ options.theme.forEach((option) => {
   selectTheme.appendChild(optionElement);
 });
 
+// Store references to useful input fields.
 let save_changes = document.getElementById("save-changes");
 let cancel_changes = document.getElementById("cancel-changes");
-
-// Set the correct checked radio button for the contrast option.
 let highContrast = document.getElementById("highContrast");
 let lowContrast = document.getElementById("lowContrast");
-if (settings.contrast === "High") {
-  highContrast.checked = true;
-} else {
-  lowContrast.checked = true;
-}
 
-// Set the default settings in the DOM.
+// Set and store the default settings in the DOM.
 let originalFirstName = document.getElementById("editFirstName").value;
 let originalLastName = document.getElementById("editLastName").value;
 document.getElementById("editFontSize").value = settings.font_size;
 document.getElementById("editFontFamily").value = settings.font_family;
 document.getElementById("editTheme").value = settings.theme;
+if (settings.contrast === "High") {
+  highContrast.checked = true;
+} else {
+  lowContrast.checked = true;
+}
 
 /**
  * Function to be run whenever any user input is detected. This method ensures
@@ -98,6 +97,20 @@ const updateFormButtons = () => {
   // Set the state of the buttons accordingly.
   save_changes.disabled = submitDisabled;
   cancel_changes.disabled = cancelDisabled;
+};
+
+/**
+ * When the user clicks on the cancel button, the page is reloaded after confirmation
+ * in order to reset the user's account changes since the last save.
+ */
+cancel_changes.onclick = () => {
+  if (
+    confirm(
+      "Are you sure you want to cancel? All changes since your last save will be lost."
+    )
+  ) {
+    location.reload();
+  }
 };
 
 // Add event listeners to the input fields.
