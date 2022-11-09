@@ -4,6 +4,9 @@ let add_new_label = document.getElementById("add-new-label");
 let add_new_value = document.getElementById("add-new-value");
 let add_new_type = document.getElementById("add-new-type");
 let add_new_account_submit = document.getElementById("add-new-account-submit");
+let save_changes = document.getElementById("save-changes");
+let cancel_changes = document.getElementById("cancel-changes");
+const allTextboxes = [];
 let dummyCounter = 0;
 
 // Fetch the user_accounts from the database.
@@ -45,6 +48,37 @@ const getDummyId = () => {
   return "dummy-" + dummyCounter;
 };
 
+const printStatus = () => {
+  console.log("add", add);
+  console.log("edit", edit);
+  console.log("remove", remove);
+};
+
+const updateFormButtons = () => {
+  // If any text boxes are empty, disable the submit button.
+  let submitDisabled = false;
+  let cancelDisabled = true;
+  allTextboxes.forEach((textbox) => {
+    if (textbox.value == "") {
+      submitDisabled = true;
+    }
+  });
+
+  // If add, edit, and delete arrays are empty, disable submit.
+  if (add.length == 0 && edit.length == 0 && remove.length == 0) {
+    submitDisabled = true;
+  }
+
+  // If some changes are present, enable cancel.
+  else {
+    cancelDisabled = false;
+  }
+
+  // Set the state of the buttons accordingly.
+  save_changes.disabled = submitDisabled;
+  cancel_changes.disabled = cancelDisabled;
+};
+
 /**
  * Adds a new row to the accounts table.
  * @param {HTMLTableElement} table The table to add the row to.
@@ -56,9 +90,11 @@ function add_row(table, label, value, type, id) {
   let tr = document.createElement("tr");
   let label_td = document.createElement("td");
   let label_input = document.createElement("input");
+  allTextboxes.push(label_input);
   label_input.classList.add("form-control");
   let value_td = document.createElement("td");
   let value_input = document.createElement("input");
+  allTextboxes.push(value_input);
   value_input.classList.add("form-control");
 
   let type_td = document.createElement("td");
@@ -95,7 +131,7 @@ function add_row(table, label, value, type, id) {
   table.appendChild(tr);
 
   // When a row is modified, need to take appropriate action.
-  const editRow = (id) => {
+  const editRowAction = (id) => {
     // If we are dealing with a valid ID, then we are editing an existing account.
     if (typeof id === "number") {
       // If the values are the same as the original, remove the object from the edit array.
@@ -137,13 +173,13 @@ function add_row(table, label, value, type, id) {
         existing.type = toggle.checked ? 1 : 0;
       }
     }
-    console.log("add:", add);
-    console.log("edit", edit);
-    console.log("remove", remove);
+
+    updateFormButtons();
+    printStatus();
   };
 
   // When a row is deleted, need to take appropriate action.
-  const deleteRow = (id) => {
+  const deleteRowAction = (id) => {
     if (confirm("Are you sure you want to delete this account information?")) {
       // If we are dealing with a valid ID, then we are deleting an existing account.
       if (typeof id === "number") {
@@ -163,17 +199,68 @@ function add_row(table, label, value, type, id) {
       // Finally, remove the row from the table.
       table.removeChild(tr);
 
-      console.log("add:", add);
-      console.log("edit", edit);
-      console.log("remove", remove);
+      updateFormButtons();
+      printStatus();
     }
   };
 
-  label_input.oninput = () => editRow(id);
-  value_input.oninput = () => editRow(id);
-  toggle.onchange = () => editRow(id);
-  delete_btn.onclick = () => deleteRow(id);
+  label_input.oninput = () => editRowAction(id);
+  value_input.oninput = () => editRowAction(id);
+  toggle.onchange = () => editRowAction(id);
+  delete_btn.onclick = () => deleteRowAction(id);
 }
+
+/**
+ * Adds a new row to the accounts table and event arrays.
+ * This is used as the onlick handler by the 'new account' button.
+ */
+add_new_account_submit.onclick = () => {
+  // Prevent submission if either label or value is empty.
+  if (
+    add_new_label.value == "" ||
+    add_new_value.value == "" ||
+    add_new_type.value == ""
+  ) {
+    alert(
+      "Your label, value, or type is empty. Fill in all three to successfully add a new account.",
+      "danger"
+    );
+  } else {
+    const id = getDummyId();
+    add_row(
+      accounts_table,
+      add_new_label.value,
+      add_new_value.value,
+      add_new_type.value == "0" ? 0 : 1,
+      id
+    );
+
+    // Additionally, add the new account to the add array.
+    add.push({
+      id,
+      label: add_new_label.value,
+      value: add_new_value.value,
+      type: add_new_type.value == "0" ? 0 : 1,
+    });
+
+    // Reset the input fields.
+    add_new_label.value = "";
+    add_new_value.value = "";
+    add_new_type.value = "";
+    alert("You successfully added a new account!", "warning");
+
+    updateFormButtons();
+    printStatus();
+  }
+};
+
+/**
+ * Performs client-side validation on the form.
+ * If the form is valid, then the form is submitted.
+ */
+save_changes.onclick = async () => {
+  // Send the data to the backend.
+};
 
 /**
  * Populates the accounts table with the user's accounts.
@@ -209,46 +296,6 @@ const alert = (message, type) => {
       $("#live-alert-placeholder").slideUp(500);
       wrapper.innerHTML = "";
     });
-};
-
-/**
- * 'Click' event listener for submitting new account information.
- */
-add_new_account_submit.onclick = async function () {
-  // Prevent submission if either label or value is empty.
-  if (
-    add_new_label.value == "" ||
-    add_new_value.value == "" ||
-    add_new_type.value == ""
-  ) {
-    alert(
-      "Your label, value, or type is empty. Fill in all three to successfully add a new account.",
-      "danger"
-    );
-  } else {
-    const id = getDummyId();
-    add_row(
-      accounts_table,
-      add_new_label.value,
-      add_new_value.value,
-      add_new_type.value == "0" ? 0 : 1,
-      id
-    );
-
-    // Additionally, add the new account to the add array.
-    add.push({
-      id,
-      label: add_new_label.value,
-      value: add_new_value.value,
-      type: add_new_type.value == "0" ? 0 : 1,
-    });
-
-    // Reset the input fields.
-    add_new_label.value = "";
-    add_new_value.value = "";
-    add_new_type.value = "";
-    alert("You successfully added a new account!", "warning");
-  }
 };
 
 // Populate the table with the user's accounts.
