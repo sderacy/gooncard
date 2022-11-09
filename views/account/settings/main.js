@@ -10,6 +10,13 @@ const settings = await (
   await fetch("/account/profile/getsettings", { method: "GET" })
 ).json();
 
+var htmlElement = document.getElementById("html");
+htmlElement.setAttribute(
+  "style",
+  "--bs-body-font-family: " + settings.font_family
+);
+htmlElement.style.fontSize = settings.font_size;
+
 // Add the options to the select elements.
 let selectFontSize = document.getElementById("editFontSize");
 options.font_size.forEach((option) => {
