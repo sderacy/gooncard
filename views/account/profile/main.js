@@ -1,4 +1,3 @@
-let live_alert_placeholder = document.getElementById("live-alert-placeholder");
 let accounts_table = document.getElementById("accounts-table-body");
 let add_new_label = document.getElementById("add-new-label");
 let add_new_value = document.getElementById("add-new-value");
@@ -58,6 +57,7 @@ const updateFormButtons = () => {
   // If any text boxes are empty, disable the submit button.
   let submitDisabled = false;
   let cancelDisabled = true;
+  let addDisabled = true;
   allTextboxes.forEach((textbox) => {
     if (textbox.value == "") {
       submitDisabled = true;
@@ -74,9 +74,19 @@ const updateFormButtons = () => {
     cancelDisabled = false;
   }
 
+  // If all of the new account fields are filled, disable add.
+  if (
+    add_new_label.value != "" &&
+    add_new_value.value != "" &&
+    add_new_type.value != ""
+  ) {
+    addDisabled = false;
+  }
+
   // Set the state of the buttons accordingly.
   save_changes.disabled = submitDisabled;
   cancel_changes.disabled = cancelDisabled;
+  add_new_account_submit.disabled = addDisabled;
 };
 
 /**
@@ -210,48 +220,39 @@ function add_row(table, label, value, type, id) {
   delete_btn.onclick = () => deleteRowAction(id);
 }
 
+add_new_label.oninput = () => updateFormButtons();
+add_new_value.oninput = () => updateFormButtons();
+add_new_type.onchange = () => updateFormButtons();
+
 /**
  * Adds a new row to the accounts table and event arrays.
  * This is used as the onlick handler by the 'new account' button.
  */
 add_new_account_submit.onclick = () => {
-  // Prevent submission if either label or value is empty.
-  if (
-    add_new_label.value == "" ||
-    add_new_value.value == "" ||
-    add_new_type.value == ""
-  ) {
-    alert(
-      "Your label, value, or type is empty. Fill in all three to successfully add a new account.",
-      "danger"
-    );
-  } else {
-    const id = getDummyId();
-    add_row(
-      accounts_table,
-      add_new_label.value,
-      add_new_value.value,
-      add_new_type.value == "0" ? 0 : 1,
-      id
-    );
+  const id = getDummyId();
+  add_row(
+    accounts_table,
+    add_new_label.value,
+    add_new_value.value,
+    add_new_type.value == "0" ? 0 : 1,
+    id
+  );
 
-    // Additionally, add the new account to the add array.
-    add.push({
-      id,
-      label: add_new_label.value,
-      value: add_new_value.value,
-      type: add_new_type.value == "0" ? 0 : 1,
-    });
+  // Additionally, add the new account to the add array.
+  add.push({
+    id,
+    label: add_new_label.value,
+    value: add_new_value.value,
+    type: add_new_type.value == "0" ? 0 : 1,
+  });
 
-    // Reset the input fields.
-    add_new_label.value = "";
-    add_new_value.value = "";
-    add_new_type.value = "";
-    alert("You successfully added a new account!", "warning");
+  // Reset the input fields.
+  add_new_label.value = "";
+  add_new_value.value = "";
+  add_new_type.value = "";
 
-    updateFormButtons();
-    printStatus();
-  }
+  updateFormButtons();
+  printStatus();
 };
 
 /**
@@ -273,6 +274,20 @@ cancel_changes.onclick = () => {
  */
 save_changes.onclick = async () => {
   // Send the data to the backend.
+  const data = {
+    add,
+    edit,
+    remove,
+  };
+
+  // Send the data to the backend, reload the page.
+  fetch("/account/profile/update", {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: { "Content-Type": "application/json" },
+  }).then(() => {
+    window.location.href = "/account/profile";
+  });
 };
 
 /**
@@ -286,30 +301,6 @@ function populate_table() {
     add_row(accounts_table, labels[i], values[i], types[i], ids[i]);
   }
 }
-
-/**
- * Function for generating alert messages.
- * @param {string} message The message to display.
- * @param {string} type The type of alert to display.
- */
-const alert = (message, type) => {
-  const wrapper = document.createElement("div");
-  wrapper.innerHTML = [
-    `<div id="dismissable-alert" class="alert alert-${type} alert-dismissible" role="alert">`,
-    `   <div>${message}</div>`,
-    '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
-    "</div>",
-  ].join("");
-
-  live_alert_placeholder.append(wrapper);
-
-  $("#live-alert-placeholder")
-    .fadeTo(1500, 500)
-    .slideUp(500, function () {
-      $("#live-alert-placeholder").slideUp(500);
-      wrapper.innerHTML = "";
-    });
-};
 
 // Populate the table with the user's accounts.
 populate_table();

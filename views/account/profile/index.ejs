@@ -22,9 +22,12 @@
         <div class="row col-12">
           <main class="px-3">
             <h1>Profile</h1>
+            <% if (error) { %>
+            <p class="message text-danger"><%= error %></p>
+            <% } else if(success) { %>
+            <p class="message text-success"><%= success %></p>
+            <% } %>
             <h1 id="edit-existing-header">Edit Existing</h1>
-
-            <div id="live-alert-placeholder"></div>
 
             <table id="accounts-table" class="table table-borderless">
               <thead>
@@ -37,6 +40,7 @@
               </thead>
               <tbody id="accounts-table-body"></tbody>
             </table>
+            <br />
             <h1 id="add-new-account-header">Add a New Account</h1>
             <div>
               <input
@@ -58,26 +62,30 @@
                 type="button"
                 id="add-new-account-submit"
                 class="btn btn-warning inline-block-child"
+                disabled
               >
                 Add Account
               </button>
             </div>
-            <button
-              id="cancel-changes"
-              type="button"
-              class="btn btn-light inline-block-child"
-              disabled
-            >
-              Cancel Changes
-            </button>
-            <button
-              id="save-changes"
-              type="button"
-              class="btn btn-success inline-block-child"
-              disabled
-            >
-              Save Changes
-            </button>
+            <br /><br />
+            <div>
+              <button
+                id="cancel-changes"
+                type="button"
+                class="btn btn-light inline-block-child"
+                disabled
+              >
+                Cancel Changes
+              </button>
+              <button
+                id="save-changes"
+                type="button"
+                class="btn btn-success inline-block-child"
+                disabled
+              >
+                Save Changes
+              </button>
+            </div>
           </main>
         </div>
       </div>
