@@ -68,9 +68,9 @@ const canSubmit = () => {
 
 const checkSubmit = () => {
   if (canSubmit()) {
-    document.getElementById("submit").disabled = false;
+    document.getElementById("save-changes").disabled = false;
   } else {
-    document.getElementById("submit").disabled = true;
+    document.getElementById("save-changes").disabled = true;
   }
 };
 
