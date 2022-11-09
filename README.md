@@ -12,6 +12,15 @@ The Goon Squad's Goon Card Project for CSC 355 ('22)
 - Sterly Deracy
 - Shane Matyi
 
+## -- Tables of Contents --
+
+1. [Setup](#general-setup)
+2. [Development Process](#development-process)
+3. [Accessibility](#accessibility)
+4. [Features](#features)
+5. [Use Cases](#use-cases)
+6. [Routes](#configured-routes)
+
 ## -- Prettier Formatting --
 
 The `.prettierrc` file stores the formatting rules for the project. It is used by the `prettier` package to format the code. You can format all code in the project by running `npm run format` after writing code in order to adjust whitespace, indentation, and blank lines between code. This should hopefully avoid commits that include mostly formatting changes.
@@ -47,6 +56,19 @@ We are using an SQLite database in order to store users' preferred settings as w
 - Because each user will likely have a different number of social media accounts, it makes more sense to store these in a seperate table and link the two with a foreign key.
 - The `card_entries` table will be used to keep track of which social media accounts are linked to which card. This will allow us to quickly and efficiently generate new Goon Cards without needing to create a new file for each card.
 
+## Development Process
+
+We currently have 4 commands:
+
+1. `npm run format` - Formats the application code usually the Prettier Formatting
+2. `npm run seed` - Loads the database with default values
+3. `npm start` - Starts up the server so that you can use the application, and runs `npm run format`
+4. `npm run cleanStart` - Runs a combination of the first 3 commands in the order listed.
+
+When you make a change (At least on the front-end side), you should just be able to refresh the page. Before you push the code to the repo to make a Pull Request, make sure to run `npm run format` to format the code so that it matches the repo's white space and indentation.
+
+If you get a message about files being modified and changing from LF to CLF for example, do `git add -A` to fix the issue.
+
 ## -- Accessibility --
 
 Below are some accessibility features and concerns that the application has.
@@ -67,12 +89,6 @@ Below are some accessibility features and concerns that the application has.
 - A user can register an account on this application
 - A user can input, edit, and delete their social media information.
 - A user can select which social media information to share and generate a QR code associated with their selections to share with others.
-
-### Development Process
-
-When you make a change (At least on the front-end side), you should just be able to refresh the page. Before you push the code to the repo to make a Pull Request, make sure to run `npm run format` to format the code so that it matches the repo's white space and indentation.
-
-If you get a message about files being modified and changing from LF to CLF for example, do `git add -A` to fix the issue.
 
 ### Configured Routes
 
