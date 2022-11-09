@@ -16,8 +16,14 @@ module.exports = function (app, path) {
    */
   app.get("/account/profile", isLoggedIn, (req, res) => {
     // Pass the user object to the profile page
+    const error = req.session.error;
+    const success = req.session.success;
+    req.session.error = null;
+    req.session.success = null;
     res.render(path + "/account/profile/index", {
       user: req.session.user,
+      success,
+      error,
     });
   });
 
@@ -56,23 +62,6 @@ module.exports = function (app, path) {
   });
 
   /**
-   * POST /account/profile/add
-   *
-   * Adds a new user_account for the current user.
-   */
-  app.post("/account/profile/add", isLoggedIn, async (req, res) => {
-    const result = await createUserAccount(
-      req.session.user.email,
-      req.body.label,
-      req.body.value,
-      req.body.type
-    );
-
-    // Respond with either the new user_account object or null.
-    res.json(result);
-  });
-
-  /**
    * GET /account/profile/getall
    *
    * Gets all user_accounts for the current user.
@@ -85,41 +74,64 @@ module.exports = function (app, path) {
   });
 
   /**
-   * POST /account/profile/delete
-   *
-   * Deletes a user_account for the current user.
-   */
-  app.post("/account/profile/delete", isLoggedIn, async (req, res) => {
-    // Only perform the delete if the user_account belongs to the current user.
-    let result = null;
-    const accountToDelete = await getUserAccount(req.body.id);
-    if (accountToDelete && accountToDelete.user_id === req.session.user.id) {
-      result = await deleteUserAccount(req.body.id);
-    }
-
-    // Respond with either the user_account object or null.
-    res.json(result);
-  });
-
-  /**
    * POST /account/profile/update
    *
    * Updates all user_accounts for the current user.
    */
   app.post("/account/profile/update", isLoggedIn, async (req, res) => {
-    // Only perform the update if the user_account belongs to the current user.
-    let result = null;
-    const accountToUpdate = await getUserAccount(req.body.id);
-    if (accountToUpdate && accountToUpdate.user_id === req.session.user.id) {
-      result = await updateUserAccount(
-        req.body.id,
-        req.body.label,
-        req.body.value,
-        req.body.type
+    // Array to store all promises.
+    const promises = [];
+
+    // Extract the individual arrays from the responts.
+    const { add, edit, remove } = req.body;
+
+    // For each user_account to add, store it in the database.
+    add.forEach((account) => {
+      promises.push(
+        createUserAccount(
+          req.session.user.email,
+          account.label,
+          account.value,
+          account.type
+        )
       );
+    });
+
+    // For each user_account to edit, update it in the database.
+    edit.forEach(async (account) => {
+      // Only perform the update if the user_account belongs to the current user.
+      const accountToUpdate = await getUserAccount(account.id);
+      if (accountToUpdate && accountToUpdate.user_id === req.session.user.id) {
+        promises.push(
+          updateUserAccount(
+            account.id,
+            account.label,
+            account.value,
+            account.type
+          )
+        );
+      }
+    });
+
+    // For each user_account to remove, delete it from the database.
+    remove.forEach(async (id) => {
+      // Only perform the update if the user_account belongs to the current user.
+      const accountToUpdate = await getUserAccount(id);
+      if (accountToUpdate && accountToUpdate.user_id === req.session.user.id) {
+        promises.push(deleteUserAccount(id));
+      }
+    });
+
+    // Wait for all promises to resolve.
+    try {
+      await Promise.all(promises);
+      req.session.success = "Successfully updated your user accounts!";
+    } catch (err) {
+      req.session.error =
+        "There was an error updating one or more or your accounts. Please try again.";
     }
 
-    // Respond with either the user_account object or null.
-    res.json(result);
+    // Respond with a success message.
+    res.json({ success: true });
   });
 };
