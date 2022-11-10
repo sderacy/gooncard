@@ -41,11 +41,11 @@ if (user_accounts) {
 // If the user does not have any accounts, replace main content with a message.
 else {
   document.getElementById("main-content").innerHTML = `
-    <div class="container">
-      <div class="row">
+    <div class="container p-5 mt-5">
+      <div class="row p-5 mt-5">
         <div class="col-12">
-          <h3 class="text-center">You have no accounts!</h3>
-          <p class="text-center">Click <a href="/account/profile">here</a> to add an account.</p>
+          <h2 class="text-center">You have no accounts!</h3>
+          <h3 class="text-center">Click <a class="text-warning" href="/account/profile">here</a> to add an account.</h3>
         </div>
       </div>
     </div>
