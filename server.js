@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 
 // Create backend constants
 const app = express();
+const siteAddress = address.ip();
 const port = 3000;
 const viewsPath = __dirname + "/views";
 const sessionKey = "secret";
@@ -34,7 +35,7 @@ app.use(
 );
 
 // Import all routes from their respective files
-require("./routes/home")(app, viewsPath);
+require("./routes/home")(app, viewsPath, siteAddress, port);
 require("./routes/login")(app, viewsPath);
 require("./routes/logout")(app, viewsPath);
 require("./routes/signup")(app, viewsPath);
@@ -51,5 +52,5 @@ app.get("*", (req, res) => {
 
 // Start the server
 app.listen(port, () =>
-  console.log(`Access the server at http://${address.ip()}:${port}`)
+  console.log(`Access the server at http://${siteAddress}:${port}`)
 );

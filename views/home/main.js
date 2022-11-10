@@ -3,7 +3,7 @@ let professional_btn = document.getElementById("professional-btn");
 let all_btn = document.getElementById("all-btn");
 let toggles_div = document.getElementById("toggles-div");
 let qrcode_div = document.getElementById("qrcode-div");
-let qrcode_submit = document.getElementById("qr_submit");
+let qrcode_submit = document.getElementById("qr-submit");
 let size = document.getElementById("size");
 let main = document.getElementById("main-content");
 
@@ -56,6 +56,15 @@ else {
   main.style.display = "block";
 }
 
+// See if the submit button should be enabled.
+function check_toggles(num_toggles) {
+  if (num_toggles === 0) {
+    qrcode_submit.disabled = true;
+  } else {
+    qrcode_submit.disabled = false;
+  }
+}
+
 // Need to maintain the checked state of the toggle buttons.
 let toggles = [];
 let toggle_switch_elements = [];
@@ -78,13 +87,14 @@ for (let i = 0; i < labels.length; i++) {
    */
   toggle.onchange = function () {
     if (this.checked) {
+      toggles.push(parseInt(this.id));
       num_toggled_elements += 1;
-      toggles.push(this.id);
     } else {
+      toggles = toggles.filter((id) => id != parseInt(this.id));
       num_toggled_elements -= 1;
-      toggles = toggles.filter((id) => id != this.id);
     }
-    console.log(toggles);
+
+    check_toggles(toggles.length);
   };
 
   let toggle_label = document.createElement("label");
@@ -137,6 +147,8 @@ all_btn.onclick = function () {
   } else {
     turn_all_switches_on();
   }
+
+  check_toggles(num_toggled_elements);
 };
 
 /**
@@ -146,14 +158,29 @@ all_btn.onclick = function () {
 let onGenerateSubmit = async function (e) {
   e.preventDefault();
 
-  // CALL THE GENERATE QR CODE API ENDPOINT WITH TOGGLES ARRAY
-  // DISPLAY THE RESPONDED QR CODE IMAGE
+  // Call the /home/generate endpoint with the toggles array.
+  const uuid = await (
+    await fetch("/home/generate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ids: toggles }),
+    })
+  ).json();
+
+  // Get the address of the server.
+  const siteAddress = await (
+    await fetch("/home/siteaddress", {
+      method: "GET",
+    })
+  ).json();
 
   // Clear the div's contents
   qrcode_div.innerHTML = "";
 
-  // Create the QR code using the google charts api
-  let url = "You toggled the following accounts: " + toggles.join(", ");
+  // Create the QR code using the google charts api and the uuid.
+  const url = `http://${siteAddress}/displaycard?id=${uuid}`;
   let qrcode = document.createElement("img");
   let qrcode_url = new URL("https://chart.googleapis.com/chart?");
   qrcode_url.searchParams.append("chs", size.value);
@@ -165,6 +192,9 @@ let onGenerateSubmit = async function (e) {
 
   // Append the QR Code inside the qrcode div
   qrcode_div.appendChild(qrcode);
+
+  console.log(url);
+  alert(url);
 };
 
 qrcode_submit.onclick = onGenerateSubmit;
