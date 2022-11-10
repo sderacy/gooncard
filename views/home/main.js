@@ -44,7 +44,7 @@ else {
     <div class="container">
       <div class="row">
         <div class="col-12">
-          <h1 class="text-center">You have no accounts!</h1>
+          <h3 class="text-center">You have no accounts!</h3>
           <p class="text-center">Click <a href="/account/profile">here</a> to add an account.</p>
         </div>
       </div>

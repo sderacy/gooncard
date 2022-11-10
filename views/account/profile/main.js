@@ -40,6 +40,8 @@ const labels = [];
 const values = [];
 const types = [];
 const ids = [];
+
+// If the user has at least one account, display the main content normally.
 if (user_accounts) {
   user_accounts.forEach((account) => {
     labels.push(account.label);
@@ -98,6 +100,29 @@ const updateFormButtons = () => {
   save_changes.disabled = submitDisabled;
   cancel_changes.disabled = cancelDisabled;
   add_new_account_submit.disabled = addDisabled;
+};
+
+// If the user has no accounts, clear the table's headings.
+const updateTableHeading = () => {
+  // The current account total is the original minus the number of accounts
+  // that have been deleted plus the number of accounts that have been added.
+  const count = labels.length - remove.length + add.length;
+
+  // If the user has no accounts, clear the table's headings.
+  if (count == 0) {
+    document.getElementById("table-head").innerHTML = "";
+    document.getElementById("edit-existing-header").style.display = "none";
+  } else {
+    document.getElementById("table-head").innerHTML = `
+      <tr>
+        <th>Platform</th>
+        <th>Account</th>
+        <th>Professional</th>
+        <th>Delete</th>
+      </tr>
+    `;
+    document.getElementById("edit-existing-header").style.display = "block";
+  }
 };
 
 /**
@@ -223,6 +248,7 @@ function add_row(table, label, value, type, id) {
       // Finally, remove the row from the table.
       table.removeChild(tr);
       updateFormButtons();
+      updateTableHeading();
     }
   };
 
@@ -264,6 +290,7 @@ add_new_account_submit.onclick = () => {
   add_new_type.value = "";
 
   updateFormButtons();
+  updateTableHeading();
 };
 
 /**
@@ -320,3 +347,4 @@ add_new_type.onchange = () => updateFormButtons();
 
 // Populate the table with the user's accounts.
 populate_table();
+updateTableHeading();
