@@ -7,6 +7,7 @@
 const fs = require("fs");
 const { createUser } = require("./users");
 const { createUserAccount } = require("./userAccounts");
+const { createCardEntry } = require("./cardEntry");
 const sqlite3 = require("sqlite3").verbose();
 
 // Delete the old database if it exists
@@ -50,15 +51,26 @@ Promise.all(promises).then(() => {
   ];
 
   // Wait for all promises to resolve
-  Promise.all(promises)
-    .then(() => {
-      console.log("Done!");
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-    .finally(() => {
-      db.close();
-      process.exit(0);
-    });
+  Promise.all(promises).then(() => {
+    // Card entry data to seed the database with
+    const promises = [
+      createCardEntry("1234567890", 1),
+      createCardEntry("1234567890", 3),
+      createCardEntry("0987654321", 5),
+      createCardEntry("0987654321", 6),
+    ];
+
+    // Wait for all promises to resolve
+    Promise.all(promises)
+      .then(() => {
+        console.log("Done!");
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        db.close();
+        process.exit(0);
+      });
+  });
 });

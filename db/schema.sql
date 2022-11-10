@@ -18,7 +18,7 @@ CREATE TABLE "user_accounts" (
 	PRIMARY KEY("id" AUTOINCREMENT)
 );
 
-CREATE TABLE "card_entry" (
+CREATE TABLE "card_entries" (
 	"id"	INTEGER NOT NULL UNIQUE,
 	"uuid"	TEXT NOT NULL,
 	"user_account_id"	INTEGER NOT NULL,

@@ -1,28 +1,18 @@
 // Functions for manipulating the card_entry table.
 const knex = require("./knex");
-const { getUserAccounts } = require("./userAccounts");
 
 /**
  *
  * Attempts to create a new card_entry in the database.
  *
- * @param {string} uuid Id of an instance of a user account
- * @param {integer} user_account_id Id of an instance of a user
+ * @param {string} uuid UUID of the card_entry to create.
+ * @param {integer} user_account_id ID of the user_account to add.
  * @returns {Promise<object | null>} Promise of the card_entry object if
  * the card_entry was successfully created, or null if the card_entry
  * could not be created.
  */
 const createCardEntry = async (uuid, user_account_id) => {
-  // Label and value must be non-empty strings, and type must be 0 or 1
-  if (
-    label.length < 1 ||
-    value.length < 1 ||
-    (type !== "0" && type !== "1" && type !== 0 && type !== 1)
-  ) {
-    return null;
-  }
-
-  // Insert the new user account into the database using the user's ID.
+  // Insert the new card_entry into the database using the uud and user_account_id.
   const result = await knex("card_entries")
     .insert(
       {
@@ -40,18 +30,18 @@ const createCardEntry = async (uuid, user_account_id) => {
 
 /**
  *
- * Attempts to find all card_entries for a given user.
+ * Attempts to find all card_entries for a given uuid.
  *
- * @param {integer} user_account_id Id of an instance of a user.
+ * @param {string} uuid UUID of the card_entry to find.
  * @returns {Promise<object[] | null>} Promise of the card_entries objects if
  * the card_entries were successfully found, or null if the card_entries
  * could not be found.
  */
-const getCardEntries = async (user_account_id) => {
+const getCardEntries = async (uuid) => {
   // Find all card_entries associated with the user's account ID.
   const result = await knex("card_entries")
     .select("*")
-    .where("user_account_id", user_account_id)
+    .where("uuid", uuid)
     .catch((err) => {
       console.log(err);
     });
@@ -61,32 +51,11 @@ const getCardEntries = async (user_account_id) => {
 
 /**
  *
- * Attempts to find a the user_account id, and id for a given uuid.
- *
- * @param {string} uuid Id of an instance of a user account.
- * @returns {Promise<object | null>} Promise of the card_entries object if
- * the card_entries was successfully found, or null if the card_entries
- * could not be found.
- */
-const getCardInfo = async (uuid) => {
-  // Find the user_account with the given ID.
-  const result = await knex("card_entroes")
-    .select("*")
-    .where("uuid", uuid)
-    .catch((err) => {
-      console.log(err);
-    });
-
-  return result && result[0] ? result[0] : null;
-};
-
-/**
- *
  * Attempts to update a card_entry in the database.
  *
  * @param {number} id The ID of the card_entry to update.
- * @param {string} uuid Id of an instance of a user account
- * @param {integer} user_account_id Id of an instance of a user
+ * @param {string} uuid The new UUID of the card_entry.
+ * @param {integer} user_account_id The new user_account_id of the card_entry.
  * @returns {Promise<boolean>} Promise of true if the card_entry was
  * successfully updated, or false if the card_entry could not be updated.
  */
@@ -131,7 +100,6 @@ const deleteCardEntry = async (id) => {
 module.exports = {
   createCardEntry,
   getCardEntries,
-  getCardInfo,
   updateCardEntry,
   deleteCardEntry,
 };
