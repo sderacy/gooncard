@@ -2,6 +2,31 @@
  * Globals
  */
 
+.dark-mode {
+  background: rgb(38, 38, 38);
+  background: radial-gradient(
+    circle,
+    rgba(38, 38, 38, 1) 0%,
+    rgba(0, 0, 0, 1) 100%
+  );
+}
+
+.dark-mode .text-warning {
+  color: #FFC107;
+}
+
+.dark-mode .text-warning {
+  color: #FFFFFF;
+}
+
+.light-mode {
+  background: rgb(255,255,255);
+  background: radial-gradient(
+    circle,
+    rgba(255,255,255,1) 0%, 
+    rgba(0,0,0,1) 100%);
+}
+
 /* Custom default button */
 .btn-secondary,
 .btn-secondary:hover,
@@ -16,12 +41,6 @@
 
 body {
   text-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, 0.5);
-  background: rgb(38, 38, 38);
-  background: radial-gradient(
-    circle,
-    rgba(38, 38, 38, 1) 0%,
-    rgba(0, 0, 0, 1) 100%
-  );
 }
 
 .cover-container {
