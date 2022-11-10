@@ -102,6 +102,8 @@ Below are some accessibility features and concerns that the application has.
 ### `account/login` Routes
 
 - `GET /account/login` - Loads the login page, passing it an error that can be optionally displayed.
+- `GET /account/login/style` - Serves the login page's stylesheet.
+- `GET /account/login/main` - Serves the login page's JavaScript.
 - `POST /account/login` - Attempts to log the user in. If successful, redirects to the home page. If unsuccessful, redirects to the login page with an error message. Used in form submission.
 
 ### `account/logout` Routes
@@ -111,16 +113,40 @@ Below are some accessibility features and concerns that the application has.
 ### `account/signup` Routes
 
 - `GET /account/signup`- Loads the signup page, passing it an error that can be optinally displayed.
+- `GET /account/signup/style` - Serves the signup page's stylesheet.
+- `GET /account/signup/main` - Serves the signup page's JavaScript.
 - `POST /account/signup` - Attempts to create a new user. If successful, redirects to the home page. If unsuccessful, redirects to the signup page with an error message. Used in form submission.
 
 ### `account/profile` Routes
 
+- `GET /account/profile` - Loads the profile page, passing it the user object for displaying information about the user.
+- `GET /account/profile/style` - Serves the profile page's stylesheet.
+- `GET /account/profile/main` - Serves the profile page's JavaScript.
 - `GET /account/profile/getsettings` - Returns the users selected settings
+- `GET /account/profile/getall` - Returns all the user_accounts associated with the user or null if the user has no accounts.
+- `POST /account/profile/update` - Updates the user's settings. Used in form submission.
 
 ### `account/settings` Routes
 
-### `account/aboutus` Routes
+- `GET /account/settings` - Loads the settings page, passing it the user object for displaying information about the user.
+- `GET /account/settings/style` - Serves the settings page's stylesheet.
+- `GET /account/settings/main` - Serves the settings page's JavaScript.
+- `GET /account/settings/update` - Updates the user's settings. Used in form submission.
 
-### `account/displaycard` Routes
+### `aboutus` Routes
 
-### `account/notfound` Routes
+- `GET /aboutus` - Loads the about us page if logged in, otherwise redirects to the login page.
+- `GET /aboutus/style` - Serves the about us page's stylesheet.
+- `GET /aboutus/main` - Serves the about us page's JavaScript.
+
+### `displaycard` Routes
+
+- `GET /displaycard` - Loads the page to display a single GOON card. Requires the query parameter `id` to be set to the ID of the card to display. If the card does not exist, the user is redirected to the 404 page.
+- `GET /displaycard/style` - Serves the display card page's stylesheet.
+- `GET /displaycard/main` - Serves the display card page's JavaScript.
+
+### `notfound` Routes
+
+- `GET /notfound` - Loads the 404 page. This page should only be directed to if the user tries accessing a GOON card that does not exist.
+- `GET /notfound/style` - Serves the 404 page's stylesheet.
+- `GET /notfound/main` - Serves the 404 page's JavaScript.
