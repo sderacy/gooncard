@@ -87,20 +87,19 @@ let onGenerateSubmit = async function (e) {
       body: JSON.stringify({ ids: toggles }),
     })
   ).json();
-  console.log(uuid);
 
+  // Get the address of the server.
   const siteAddress = await (
     await fetch("/home/siteaddress", {
       method: "GET",
     })
   ).json();
-  console.log(siteAddress);
 
   // Clear the div's contents
   qrcode_div.innerHTML = "";
 
-  // Create the QR code using the google charts api
-  let url = `http://${siteAddress}/home/generate?${uuid}`;
+  // Create the QR code using the google charts api and the uuid.
+  const url = `http://${siteAddress}/displaycard?id=${uuid}`;
   let qrcode = document.createElement("img");
   let qrcode_url = new URL("https://chart.googleapis.com/chart?");
   qrcode_url.searchParams.append("chs", size.value);
@@ -112,6 +111,9 @@ let onGenerateSubmit = async function (e) {
 
   // Append the QR Code inside the qrcode div
   qrcode_div.appendChild(qrcode);
+
+  console.log(url);
+  alert(url);
 };
 
 qrcode_submit.onclick = onGenerateSubmit;
