@@ -56,6 +56,15 @@ else {
   main.style.display = "block";
 }
 
+// See if the submit button should be enabled.
+function check_toggles(num_toggles) {
+  if (num_toggles === 0) {
+    qrcode_submit.disabled = true;
+  } else {
+    qrcode_submit.disabled = false;
+  }
+}
+
 // Need to maintain the checked state of the toggle buttons.
 let toggles = [];
 let toggle_switch_elements = [];
@@ -84,13 +93,8 @@ for (let i = 0; i < labels.length; i++) {
       toggles = toggles.filter((id) => id != parseInt(this.id));
       num_toggled_elements -= 1;
     }
-
-    // See if the submit button should be enabled.
-    if (toggles.length === 0) {
-      qrcode_submit.disabled = true;
-    } else {
-      qrcode_submit.disabled = false;
-    }
+    
+    check_toggles(toggles.length)
   };
 
   let toggle_label = document.createElement("label");
@@ -143,6 +147,9 @@ all_btn.onclick = function () {
   } else {
     turn_all_switches_on();
   }
+
+  check_toggles(num_toggled_elements)
+
 };
 
 /**
