@@ -42,40 +42,82 @@ options.theme.forEach((option) => {
   selectTheme.appendChild(optionElement);
 });
 
-// Set the correct checked radio button for the contrast option.
+// Store references to useful input fields.
+let save_changes = document.getElementById("save-changes");
+let cancel_changes = document.getElementById("cancel-changes");
 let highContrast = document.getElementById("highContrast");
 let lowContrast = document.getElementById("lowContrast");
+
+// Set and store the default settings in the DOM.
+let originalFirstName = document.getElementById("editFirstName").value;
+let originalLastName = document.getElementById("editLastName").value;
+document.getElementById("editFontSize").value = settings.font_size;
+document.getElementById("editFontFamily").value = settings.font_family;
+document.getElementById("editTheme").value = settings.theme;
 if (settings.contrast === "High") {
   highContrast.checked = true;
 } else {
   lowContrast.checked = true;
 }
 
-// Set the default settings in the DOM.
-document.getElementById("editFontSize").value = settings.font_size;
-document.getElementById("editFontFamily").value = settings.font_family;
-document.getElementById("editTheme").value = settings.theme;
+/**
+ * Function to be run whenever any user input is detected. This method ensures
+ * that all buttons on the page are either enabled or disabled as appropriate.
+ */
+const updateFormButtons = () => {
+  // Default status of the buttons.
+  let submitDisabled = true;
+  let cancelDisabled = true;
 
-// Determine if the user can save their settings.
-const canSubmit = () => {
-  // Get the values of the first and last name fields
+  // If any of the input fields have changed, enable both buttons.
+  if (
+    document.getElementById("editFirstName").value !== originalFirstName ||
+    document.getElementById("editLastName").value !== originalLastName ||
+    document.getElementById("editFontSize").value !== settings.font_size ||
+    document.getElementById("editFontFamily").value !== settings.font_family ||
+    document.getElementById("editTheme").value !== settings.theme ||
+    document.getElementById("highContrast").checked !==
+      (settings.contrast === "High")
+  ) {
+    submitDisabled = false;
+    cancelDisabled = false;
+  } else {
+    // If the input fields have not changed, disable the submit and cancel buttons.
+    submitDisabled = true;
+    cancelDisabled = true;
+  }
+
+  // If any text boxes are empty, disable the submit button.
   var firstName = document.getElementById("editFirstName").value;
   var lastName = document.getElementById("editLastName").value;
+  if (firstName === "" || lastName === "") {
+    submitDisabled = true;
+  }
 
-  // First and last name must be at least 1 character long
-  return firstName.length > 0 && lastName.length > 0;
+  // Set the state of the buttons accordingly.
+  save_changes.disabled = submitDisabled;
+  cancel_changes.disabled = cancelDisabled;
 };
 
-const checkSubmit = () => {
-  if (canSubmit()) {
-    document.getElementById("submit").disabled = false;
-  } else {
-    document.getElementById("submit").disabled = true;
+/**
+ * When the user clicks on the cancel button, the page is reloaded after confirmation
+ * in order to reset the user's account changes since the last save.
+ */
+cancel_changes.onclick = () => {
+  if (
+    confirm(
+      "Are you sure you want to cancel? All changes since your last save will be lost."
+    )
+  ) {
+    location.reload();
   }
 };
 
-// Should check if the user can log in when the document loads
-checkSubmit();
-
-// Add a keyup event listener for the document
-document.addEventListener("keyup", checkSubmit);
+// Add event listeners to the input fields.
+document.getElementById("editFirstName").oninput = updateFormButtons;
+document.getElementById("editLastName").oninput = updateFormButtons;
+document.getElementById("editFontSize").onchange = updateFormButtons;
+document.getElementById("editFontFamily").onchange = updateFormButtons;
+document.getElementById("editTheme").onchange = updateFormButtons;
+document.getElementById("highContrast").onchange = updateFormButtons;
+document.getElementById("lowContrast").onchange = updateFormButtons;
