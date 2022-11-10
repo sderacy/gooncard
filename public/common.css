@@ -24,17 +24,19 @@
 }
 
 .light-mode .text-warning {
-  color: #000000!important;
+  color: #000000 !important;
 }
 
 .light-mode .text-white {
-  color: #333333!important;
+  color: #333333 !important;
 }
 
 .light-mode .nav-link {
-  color: #000000!important;
+  color: #000000 !important;
 }
 
+.light-mode .btn-warning {
+}
 
 /* Custom default button */
 .btn-secondary,
