@@ -16,6 +16,23 @@ fetch("/account/profile/getsettings", { method: "GET" })
     );
     htmlElement.style.fontSize = settings.font_size;
 
+    const div = document.getElementById("body"); // Get element from DOM
+    if (settings.theme === "Light Theme") {
+      div.classList.remove("dark-mode");
+      div.classList.remove("bg-dark");
+      div.classList.remove("text-white");
+      div.classList.remove("navbar-dark");
+      div.classList.add("light-mode");
+      div.classList.add("text-primary");
+    } else{
+      div.classList.add("dark-mode");
+      div.classList.add("bg-dark");
+      div.classList.add("text-white");
+      div.classList.add("navbar-dark");
+      div.classList.remove("light-mode");
+      div.classList.remove("text-primary");
+    }
+
     // Set and store the default settings in the DOM.
     document.getElementById("editFontSize").value = settings.font_size;
     document.getElementById("editFontFamily").value = settings.font_family;

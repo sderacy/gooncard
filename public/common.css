@@ -12,20 +12,29 @@
 }
 
 .dark-mode .text-warning {
-  color: #FFC107;
+  color: #ffc107;
 }
 
-.dark-mode .text-warning {
-  color: #FFFFFF;
+.dark-mode .text-white {
+  color: #ffffff;
 }
 
 .light-mode {
-  background: rgb(255,255,255);
-  background: radial-gradient(
-    circle,
-    rgba(255,255,255,1) 0%, 
-    rgba(0,0,0,1) 100%);
+  background: rgb(255, 255, 255);
 }
+
+.light-mode .text-warning {
+  color: #000000!important;
+}
+
+.light-mode .text-white {
+  color: #333333!important;
+}
+
+.light-mode .nav-link {
+  color: #000000!important;
+}
+
 
 /* Custom default button */
 .btn-secondary,
