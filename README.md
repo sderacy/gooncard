@@ -115,7 +115,7 @@ Below are some accessibility features and concerns that the application has.
 
 ### `account/profile` Routes
 
-- 'GET /account/profile/getsettings' - Returns the users selected settings
+- `GET /account/profile/getsettings` - Returns the users selected settings
 
 ### `account/settings` Routes
 
