@@ -2,6 +2,7 @@ module.exports = function (app, path) {
   // Middleware that redirects to login page if user is not logged in
   const isLoggedIn = require("../util/middleware").isLoggedIn;
   const { getUserAccounts } = require("../db/userAccounts");
+  const { createCardEntry, getCardEntries } = require("../db/cardEntry");
   const { v4: uuidv4 } = require("uuid");
 
   /**
@@ -68,25 +69,31 @@ module.exports = function (app, path) {
       // Generate a UUID.
       uuid = uuidv4();
 
-      /**
-       * TODO: Check if the UUID already exists in the database.
-       */
-      const hardCoded = false;
+      // Check if the UUID already exists in the database.
+      const exists = (await getCardEntries(uuid)) !== null;
 
       // If the UUID does not exist in the database, use it
-      if (!hardCoded) {
+      if (!exists) {
         generated = true;
       }
     }
 
     // Use the UUID to create new card_entries in the database.
+    const promises = [];
     submittedIds.forEach((id) => {
-      /**
-       * TODO: Create a new card_entry in the database.
-       */
+      promises.push(createCardEntry(uuid, id));
     });
 
-    // Finally, return the UUID.
-    res.json(uuid);
+    // Wait for all of the card_entries to be created.
+    Promise.all(promises)
+      .then((results) => {
+        // Successfully created all card_entries.
+        res.json(uuid);
+      })
+      .catch((err) => {
+        // Failed to create all card_entries.
+        console.log(err);
+        res.json(null);
+      });
   });
 };
