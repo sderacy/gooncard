@@ -24,12 +24,13 @@ fetch("/account/profile/getsettings", { method: "GET" })
       div.classList.remove("text-white");
       div.classList.remove("navbar-dark");
       div.classList.add("light-mode");
-      div.classList.add("text-primary");
+      div.classList.add("text-navy");
 
-      buttons.forEach(button => {
+      buttons.forEach((button) => {
         if (button.classList.contains("btn-warning")) {
           button.classList.remove("btn-warning");
           button.classList.add("btn-dark");
+          button.classList.add("bg-navy");
         }
       });
     } else {
@@ -38,11 +39,12 @@ fetch("/account/profile/getsettings", { method: "GET" })
       div.classList.add("text-white");
       div.classList.add("navbar-dark");
       div.classList.remove("light-mode");
-      div.classList.remove("text-primary");
+      div.classList.remove("text-navy");
 
-      buttons.forEach(button => {
+      buttons.forEach((button) => {
         if (button.classList.contains("btn-dark")) {
           button.classList.remove("btn-dark");
+          button.classList.remove("bg-navy");
           button.classList.add("btn-warning");
         }
       });

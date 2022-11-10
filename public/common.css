@@ -24,18 +24,28 @@
 }
 
 .light-mode .text-warning {
-  color: #000000 !important;
+  color: #2D2363 !important;
 }
 
-.light-mode .text-white {
-  color: #333333 !important;
+.light-mode .text-white .text-white-50{
+  color: #000000 !important;
 }
 
 .light-mode .nav-link {
-  color: #000000 !important;
+  color: #2D2363 !important;
 }
 
-.light-mode .btn-warning {
+.light-mode .form-check-input:checked {
+  background-color: #2D2363;
+  border-color: #2D2363;
+}
+
+.text-navy {
+  color: #2D2363 !important;
+}
+
+.bg-navy {
+  background-color: #2D2363 !important;
 }
 
 /* Custom default button */
