@@ -27,9 +27,14 @@
   color: #2d2363 !important;
 }
 
-#accounts-table {
+.dark-mode #accounts-table {
   margin: auto;
   color: white;
+}
+
+.dark-mode #accounts-table {
+  margin: auto;
+  color: #2d2363;
 }
 
 input {
