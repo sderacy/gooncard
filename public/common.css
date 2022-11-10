@@ -24,28 +24,38 @@
 }
 
 .light-mode .text-warning {
-  color: #2D2363 !important;
+  color: #2d2363 !important;
 }
 
-.light-mode .text-white .text-white-50{
+.light-mode .text-white .text-white-50 {
   color: #000000 !important;
 }
 
 .light-mode .nav-link {
-  color: #2D2363 !important;
+  color: #2d2363 !important;
 }
 
 .light-mode .form-check-input:checked {
-  background-color: #2D2363;
-  border-color: #2D2363;
+  background-color: #2d2363;
+  border-color: #2d2363;
+}
+
+.light-mode .form-control:focus {
+  outline: none !important;
+  border:1px solid #2d2363!important;
+  box-shadow: 0 0 10px #2d2363!important;
 }
 
 .text-navy {
-  color: #2D2363 !important;
+  color: #2d2363 !important;
 }
 
 .bg-navy {
-  background-color: #2D2363 !important;
+  background-color: #2d2363 !important;
+}
+
+.text-gold {
+  color: #b08f26;
 }
 
 /* Custom default button */
