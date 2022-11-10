@@ -7,11 +7,6 @@ let qrcode_submit = document.getElementById("qr-submit");
 let size = document.getElementById("size");
 let main = document.getElementById("main-content");
 
-// Fetch the user_accounts from the database.
-let user_accounts = await (
-  await fetch("/account/profile/getall", { method: "GET" })
-).json();
-
 // Make sure the settings are fetched.
 fetch("/account/profile/getsettings", { method: "GET" })
   .then((response) => response.json())
@@ -26,6 +21,11 @@ fetch("/account/profile/getsettings", { method: "GET" })
   .catch((error) => {
     console.error(error);
   });
+
+// Fetch the user_accounts from the database.
+let user_accounts = await (
+  await fetch("/account/profile/getall", { method: "GET" })
+).json();
 
 // Store the labels, values, types, and ids into separate arrays.
 let labels = [];
@@ -162,7 +162,7 @@ let onGenerateSubmit = async function (e) {
   e.preventDefault();
 
   // Call the /home/generate endpoint with the toggles array.
-  const uuid = await (
+  const url = await (
     await fetch("/home/generate", {
       method: "POST",
       headers: {
@@ -172,18 +172,10 @@ let onGenerateSubmit = async function (e) {
     })
   ).json();
 
-  // Get the address of the server.
-  const siteAddress = await (
-    await fetch("/home/siteaddress", {
-      method: "GET",
-    })
-  ).json();
-
   // Clear the div's contents
   qrcode_div.innerHTML = "";
 
   // Create the QR code using the google charts api and the uuid.
-  const url = `http://${siteAddress}/displaycard?id=${uuid}`;
   let qrcode = document.createElement("img");
   let qrcode_url = new URL("https://chart.googleapis.com/chart?");
   qrcode_url.searchParams.append("chs", size.value);

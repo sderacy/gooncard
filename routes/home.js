@@ -37,15 +37,6 @@ module.exports = function (app, path, address, port) {
   });
 
   /**
-   * GET /home/siteaddress
-   *
-   * Returns the address of the server.
-   */
-  app.get("/home/siteaddress", (req, res) => {
-    res.json(`${address}:${port}`);
-  });
-
-  /**
    * POST /home/generate
    *
    * Generates a UUID for the user's new Goon Card.
@@ -97,7 +88,7 @@ module.exports = function (app, path, address, port) {
     Promise.all(promises)
       .then((results) => {
         // Successfully created all card_entries.
-        res.json(uuid);
+        res.json(`http://${address}:${port}/displaycard?id=${uuid}`);
       })
       .catch((err) => {
         // Failed to create all card_entries.
