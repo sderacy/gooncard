@@ -113,7 +113,7 @@ Below are some accessibility features and concerns that the application has.
 - `GET /account/signup`- Loads the signup page, passing it an error that can be optinally displayed.
 - `POST /account/signup` - Attempts to create a new user. If successful, redirects to the home page. If unsuccessful, redirects to the signup page with an error message. Used in form submission.
 
-### 'account/profile' Routes
+### `account/profile` Routes
 
 - 'GET /account/profile/getsettings' - Returns the users selected settings
 
