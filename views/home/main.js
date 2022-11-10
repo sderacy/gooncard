@@ -1,7 +1,11 @@
+let casual_btn = document.getElementById("casual-btn");
+let professional_btn = document.getElementById("professional-btn");
+let all_btn = document.getElementById("all-btn");
 let toggles_div = document.getElementById("toggles-div");
 let qrcode_div = document.getElementById("qrcode-div");
 let qrcode_submit = document.getElementById("qr-submit");
 let size = document.getElementById("size");
+let main = document.getElementById("main-content");
 
 // Fetch the user_accounts from the database.
 let user_accounts = await (
@@ -25,6 +29,8 @@ let labels = [];
 let values = [];
 let types = [];
 let ids = [];
+
+// If the user has at least one account, display the main content normally.
 if (user_accounts) {
   user_accounts.forEach((account) => {
     labels.push(account.label);
@@ -32,10 +38,28 @@ if (user_accounts) {
     types.push(account.type);
     ids.push(account.id);
   });
+  main.style.display = "block";
+}
+
+// If the user does not have any accounts, replace main content with a message.
+else {
+  document.getElementById("main-content").innerHTML = `
+    <div class="container p-5 mt-5">
+      <div class="row p-5 mt-5">
+        <div class="col-12">
+          <h2 class="text-center">You have no accounts!</h3>
+          <h3 class="text-center">Click <a class="text-warning" href="/account/profile">here</a> to add an account.</h3>
+        </div>
+      </div>
+    </div>
+  `;
+  main.style.display = "block";
 }
 
 // Need to maintain the checked state of the toggle buttons.
 let toggles = [];
+let toggle_switch_elements = [];
+let num_toggled_elements = 0;
 
 for (let i = 0; i < labels.length; i++) {
   let toggle_div = document.createElement("div");
@@ -46,6 +70,7 @@ for (let i = 0; i < labels.length; i++) {
   toggle.type = "checkbox";
   toggle.role = "switch";
   toggle.id = ids[i];
+  toggle_switch_elements.push(toggle);
 
   /**
    * Keeps track of the activated accounts.
@@ -54,8 +79,10 @@ for (let i = 0; i < labels.length; i++) {
   toggle.onchange = function () {
     if (this.checked) {
       toggles.push(parseInt(this.id));
+      num_toggled_elements += 1;
     } else {
       toggles = toggles.filter((id) => id != parseInt(this.id));
+      num_toggled_elements -= 1;
     }
 
     // See if the submit button should be enabled.
@@ -75,6 +102,48 @@ for (let i = 0; i < labels.length; i++) {
   toggle_div.appendChild(toggle_label);
   toggles_div.appendChild(toggle_div);
 }
+
+function toggle_switches(account_type) {
+  num_toggled_elements = 0;
+  for (let i = 0; i < types.length; i++) {
+    if (types[i] == account_type) {
+      toggle_switch_elements[i].click();
+    }
+
+    if (toggle_switch_elements.checked == true) {
+      num_toggled_elements += 1;
+    }
+  }
+}
+
+casual_btn.onclick = function () {
+  toggle_switches(0);
+};
+professional_btn.onclick = function () {
+  toggle_switches(1);
+};
+
+function turn_all_switches_on() {
+  for (let i = 0; i < toggle_switch_elements.length; i++) {
+    toggle_switch_elements[i].checked = true;
+  }
+  num_toggled_elements = toggle_switch_elements.length;
+}
+
+function turn_all_switches_off() {
+  for (let i = 0; i < toggle_switch_elements.length; i++) {
+    toggle_switch_elements[i].checked = false;
+  }
+  num_toggled_elements = 0;
+}
+
+all_btn.onclick = function () {
+  if (num_toggled_elements == toggle_switch_elements.length) {
+    turn_all_switches_off();
+  } else {
+    turn_all_switches_on();
+  }
+};
 
 /**
  * QR Code submission handler.
