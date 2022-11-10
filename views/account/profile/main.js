@@ -17,39 +17,46 @@ const add = [];
 const edit = [];
 const remove = [];
 
-// Fetch the settings from the database for the current user.
-const settings = await (
-  await fetch("/account/profile/getsettings", { method: "GET" })
-).json();
-
-// Apply the settings to the page.
-var htmlElement = document.getElementById("html");
-htmlElement.setAttribute(
-  "style",
-  "--bs-body-font-family: " + settings.font_family
-);
-htmlElement.style.fontSize = settings.font_size;
-
-// Fetch the user_accounts from the database.
-const user_accounts = await (
-  await fetch("/account/profile/getall", { method: "GET" })
-).json();
-
 // Store the labels, values, types, and ids into separate arrays.
 const labels = [];
 const values = [];
 const types = [];
 const ids = [];
 
-// If the user has at least one account, display the main content normally.
-if (user_accounts) {
-  user_accounts.forEach((account) => {
-    labels.push(account.label);
-    values.push(account.value);
-    types.push(account.type);
-    ids.push(account.id);
+// Make sure the settings are fetched.
+fetch("/account/profile/getsettings", { method: "GET" })
+  .then((response) => response.json())
+  .then((settings) => {
+    var htmlElement = document.getElementById("html");
+    htmlElement.setAttribute(
+      "style",
+      "--bs-body-font-family: " + settings.font_family
+    );
+    htmlElement.style.fontSize = settings.font_size;
+  })
+  .catch((error) => {
+    console.error(error);
   });
-}
+
+// Fetch the user_accounts from the database.
+fetch("/account/profile/getall", { method: "GET" })
+  .then((response) => response.json())
+  .then((user_accounts) => {
+    // If the user has at least one account, store the account data in the
+    // appropriate arrays.
+    if (user_accounts) {
+      user_accounts.forEach((account) => {
+        labels.push(account.label);
+        values.push(account.value);
+        types.push(account.type);
+        ids.push(account.id);
+      });
+    }
+
+    // Populate the table with the user's accounts.
+    populate_table();
+    updateTableHeading();
+  });
 
 /**
  * Function that returns a new dummy ID for a new account. Because new accounts
@@ -102,7 +109,10 @@ const updateFormButtons = () => {
   add_new_account_submit.disabled = addDisabled;
 };
 
-// If the user has no accounts, clear the table's headings.
+/**
+ * Clears the table heading and edit heading if the user has no accounts
+ * currently displayed on the page.
+ */
 const updateTableHeading = () => {
   // The current account total is the original minus the number of accounts
   // that have been deleted plus the number of accounts that have been added.
@@ -344,7 +354,3 @@ function populate_table() {
 add_new_label.oninput = () => updateFormButtons();
 add_new_value.oninput = () => updateFormButtons();
 add_new_type.onchange = () => updateFormButtons();
-
-// Populate the table with the user's accounts.
-populate_table();
-updateTableHeading();

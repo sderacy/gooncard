@@ -6,16 +6,78 @@ var options = {
 };
 
 // Make sure the settings are fetched.
-const settings = await (
-  await fetch("/account/profile/getsettings", { method: "GET" })
-).json();
+fetch("/account/profile/getsettings", { method: "GET" })
+  .then((response) => response.json())
+  .then((settings) => {
+    var htmlElement = document.getElementById("html");
+    htmlElement.setAttribute(
+      "style",
+      "--bs-body-font-family: " + settings.font_family
+    );
+    htmlElement.style.fontSize = settings.font_size;
 
-var htmlElement = document.getElementById("html");
-htmlElement.setAttribute(
-  "style",
-  "--bs-body-font-family: " + settings.font_family
-);
-htmlElement.style.fontSize = settings.font_size;
+    // Set and store the default settings in the DOM.
+    document.getElementById("editFontSize").value = settings.font_size;
+    document.getElementById("editFontFamily").value = settings.font_family;
+    document.getElementById("editTheme").value = settings.theme;
+    if (settings.contrast === "High") {
+      highContrast.checked = true;
+    } else {
+      lowContrast.checked = true;
+    }
+
+    /**
+     * Function to be run whenever any user input is detected. This method ensures
+     * that all buttons on the page are either enabled or disabled as appropriate.
+     */
+    const updateFormButtons = () => {
+      // Default status of the buttons.
+      let submitDisabled = true;
+      let cancelDisabled = true;
+
+      // If any of the input fields have changed, enable both buttons.
+      if (
+        document.getElementById("editFirstName").value !== originalFirstName ||
+        document.getElementById("editLastName").value !== originalLastName ||
+        document.getElementById("editFontSize").value !== settings.font_size ||
+        document.getElementById("editFontFamily").value !==
+          settings.font_family ||
+        document.getElementById("editTheme").value !== settings.theme ||
+        document.getElementById("highContrast").checked !==
+          (settings.contrast === "High")
+      ) {
+        submitDisabled = false;
+        cancelDisabled = false;
+      } else {
+        // If the input fields have not changed, disable the submit and cancel buttons.
+        submitDisabled = true;
+        cancelDisabled = true;
+      }
+
+      // If any text boxes are empty, disable the submit button.
+      var firstName = document.getElementById("editFirstName").value;
+      var lastName = document.getElementById("editLastName").value;
+      if (firstName === "" || lastName === "") {
+        submitDisabled = true;
+      }
+
+      // Set the state of the buttons accordingly.
+      save_changes.disabled = submitDisabled;
+      cancel_changes.disabled = cancelDisabled;
+    };
+
+    // Add event listeners to the input fields.
+    document.getElementById("editFirstName").oninput = updateFormButtons;
+    document.getElementById("editLastName").oninput = updateFormButtons;
+    document.getElementById("editFontSize").onchange = updateFormButtons;
+    document.getElementById("editFontFamily").onchange = updateFormButtons;
+    document.getElementById("editTheme").onchange = updateFormButtons;
+    document.getElementById("highContrast").onchange = updateFormButtons;
+    document.getElementById("lowContrast").onchange = updateFormButtons;
+  })
+  .catch((error) => {
+    console.error(error);
+  });
 
 // Add the options to the select elements.
 let selectFontSize = document.getElementById("editFontSize");
@@ -43,61 +105,13 @@ options.theme.forEach((option) => {
 });
 
 // Store references to useful input fields.
+let originalFirstName = document.getElementById("editFirstName").value;
+let originalLastName = document.getElementById("editLastName").value;
+
 let save_changes = document.getElementById("save-changes");
 let cancel_changes = document.getElementById("cancel-changes");
 let highContrast = document.getElementById("highContrast");
 let lowContrast = document.getElementById("lowContrast");
-
-// Set and store the default settings in the DOM.
-let originalFirstName = document.getElementById("editFirstName").value;
-let originalLastName = document.getElementById("editLastName").value;
-document.getElementById("editFontSize").value = settings.font_size;
-document.getElementById("editFontFamily").value = settings.font_family;
-document.getElementById("editTheme").value = settings.theme;
-if (settings.contrast === "High") {
-  highContrast.checked = true;
-} else {
-  lowContrast.checked = true;
-}
-
-/**
- * Function to be run whenever any user input is detected. This method ensures
- * that all buttons on the page are either enabled or disabled as appropriate.
- */
-const updateFormButtons = () => {
-  // Default status of the buttons.
-  let submitDisabled = true;
-  let cancelDisabled = true;
-
-  // If any of the input fields have changed, enable both buttons.
-  if (
-    document.getElementById("editFirstName").value !== originalFirstName ||
-    document.getElementById("editLastName").value !== originalLastName ||
-    document.getElementById("editFontSize").value !== settings.font_size ||
-    document.getElementById("editFontFamily").value !== settings.font_family ||
-    document.getElementById("editTheme").value !== settings.theme ||
-    document.getElementById("highContrast").checked !==
-      (settings.contrast === "High")
-  ) {
-    submitDisabled = false;
-    cancelDisabled = false;
-  } else {
-    // If the input fields have not changed, disable the submit and cancel buttons.
-    submitDisabled = true;
-    cancelDisabled = true;
-  }
-
-  // If any text boxes are empty, disable the submit button.
-  var firstName = document.getElementById("editFirstName").value;
-  var lastName = document.getElementById("editLastName").value;
-  if (firstName === "" || lastName === "") {
-    submitDisabled = true;
-  }
-
-  // Set the state of the buttons accordingly.
-  save_changes.disabled = submitDisabled;
-  cancel_changes.disabled = cancelDisabled;
-};
 
 /**
  * When the user clicks on the cancel button, the page is reloaded after confirmation
@@ -112,12 +126,3 @@ cancel_changes.onclick = () => {
     location.reload();
   }
 };
-
-// Add event listeners to the input fields.
-document.getElementById("editFirstName").oninput = updateFormButtons;
-document.getElementById("editLastName").oninput = updateFormButtons;
-document.getElementById("editFontSize").onchange = updateFormButtons;
-document.getElementById("editFontFamily").onchange = updateFormButtons;
-document.getElementById("editTheme").onchange = updateFormButtons;
-document.getElementById("highContrast").onchange = updateFormButtons;
-document.getElementById("lowContrast").onchange = updateFormButtons;
