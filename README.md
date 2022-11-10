@@ -56,6 +56,10 @@ If you get a message about files being modified and changing from LF to CLF for 
 - `GET /account/signup`- Loads the signup page, passing it an error that can be optinally displayed.
 - `POST /account/signup` - Attempts to create a new user. If successful, redirects to the home page. If unsuccessful, redirects to the signup page with an error message. Used in form submission.
 
+#### 'account/profile' Routes
+
+- 'Get /account/profile/getsettings' - Returns the users selected settings
+
 ## -- Database --
 
 ### Database Schema
