@@ -53,9 +53,9 @@ for (let i = 0; i < labels.length; i++) {
    */
   toggle.onchange = function () {
     if (this.checked) {
-      toggles.push(this.id);
+      toggles.push(parseInt(this.id));
     } else {
-      toggles = toggles.filter((id) => id != this.id);
+      toggles = toggles.filter((id) => id != parseInt(this.id));
     }
     console.log(toggles);
   };
@@ -77,14 +77,30 @@ for (let i = 0; i < labels.length; i++) {
 let onGenerateSubmit = async function (e) {
   e.preventDefault();
 
-  // CALL THE GENERATE QR CODE API ENDPOINT WITH TOGGLES ARRAY
-  // DISPLAY THE RESPONDED QR CODE IMAGE
+  // Call the /home/generate endpoint with the toggles array.
+  const uuid = await (
+    await fetch("/home/generate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ids: toggles }),
+    })
+  ).json();
+  console.log(uuid);
+
+  const siteAddress = await (
+    await fetch("/home/siteaddress", {
+      method: "GET",
+    })
+  ).json();
+  console.log(siteAddress);
 
   // Clear the div's contents
   qrcode_div.innerHTML = "";
 
   // Create the QR code using the google charts api
-  let url = "You toggled the following accounts: " + toggles.join(", ");
+  let url = `http://${siteAddress}/home/generate?${uuid}`;
   let qrcode = document.createElement("img");
   let qrcode_url = new URL("https://chart.googleapis.com/chart?");
   qrcode_url.searchParams.append("chs", size.value);

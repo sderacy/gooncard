@@ -1,4 +1,4 @@
-module.exports = function (app, path) {
+module.exports = function (app, path, address, port) {
   // Middleware that redirects to login page if user is not logged in
   const isLoggedIn = require("../util/middleware").isLoggedIn;
   const { getUserAccounts } = require("../db/userAccounts");
@@ -34,6 +34,15 @@ module.exports = function (app, path) {
    */
   app.get("/home/main", (req, res) => {
     res.sendFile(path + "/home/main.js");
+  });
+
+  /**
+   * GET /home/siteaddress
+   *
+   * Returns the address of the server.
+   */
+  app.get("/home/siteaddress", (req, res) => {
+    res.json(`${address}:${port}`);
   });
 
   /**
