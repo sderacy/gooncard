@@ -1,6 +1,6 @@
 let toggles_div = document.getElementById("toggles-div");
 let qrcode_div = document.getElementById("qrcode-div");
-let qrcode_submit = document.getElementById("qr_submit");
+let qrcode_submit = document.getElementById("qr-submit");
 let size = document.getElementById("size");
 
 // Fetch the user_accounts from the database.
@@ -57,7 +57,13 @@ for (let i = 0; i < labels.length; i++) {
     } else {
       toggles = toggles.filter((id) => id != parseInt(this.id));
     }
-    console.log(toggles);
+
+    // See if the submit button should be enabled.
+    if (toggles.length === 0) {
+      qrcode_submit.disabled = true;
+    } else {
+      qrcode_submit.disabled = false;
+    }
   };
 
   let toggle_label = document.createElement("label");
