@@ -132,7 +132,7 @@ professional_btn.onclick = function () {
 
 function turn_all_switches_on() {
   for (let i = 0; i < toggle_switch_elements.length; i++) {
-    toggle_switch_elements[i].checked = true;
+    toggle_switch_elements[i].click();
   }
   num_toggled_elements = toggle_switch_elements.length;
 }
