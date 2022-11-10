@@ -22,6 +22,6 @@ CREATE TABLE "card_entry" (
 	"id"	INTEGER NOT NULL UNIQUE,
 	"uuid"	TEXT NOT NULL,
 	"user_account_id"	INTEGER NOT NULL,
-	FOREIGN KEY("user_account_id") REFERENCES "users_accounts"("id"),
+	FOREIGN KEY("user_account_id") REFERENCES "user_accounts"("id"),
 	PRIMARY KEY("id" AUTOINCREMENT)
 );
