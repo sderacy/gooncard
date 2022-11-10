@@ -93,8 +93,8 @@ for (let i = 0; i < labels.length; i++) {
       toggles = toggles.filter((id) => id != parseInt(this.id));
       num_toggled_elements -= 1;
     }
-    
-    check_toggles(toggles.length)
+
+    check_toggles(toggles.length);
   };
 
   let toggle_label = document.createElement("label");
@@ -148,8 +148,7 @@ all_btn.onclick = function () {
     turn_all_switches_on();
   }
 
-  check_toggles(num_toggled_elements)
-
+  check_toggles(num_toggled_elements);
 };
 
 /**
