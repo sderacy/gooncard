@@ -17,18 +17,20 @@ const add = [];
 const edit = [];
 const remove = [];
 
-// Fetch the settings from the database for the current user.
-const settings = await (
-  await fetch("/account/profile/getsettings", { method: "GET" })
-).json();
-
-// Apply the settings to the page.
-var htmlElement = document.getElementById("html");
-htmlElement.setAttribute(
-  "style",
-  "--bs-body-font-family: " + settings.font_family
-);
-htmlElement.style.fontSize = settings.font_size;
+// Make sure the settings are fetched.
+fetch("/account/profile/getsettings", { method: "GET" })
+  .then((response) => response.json())
+  .then((settings) => {
+    var htmlElement = document.getElementById("html");
+    htmlElement.setAttribute(
+      "style",
+      "--bs-body-font-family: " + settings.font_family
+    );
+    htmlElement.style.fontSize = settings.font_size;
+  })
+  .catch((error) => {
+    console.error(error);
+  });
 
 // Fetch the user_accounts from the database.
 const user_accounts = await (

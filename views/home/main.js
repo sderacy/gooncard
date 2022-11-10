@@ -13,16 +13,19 @@ let user_accounts = await (
 ).json();
 
 // Make sure the settings are fetched.
-const settings = await (
-  await fetch("/account/profile/getsettings", { method: "GET" })
-).json();
-
-var htmlElement = document.getElementById("html");
-htmlElement.setAttribute(
-  "style",
-  "--bs-body-font-family: " + settings.font_family
-);
-htmlElement.style.fontSize = settings.font_size;
+fetch("/account/profile/getsettings", { method: "GET" })
+  .then((response) => response.json())
+  .then((settings) => {
+    var htmlElement = document.getElementById("html");
+    htmlElement.setAttribute(
+      "style",
+      "--bs-body-font-family: " + settings.font_family
+    );
+    htmlElement.style.fontSize = settings.font_size;
+  })
+  .catch((error) => {
+    console.error(error);
+  });
 
 // Store the labels, values, types, and ids into separate arrays.
 let labels = [];
