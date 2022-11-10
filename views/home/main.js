@@ -5,6 +5,7 @@ let toggles_div = document.getElementById("toggles-div");
 let qrcode_div = document.getElementById("qrcode-div");
 let qrcode_submit = document.getElementById("qr_submit");
 let size = document.getElementById("size");
+let main = document.getElementById("main-content");
 
 // Fetch the user_accounts from the database.
 let user_accounts = await (
@@ -28,6 +29,8 @@ let labels = [];
 let values = [];
 let types = [];
 let ids = [];
+
+// If the user has at least one account, display the main content normally.
 if (user_accounts) {
   user_accounts.forEach((account) => {
     labels.push(account.label);
@@ -35,6 +38,22 @@ if (user_accounts) {
     types.push(account.type);
     ids.push(account.id);
   });
+  main.style.display = "block";
+}
+
+// If the user does not have any accounts, replace main content with a message.
+else {
+  document.getElementById("main-content").innerHTML = `
+    <div class="container p-5 mt-5">
+      <div class="row p-5 mt-5">
+        <div class="col-12">
+          <h2 class="text-center">You have no accounts!</h3>
+          <h3 class="text-center">Click <a class="text-warning" href="/account/profile">here</a> to add an account.</h3>
+        </div>
+      </div>
+    </div>
+  `;
+  main.style.display = "block";
 }
 
 // Need to maintain the checked state of the toggle buttons.
