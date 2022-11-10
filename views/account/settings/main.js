@@ -17,7 +17,7 @@ fetch("/account/profile/getsettings", { method: "GET" })
     htmlElement.style.fontSize = settings.font_size;
 
     const div = document.getElementById("body"); // Get element from DOM
-    const buttons = document.querySelectorAll("btn");
+    const buttons = document.querySelectorAll(".btn");
     if (settings.theme === "Light Theme") {
       div.classList.remove("dark-mode");
       div.classList.remove("bg-dark");
@@ -26,7 +26,7 @@ fetch("/account/profile/getsettings", { method: "GET" })
       div.classList.add("light-mode");
       div.classList.add("text-primary");
 
-      buttons.forEach((button) => {
+      buttons.forEach(button => {
         if (button.classList.contains("btn-warning")) {
           button.classList.remove("btn-warning");
           button.classList.add("btn-dark");
@@ -40,7 +40,7 @@ fetch("/account/profile/getsettings", { method: "GET" })
       div.classList.remove("light-mode");
       div.classList.remove("text-primary");
 
-      buttons.forEach((button) => {
+      buttons.forEach(button => {
         if (button.classList.contains("btn-dark")) {
           button.classList.remove("btn-dark");
           button.classList.add("btn-warning");
