@@ -36,9 +36,14 @@ input {
   margin: auto;
 }
 
-.form-control:focus {
+.dark-mode .form-control:focus {
   border-color: #ffc107;
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px #ffc107;
+}
+
+.light-mode .form-select:focus {
+  border-color: #2d2363;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px #2d2363;
 }
 
 .inline-block-child {

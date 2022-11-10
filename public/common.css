@@ -35,6 +35,10 @@
   color: #2d2363 !important;
 }
 
+.light-mode .nav-link:hover {
+  color: #b08f26 !important;
+}
+
 .light-mode .form-check-input:checked {
   background-color: #2d2363;
   border-color: #2d2363;
