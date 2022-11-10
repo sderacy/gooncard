@@ -11,12 +11,13 @@ fetch("/account/profile/getsettings", { method: "GET" })
 
     const div = document.getElementById("body"); // Get element from DOM
     const contentDiv = document.getElementById("content-div");
+    const navBar = document.getElementById("nav");
     const buttons = document.querySelectorAll(".btn");
     if (settings.theme === "Light Theme") {
       div.classList.remove("dark-mode");
       div.classList.remove("bg-dark");
       div.classList.remove("text-white");
-      div.classList.remove("navbar-dark");
+      navBar.classList.remove("navbar-dark");
       div.classList.add("light-mode");
       div.classList.add("text-navy");
 
@@ -34,7 +35,7 @@ fetch("/account/profile/getsettings", { method: "GET" })
       div.classList.add("dark-mode");
       div.classList.add("bg-dark");
       div.classList.add("text-white");
-      div.classList.add("navbar-dark");
+      navBar.classList.add("navbar-dark");
       div.classList.remove("light-mode");
       div.classList.remove("text-navy");
 
