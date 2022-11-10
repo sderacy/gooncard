@@ -17,3 +17,11 @@ CREATE TABLE "user_accounts" (
 	FOREIGN KEY("user_id") REFERENCES "users"("id"),
 	PRIMARY KEY("id" AUTOINCREMENT)
 );
+
+CREATE TABLE "card_entries" (
+	"id"	INTEGER NOT NULL UNIQUE,
+	"uuid"	TEXT NOT NULL,
+	"user_account_id"	INTEGER NOT NULL,
+	FOREIGN KEY("user_account_id") REFERENCES "user_accounts"("id"),
+	PRIMARY KEY("id" AUTOINCREMENT)
+);
