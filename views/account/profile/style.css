@@ -32,7 +32,7 @@
   color: white;
 }
 
-.dark-mode #accounts-table {
+.light-mode #accounts-table {
   margin: auto;
   color: #2d2363;
 }
