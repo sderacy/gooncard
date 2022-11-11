@@ -140,7 +140,7 @@ function toggle_switches(account_type) {
  */
 function turn_all_switches_on() {
   for (let i = 0; i < toggle_switch_elements.length; i++) {
-    toggle_switch_elements[i].click();
+    toggle_switch_elements[i].checked = true;
   }
   num_toggled_elements = toggle_switch_elements.length;
 }
