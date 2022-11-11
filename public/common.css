@@ -4,11 +4,9 @@
 
 .dark-mode {
   background: rgb(38, 38, 38);
-  background: radial-gradient(
-    circle,
-    rgba(38, 38, 38, 1) 0%,
-    rgba(0, 0, 0, 1) 100%
-  );
+  background: radial-gradient(circle,
+      rgba(38, 38, 38, 1) 0%,
+      rgba(0, 0, 0, 1) 100%);
 }
 
 .dark-mode .text-warning {
@@ -37,6 +35,10 @@
 }
 
 .light-mode .text-warning {
+  color: #2d2363;
+}
+
+.light-mode footer .text-warning {
   color: #2d2363 !important;
 }
 
@@ -45,7 +47,7 @@
 }
 
 .light-mode .nav-link {
-  color: #2d2363 !important;
+  color: #2d2363;
 }
 
 .light-mode .nav-link:hover {
@@ -89,7 +91,8 @@
 .btn-secondary:hover,
 .btn-secondary:focus {
   color: #333;
-  text-shadow: none; /* Prevent inheritance from `body` */
+  text-shadow: none;
+  /* Prevent inheritance from `body` */
 }
 
 /*
@@ -110,13 +113,13 @@ body {
 
 /* Dropdown menu background color*/
 
-.navbar-nav > li > .dropdown-menu {
+.navbar-nav>li>.dropdown-menu {
   background-color: #212529;
 }
 
 /* Dropdown menu font color*/
 
-.navbar-nav > li > .dropdown-menu a {
+.navbar-nav>li>.dropdown-menu a {
   color: #fff;
 }
 
@@ -144,7 +147,8 @@ body {
 }
 
 #content-wrap {
-  padding-bottom: 2.5rem; /* Footer height */
+  padding-bottom: 2.5rem;
+  /* Footer height */
 }
 
 footer {
@@ -152,5 +156,6 @@ footer {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 2.5rem; /* Footer height */
+  height: 2.5rem;
+  /* Footer height */
 }

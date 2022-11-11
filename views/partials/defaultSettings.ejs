@@ -37,7 +37,7 @@
     });
 
     contrastDivs.forEach((contrastDiv) => {
-      if (contrast == "High") {
+      if (settings.contrast == "High") {
         contrastDiv.classList.add("high-contrast-light");
         navLinks.forEach((navLink) => {
           navLink.classList.add("high-contrast-light");
@@ -68,7 +68,7 @@
     });
 
     contrastDivs.forEach((contrastDiv) => {
-      if (contrast == "High") {
+      if (settings.contrast == "High") {
         contrastDiv.classList.add("high-contrast-dark");
         navLinks.forEach((navLink) => {
           navLink.classList.add("high-contrast-dark");
