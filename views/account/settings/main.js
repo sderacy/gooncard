@@ -146,6 +146,8 @@ const displayChanges = (fontSize, fontFamily, theme, contrast) => {
   const div = document.getElementById("body"); // Get element from DOM
   const navBar = document.getElementById("nav");
   const buttons = document.querySelectorAll(".btn");
+  const contrastDivs = document.querySelectorAll(".contrast");
+  const navLinks = document.querySelectorAll(".nav-link");
   if (theme === "Light Theme") {
     div.classList.remove("dark-mode");
     div.classList.remove("bg-dark");
@@ -162,6 +164,20 @@ const displayChanges = (fontSize, fontFamily, theme, contrast) => {
         button.classList.add("bg-navy");
       }
     });
+
+    contrastDivs.forEach((contrastDiv) => {
+      if (contrast == "High") {
+        contrastDiv.classList.add("high-contrast-light");
+        navLinks.forEach((navLink) => {
+          navLink.classList.add("high-contrast-light");
+        });
+      } else {
+        contrastDiv.classList.remove("high-contrast-light");
+        navLinks.forEach((navLink) => {
+          navLink.classList.remove("high-contrast-light");
+        });
+      }
+    });
   } else {
     div.classList.add("dark-mode");
     div.classList.add("bg-dark");
@@ -176,6 +192,20 @@ const displayChanges = (fontSize, fontFamily, theme, contrast) => {
         button.classList.remove("btn-dark");
         button.classList.remove("bg-navy");
         button.classList.add("btn-warning");
+      }
+    });
+
+    contrastDivs.forEach((contrastDiv) => {
+      if (contrast == "High") {
+        contrastDiv.classList.add("high-contrast-dark");
+        navLinks.forEach((navLink) => {
+          navLink.classList.add("high-contrast-dark");
+        });
+      } else {
+        contrastDiv.classList.remove("high-contrast-dark");
+        navLinks.forEach((navLink) => {
+          navLink.classList.remove("high-contrast-dark");
+        });
       }
     });
   }

@@ -20,11 +20,16 @@
 }
 
 .dark-mode .nav-link {
-  color: #ffc107 !important;
+  color: #ffc107;
 }
 
 .dark-mode .nav-link:hover {
   color: #afafaf !important;
+}
+
+.high-contrast-dark {
+  background-color: #ffc107 !important;
+  color: #000000 !important;
 }
 
 .light-mode {
@@ -58,12 +63,21 @@
   box-shadow: 0 0 10px #2d2363 !important;
 }
 
+.high-contrast-light {
+  background-color: #2d2363 !important;
+  color: #ffffff !important;
+}
+
 .text-navy {
   color: #2d2363 !important;
 }
 
 .bg-navy {
   background-color: #2d2363 !important;
+}
+
+.bg-gold {
+  background-color: #b08f26 !important;
 }
 
 .text-gold {
