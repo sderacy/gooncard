@@ -11,7 +11,6 @@ let main = document.getElementById("main-content");
 // Need to maintain the checked state of the toggle buttons.
 let toggles = [];
 let toggle_switch_elements = [];
-let num_toggled_elements = 0;
 
 // Store the labels, values, types, and ids into separate arrays.
 const labels = [];
@@ -70,10 +69,9 @@ fetch("/account/profile/getall", { method: "GET" })
 
 /**
  * Disables submit button if no toggles are selected.
- * @param {number} num_toggles Number of toggled accounts.
  */
-function check_toggles(num_toggles) {
-  qrcode_submit.disabled = num_toggles == 0;
+function check_toggles() {
+  qrcode_submit.disabled = toggles.length == 0;
 }
 
 /**
@@ -81,6 +79,7 @@ function check_toggles(num_toggles) {
  */
 const populatePage = function () {
   for (let i = 0; i < labels.length; i++) {
+    // Create the toggle switch and append it to the toggles div.
     let toggle_div = document.createElement("div");
     toggle_div.classList.add("form-check", "form-switch", "form-switch-xl");
 
@@ -91,22 +90,6 @@ const populatePage = function () {
     toggle.id = ids[i];
     toggle_switch_elements.push(toggle);
 
-    /**
-     * Keeps track of the activated accounts.
-     * Stores the account ID in the 'toggles' array.
-     */
-    toggle.onchange = function () {
-      if (this.checked) {
-        toggles.push(parseInt(this.id));
-        num_toggled_elements += 1;
-      } else {
-        toggles = toggles.filter((id) => id != parseInt(this.id));
-        num_toggled_elements -= 1;
-      }
-
-      check_toggles(toggles.length);
-    };
-
     let toggle_label = document.createElement("label");
     toggle_label.classList.add("form-check-label", "col-4");
     toggle_label.for = ids[i];
@@ -115,34 +98,52 @@ const populatePage = function () {
     toggle_div.appendChild(toggle);
     toggle_div.appendChild(toggle_label);
     toggles_div.appendChild(toggle_div);
+
+    /**
+     * Keeps track of the activated accounts.
+     * Stores the account ID in the 'toggles' array.
+     */
+    toggle.onchange = function () {
+      if (this.checked) {
+        toggles.push(parseInt(this.id));
+      } else {
+        toggles = toggles.filter((id) => id != parseInt(this.id));
+      }
+
+      check_toggles();
+    };
   }
 };
 
 /**
  * Toggles the switches based on the type of account.
- * @param {*} account_type The type of account to toggle.
+ * @param {number} account_type The type of account to toggle.
  */
 function toggle_switches(account_type) {
-  num_toggled_elements = 0;
-  for (let i = 0; i < types.length; i++) {
-    if (types[i] == account_type) {
-      toggle_switch_elements[i].click();
+  toggle_switch_elements.forEach((toggle, index) => {
+    // Only toggle the account if it is the correct type.
+    if (types[index] == account_type) {
+      // Need to check/uncheck AND add/remove from toggles array.
+      if (toggle.checked) {
+        toggle.checked = false;
+        toggles = toggles.filter((id) => id != parseInt(toggle.id));
+      } else {
+        toggle.checked = true;
+        toggles.push(parseInt(toggle.id));
+      }
     }
-
-    if (toggle_switch_elements.checked == true) {
-      num_toggled_elements += 1;
-    }
-  }
+  });
 }
 
 /**
  * Turns all switches on.
  */
 function turn_all_switches_on() {
+  toggles = [];
   for (let i = 0; i < toggle_switch_elements.length; i++) {
     toggle_switch_elements[i].checked = true;
+    toggles.push(parseInt(toggle_switch_elements[i].id));
   }
-  num_toggled_elements = toggle_switch_elements.length;
 }
 
 /**
@@ -152,7 +153,7 @@ function turn_all_switches_off() {
   for (let i = 0; i < toggle_switch_elements.length; i++) {
     toggle_switch_elements[i].checked = false;
   }
-  num_toggled_elements = 0;
+  toggles = [];
 }
 
 /**
@@ -193,20 +194,22 @@ const onGenerateSubmit = async function (e) {
     });
 };
 
-// Add event listeners for each submit and toggle buttons.
+// Add event listeners for submit and toggle buttons.
 qrcode_submit.onclick = onGenerateSubmit;
 casual_btn.onclick = function () {
   toggle_switches(0);
+  check_toggles();
 };
 professional_btn.onclick = function () {
   toggle_switches(1);
+  check_toggles();
 };
 all_btn.onclick = function () {
-  if (num_toggled_elements == toggle_switch_elements.length) {
+  if (labels.length == toggles.length) {
     turn_all_switches_off();
   } else {
     turn_all_switches_on();
   }
 
-  check_toggles(num_toggled_elements);
+  check_toggles();
 };
