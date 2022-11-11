@@ -74,7 +74,8 @@ module.exports = function (app, path) {
 
     // Otherwise, redirect to the settings page with an error message.
     else {
-      req.session.error = "There was an error updating your settings.";
+      req.session.error =
+        "There was an error updating one or more of your settings.";
       res.redirect("/account/settings");
     }
   });

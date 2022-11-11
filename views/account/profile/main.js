@@ -1,40 +1,139 @@
-let live_alert_placeholder = document.getElementById("live-alert-placeholder");
+// Store references to inportant elements.
 let accounts_table = document.getElementById("accounts-table-body");
 let add_new_label = document.getElementById("add-new-label");
 let add_new_value = document.getElementById("add-new-value");
 let add_new_type = document.getElementById("add-new-type");
 let add_new_account_submit = document.getElementById("add-new-account-submit");
+let save_changes = document.getElementById("save-changes");
+let cancel_changes = document.getElementById("cancel-changes");
 
-// Fetch the user_accounts from the database.
-let user_accounts = await (
-  await fetch("/account/profile/getall", { method: "GET" })
-).json();
+// In order to know which buttons to enable/disable, we need to keep track of
+// which textboxes have content in them.
+const allTextboxes = [];
 
-// Make sure the settings are fetched.
-const settings = await (
-  await fetch("/account/profile/getsettings", { method: "GET" })
-).json();
-
-var htmlElement = document.getElementById("html");
-htmlElement.setAttribute(
-  "style",
-  "--bs-body-font-family: " + settings.font_family
-);
-htmlElement.style.fontSize = settings.font_size;
+// Create different event arrays for editing the accounts. At any point,
+// these arrays store ONLY changes that have been made to a user's accounts.
+const add = [];
+const edit = [];
+const remove = [];
 
 // Store the labels, values, types, and ids into separate arrays.
-let labels = [];
-let values = [];
-let types = [];
-let ids = [];
-if (user_accounts) {
-  user_accounts.forEach((account) => {
-    labels.push(account.label);
-    values.push(account.value);
-    types.push(account.type);
-    ids.push(account.id);
+const labels = [];
+const values = [];
+const types = [];
+const ids = [];
+
+// Make sure the settings are fetched.
+fetch("/account/profile/getsettings", { method: "GET" })
+  .then((response) => response.json())
+  .then((settings) => {
+    var htmlElement = document.getElementById("html");
+    htmlElement.setAttribute(
+      "style",
+      "--bs-body-font-family: " + settings.font_family
+    );
+    htmlElement.style.fontSize = settings.font_size;
+  })
+  .catch((error) => {
+    console.error(error);
   });
-}
+
+// Fetch the user_accounts from the database.
+fetch("/account/profile/getall", { method: "GET" })
+  .then((response) => response.json())
+  .then((user_accounts) => {
+    // If the user has at least one account, store the account data in the
+    // appropriate arrays.
+    if (user_accounts) {
+      user_accounts.forEach((account) => {
+        labels.push(account.label);
+        values.push(account.value);
+        types.push(account.type);
+        ids.push(account.id);
+      });
+    }
+
+    // Populate the table with the user's accounts.
+    populate_table();
+    updateTableHeading();
+  });
+
+/**
+ * Function that returns a new dummy ID for a new account. Because new accounts
+ * are not immediately stored in the database, we need to give them a dummy ID
+ * in case the user decides to update or delete them before saving.
+ */
+let dummyCounter = 0;
+const getDummyId = () => {
+  dummyCounter++;
+  return "dummy-" + dummyCounter;
+};
+
+/**
+ * Function to be run whenever any user input is detected. This method ensures
+ * that all buttons on the page are either enabled or disabled as appropriate.
+ */
+const updateFormButtons = () => {
+  // If any text boxes are empty, disable the submit button.
+  let submitDisabled = false;
+  let cancelDisabled = true;
+  let addDisabled = true;
+  allTextboxes.forEach((textbox) => {
+    if (textbox.value == "") {
+      submitDisabled = true;
+    }
+  });
+
+  // If add, edit, and delete arrays are empty, disable submit.
+  if (add.length == 0 && edit.length == 0 && remove.length == 0) {
+    submitDisabled = true;
+  }
+
+  // If some changes are present, enable cancel.
+  else {
+    cancelDisabled = false;
+  }
+
+  // If all of the new account fields are filled, disable add.
+  if (
+    add_new_label.value != "" &&
+    add_new_value.value != "" &&
+    add_new_type.value != ""
+  ) {
+    addDisabled = false;
+  }
+
+  // Set the state of the buttons accordingly.
+  save_changes.disabled = submitDisabled;
+  cancel_changes.disabled = cancelDisabled;
+  add_new_account_submit.disabled = addDisabled;
+};
+
+/**
+ * Clears the table heading and edit heading if the user has no accounts
+ * currently displayed on the page.
+ */
+const updateTableHeading = () => {
+  // The current account total is the original minus the number of accounts
+  // that have been deleted plus the number of accounts that have been added.
+  const count = labels.length - remove.length + add.length;
+
+  // If the user has no accounts, clear the table's headings.
+  if (count == 0) {
+    document.getElementById("table-head").innerHTML = "";
+    document.getElementById("edit-existing-header").style.display = "none";
+  } else {
+    document.getElementById("table-head").innerHTML = `
+      <tr>
+        <th>Platform</th>
+        <th>Account</th>
+        <th>Professional</th>
+        <th>Delete</th>
+      </tr>
+    `;
+    document.getElementById("edit-existing-header").style.display = "block";
+  }
+};
 
 /**
  * Adds a new row to the accounts table.
@@ -44,14 +143,26 @@ if (user_accounts) {
  * @param {number} id The ID of the user_account.
  */
 function add_row(table, label, value, type, id) {
-  let tr = document.createElement("tr");
+  // Creates the table data for the label input.
+
   let label_td = document.createElement("td");
   let label_input = document.createElement("input");
   label_input.classList.add("form-control");
+  label_input.value = label;
+  label_input.oldvalue = label;
+  label_td.appendChild(label_input);
+  allTextboxes.push(label_input);
+
+  // Creates the table data for the value input.
   let value_td = document.createElement("td");
   let value_input = document.createElement("input");
   value_input.classList.add("form-control");
+  value_input.value = value;
+  value_input.oldvalue = value;
+  value_td.appendChild(value_input);
+  allTextboxes.push(value_input);
 
+  // Creates the table data for the type input.
   let type_td = document.createElement("td");
   let type_switch_div = document.createElement("div");
   type_switch_div.classList.add("form-check", "form-switch", "form-switch-m");
@@ -61,157 +172,171 @@ function add_row(table, label, value, type, id) {
   toggle.role = "switch";
   toggle.id = id;
   toggle.checked = type == 0 ? false : true;
+  type_td.appendChild(type_switch_div);
+  type_switch_div.appendChild(toggle);
 
+  // Creates the table data for the delete button.
   let delete_td = document.createElement("td");
   let delete_btn = document.createElement("button");
   delete_btn.innerHTML = `<i class="fa-solid fa-trash-can"></i>`;
   delete_btn.classList.add("btn", "btn-danger", "btn-sm");
-
-  label_input.value = label;
-  label_input.oldvalue = label;
-  label_td.appendChild(label_input);
-  value_input.value = value;
-  value_input.oldvalue = value;
-  value_td.appendChild(value_input);
-
-  type_td.appendChild(type_switch_div);
-  type_switch_div.appendChild(toggle);
   delete_td.appendChild(delete_btn);
 
+  // Creates the table row and adds the table data to it.
+  let tr = document.createElement("tr");
   tr.appendChild(label_td);
   tr.appendChild(value_td);
   tr.appendChild(type_td);
   tr.appendChild(delete_td);
 
+  // Adds the row to the table.
   table.appendChild(tr);
 
-  /**
-   * 'Change' event listener for updating an account label and values.
-   *
-   * If a change fails, the input field will be reverted to its previous value.
-   * This prevents accidental updates in the database if type is changed when
-   * a textbox is blank.
-   */
-  const changeFunction = async function () {
-    // Only proceed if the values are not empty.
-    if (label_input.value != "" && value_input.value != "") {
-      const response = await (
-        await fetch("/account/profile/update", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
+  // When a row is modified, need to take appropriate action.
+  const editRowAction = (id) => {
+    // If we are dealing with a valid ID, then we are editing an existing account.
+    if (typeof id === "number") {
+      // If the values are the same as the original, remove the object from the edit array.
+      if (
+        label_input.value == label &&
+        value_input.value == value &&
+        toggle.checked == (type == 0 ? false : true)
+      ) {
+        edit.splice(edit.indexOf(edit.find((obj) => obj.id == id)), 1);
+      }
+      // Otherwise, add or update the object in the edit array.
+      else {
+        // If the edit array contains an object with id, then we are editing an existing account.
+        const existing = edit.find((e) => e.id === id);
+        if (existing) {
+          existing.label = label_input.value;
+          existing.value = value_input.value;
+          existing.type = toggle.checked ? 1 : 0;
+        }
+        // Otherwise, add the account to the edit array.
+        else {
+          edit.push({
             id: id,
             label: label_input.value,
             value: value_input.value,
             type: toggle.checked ? 1 : 0,
-          }),
-        })
-      ).json();
-
-      // If the account was successfully updated, display a success message.
-      if (response) {
-        alert(
-          "The new account is: " + label_input.value + ": " + value_input.value,
-          "warning"
-        );
-
-        // Should update the oldvalue to the new value.
-        label_input.oldvalue = label_input.value;
-        value_input.oldvalue = value_input.value;
-      }
-
-      // If the account was not successfully updated, display an error message.
-      else {
-        alert("An error occurred while updating the label.", "danger");
-
-        // Should reset the values to their previous values.
-        label_input.value = label_input.oldvalue;
-        value_input.value = value_input.oldvalue;
+          });
+        }
       }
     }
 
-    // If the values are empty, display an error message.
+    // If we are dealing with a dummy ID, modify the account in the add array.
     else {
-      alert("The label and value cannot be empty.", "danger");
-
-      // Should reset the values to their previous values.
-      label_input.value = label_input.oldvalue;
-      value_input.value = value_input.oldvalue;
+      const existing = add.find((e) => e.id === id);
+      if (existing) {
+        existing.label = label_input.value;
+        existing.value = value_input.value;
+        existing.type = toggle.checked ? 1 : 0;
+      }
     }
+    updateFormButtons();
   };
 
-  label_input.onchange = changeFunction;
-  value_input.onchange = changeFunction;
-
-  /**
-   * 'Click' event listener for the updating an account type.
-   */
-  toggle.onchange = async function () {
-    const response = await (
-      await fetch("/account/profile/update", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          id: id,
-          label: label_input.value,
-          value: value_input.value,
-          type: toggle.checked ? 1 : 0,
-        }),
-      })
-    ).json();
-
-    // If the update was successful, update the button text.
-    if (!response) {
-      alert("There was an error updating the account type.", "danger");
-    }
-  };
-
-  /**
-   * 'Click' event listener for deleting an account.
-   *
-   * Calls the API endpoint with the row's ID.
-   */
-  delete_btn.onclick = async function () {
+  // When a row is deleted, need to take appropriate action.
+  const deleteRowAction = (id) => {
     if (confirm("Are you sure you want to delete this account information?")) {
-      // Try to delete the account in the database.
-      const response = await (
-        await fetch("/account/profile/delete", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ id: id }),
-        })
-      ).json();
-
-      // If the account was successfully deleted, remove the row from the table.
-      if (response) {
-        table.removeChild(tr);
-        alert(
-          label_input.value +
-            "+" +
-            value_input.value +
-            " pair deleted successfully!",
-          "warning"
-        );
+      // If we are dealing with a valid ID, then we are deleting an existing account.
+      if (typeof id === "number") {
+        // If the account is already in the edit array, remove it from the edit array.
+        if (edit.find((obj) => obj.id == id)) {
+          edit.splice(edit.indexOf(edit.find((obj) => obj.id == id)), 1);
+        }
+        // Always add the account to the remove array.
+        remove.push(id);
       }
 
-      // If the account was not successfully deleted, display an error message.
+      // If we are dealing with a dummy ID, remove the account from the add array.
       else {
-        alert(
-          "An error occurred while deleting " +
-            label_input.value +
-            "+" +
-            value_input.value +
-            " pair.",
-          "danger"
-        );
+        add.splice(add.indexOf(add.find((obj) => obj.id == id)), 1);
       }
+
+      // Finally, remove the row from the table.
+      table.removeChild(tr);
+      updateFormButtons();
+      updateTableHeading();
     }
   };
+
+  // Set the event handlers for editing and deleting the row.
+  label_input.oninput = () => editRowAction(id);
+  value_input.oninput = () => editRowAction(id);
+  toggle.onchange = () => editRowAction(id);
+  delete_btn.onclick = () => deleteRowAction(id);
 }
+
+/**
+ * Adds a new row to the accounts table and event arrays. This is used when the user
+ * clicks the "Add Account" button. Client-side validation is performed to ensure
+ * that the user has entered a label, value, and type.
+ */
+add_new_account_submit.onclick = () => {
+  const id = getDummyId();
+
+  // Add the row to the table.
+  add_row(
+    accounts_table,
+    add_new_label.value,
+    add_new_value.value,
+    add_new_type.value == "0" ? 0 : 1,
+    id
+  );
+
+  // Add the new account to the add array.
+  add.push({
+    id,
+    label: add_new_label.value,
+    value: add_new_value.value,
+    type: add_new_type.value == "0" ? 0 : 1,
+  });
+
+  // Reset the input fields.
+  add_new_label.value = "";
+  add_new_value.value = "";
+  add_new_type.value = "";
+
+  updateFormButtons();
+  updateTableHeading();
+};
+
+/**
+ * When the user clicks on the cancel button, the page is reloaded after confirmation
+ * in order to reset the user's account changes since the last save.
+ */
+cancel_changes.onclick = () => {
+  if (
+    confirm(
+      "Are you sure you want to cancel? All changes since your last save will be lost."
+    )
+  ) {
+    location.reload();
+  }
+};
+
+/**
+ * Submits the form to the backend API via a POST request. The request body contains
+ * the add, edit, and remove arrays, which are used to update the user's accounts
+ * accordingly in the backend.
+ */
+save_changes.onclick = async () => {
+  // Send the data to the backend, reload the page.
+  fetch("/account/profile/update", {
+    method: "POST",
+    body: JSON.stringify({
+      add,
+      edit,
+      remove,
+    }),
+    headers: { "Content-Type": "application/json" },
+  }).then(() => {
+    // Reload the page with the new session data to reflect the changes.
+    window.location.href = "/account/profile";
+  });
+};
 
 /**
  * Populates the accounts table with the user's accounts.
@@ -225,88 +350,7 @@ function populate_table() {
   }
 }
 
-/**
- * Function for generating alert messages.
- * @param {string} message The message to display.
- * @param {string} type The type of alert to display.
- */
-const alert = (message, type) => {
-  const wrapper = document.createElement("div");
-  wrapper.innerHTML = [
-    `<div id="dismissable-alert" class="alert alert-${type} alert-dismissible" role="alert">`,
-    `   <div>${message}</div>`,
-    '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
-    "</div>",
-  ].join("");
-
-  live_alert_placeholder.append(wrapper);
-
-  $("#live-alert-placeholder")
-    .fadeTo(1500, 500)
-    .slideUp(500, function () {
-      $("#live-alert-placeholder").slideUp(500);
-      wrapper.innerHTML = "";
-    });
-};
-
-/**
- * 'Click' event listener for submitting new account information.
- */
-add_new_account_submit.onclick = async function () {
-  // Prevent submission if either label or value is empty.
-  if (
-    add_new_label.value == "" ||
-    add_new_value.value == "" ||
-    add_new_type.value == ""
-  ) {
-    alert(
-      "Your label, value, or type is empty. Fill in both to successfully add a new account.",
-      "danger"
-    );
-  }
-
-  // Attempt a database insertion.
-  else {
-    // Make the call to the API endpoint for adding a new account.
-    const response = await (
-      await fetch("/account/profile/add", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          label: add_new_label.value,
-          value: add_new_value.value,
-          type: add_new_type.value,
-        }),
-      })
-    ).json();
-
-    // If it was successful, alert the user and clear the form.
-    if (response) {
-      add_row(
-        accounts_table,
-        add_new_label.value,
-        add_new_value.value,
-        add_new_type.value,
-        response.id
-      );
-      add_new_label.value = "";
-      add_new_value.value = "";
-      add_new_type.value = "";
-      alert("You successfully added a new account!", "warning");
-    }
-
-    // If it was not successful, alert the user.
-    else {
-      alert(
-        "There was an error adding your account. Please try again later.",
-        "danger"
-      );
-    }
-  }
-};
-
-// Populate the table with the user's accounts.
-populate_table();
+// When new account inputs are changed, update the form buttons.
+add_new_label.oninput = () => updateFormButtons();
+add_new_value.oninput = () => updateFormButtons();
+add_new_type.onchange = () => updateFormButtons();

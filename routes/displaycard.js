@@ -7,7 +7,9 @@ module.exports = function (app, path) {
    */
   app.get("/displaycard", (req, res) => {
     // Pass the user object to the displaycard page
-    res.render(path + "/displaycard/index");
+    res.render(path + "/displaycard/index", {
+      uuid: req.query.id,
+    });
   });
 
   /**

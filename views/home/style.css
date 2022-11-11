@@ -30,3 +30,7 @@
   border-radius: 5rem;
   float: none;
 }
+
+main#main-content {
+  display: none;
+}
