@@ -10,6 +10,7 @@
   htmlElement.style.fontSize = settings.font_size;
 
   const div = document.getElementById("body"); // Get element from DOM
+  const contentDiv = document.getElementById("content-div");
   const navBar = document.getElementById("nav");
   const buttons = document.querySelectorAll(".btn");
   if (settings.theme === "Light Theme") {
@@ -18,6 +19,9 @@
     div.classList.remove("text-white");
     div.classList.add("light-mode");
     div.classList.add("text-navy");
+
+    contentDiv.classList.remove("text-white");
+    contentDiv.classList.add("text-navy");
 
     navBar.classList.remove("navbar-dark");
 
