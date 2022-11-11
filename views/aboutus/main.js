@@ -17,12 +17,13 @@ fetch("/account/profile/getsettings", { method: "GET" })
       div.classList.remove("dark-mode");
       div.classList.remove("bg-dark");
       div.classList.remove("text-white");
-      navBar.classList.remove("navbar-dark");
       div.classList.add("light-mode");
       div.classList.add("text-navy");
 
       contentDiv.classList.remove("text-white");
       contentDiv.classList.add("text-navy");
+
+      navBar.classList.remove("navbar-dark");
 
       buttons.forEach((button) => {
         if (button.classList.contains("btn-warning")) {
@@ -35,12 +36,13 @@ fetch("/account/profile/getsettings", { method: "GET" })
       div.classList.add("dark-mode");
       div.classList.add("bg-dark");
       div.classList.add("text-white");
-      navBar.classList.add("navbar-dark");
       div.classList.remove("light-mode");
       div.classList.remove("text-navy");
 
       contentDiv.classList.remove("text-navy");
       contentDiv.classList.add("text-white");
+
+      navBar.classList.add("navbar-dark");
 
       buttons.forEach((button) => {
         if (button.classList.contains("btn-dark")) {
