@@ -19,13 +19,15 @@
     div.classList.remove("text-white");
     div.classList.add("light-mode");
     div.classList.add("text-navy");
-
-    contentDiv.classList.remove("text-white");
-    contentDiv.classList.add("text-navy");
-
+    
+    if (contentDiv) {
+      contentDiv.classList.remove("text-white");
+      contentDiv.classList.add("text-navy");
+    }
     navBar.classList.remove("navbar-dark");
 
     buttons.forEach((button) => {
+      console.log("looping buttons");
       if (button.classList.contains("btn-warning")) {
         button.classList.remove("btn-warning");
         button.classList.add("btn-dark");
