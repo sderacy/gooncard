@@ -2,6 +2,74 @@
  * Globals
  */
 
+.dark-mode {
+  background: rgb(38, 38, 38);
+  background: radial-gradient(
+    circle,
+    rgba(38, 38, 38, 1) 0%,
+    rgba(0, 0, 0, 1) 100%
+  );
+}
+
+.dark-mode .text-warning {
+  color: #ffc107;
+}
+
+.dark-mode .text-white {
+  color: #ffffff;
+}
+
+.dark-mode .nav-link {
+  color: #ffc107 !important;
+}
+
+.dark-mode .nav-link:hover {
+  color: #afafaf !important;
+}
+
+.light-mode {
+  background: rgb(255, 255, 255);
+}
+
+.light-mode .text-warning {
+  color: #2d2363 !important;
+}
+
+.light-mode .text-white .text-white-50 {
+  color: #000000 !important;
+}
+
+.light-mode .nav-link {
+  color: #2d2363 !important;
+}
+
+.light-mode .nav-link:hover {
+  color: #b08f26 !important;
+}
+
+.light-mode .form-check-input:checked {
+  background-color: #2d2363;
+  border-color: #2d2363;
+}
+
+.light-mode .form-control:focus {
+  outline: none !important;
+  border: 1px solid #2d2363 !important;
+  box-shadow: 0 0 10px #2d2363 !important;
+}
+
+.text-navy {
+  color: #2d2363 !important;
+}
+
+.bg-navy {
+  background-color: #2d2363 !important;
+}
+
+.text-gold {
+  color: #b08f26;
+}
+
 /* Custom default button */
 .btn-secondary,
 .btn-secondary:hover,
@@ -16,12 +84,6 @@
 
 body {
   text-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, 0.5);
-  background: rgb(38, 38, 38);
-  background: radial-gradient(
-    circle,
-    rgba(38, 38, 38, 1) 0%,
-    rgba(0, 0, 0, 1) 100%
-  );
 }
 
 .cover-container {
@@ -46,10 +108,6 @@ body {
 
 .navbar.transparent.navbar-inverse .navbar-inner {
   background: rgba(0, 0, 0, 0.4) !important;
-}
-
-.nav-link {
-  color: #ffc008;
 }
 
 .bd-placeholder-img {

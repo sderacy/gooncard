@@ -5,16 +5,23 @@ var options = {
   theme: ["Light Theme", "Dark Theme"],
 };
 
+const prettyFontSize = {
+  smaller: "Small",
+  medium: "Medium",
+  larger: "Large",
+};
+
 // Make sure the settings are fetched.
 fetch("/account/profile/getsettings", { method: "GET" })
   .then((response) => response.json())
   .then((settings) => {
-    var htmlElement = document.getElementById("html");
-    htmlElement.setAttribute(
-      "style",
-      "--bs-body-font-family: " + settings.font_family
+    // Update the display with these settings.
+    displayChanges(
+      settings.font_size,
+      settings.font_family,
+      settings.theme,
+      settings.contrast
     );
-    htmlElement.style.fontSize = settings.font_size;
 
     // Set and store the default settings in the DOM.
     document.getElementById("editFontSize").value = settings.font_size;
@@ -66,14 +73,28 @@ fetch("/account/profile/getsettings", { method: "GET" })
       cancel_changes.disabled = cancelDisabled;
     };
 
+    /**
+     * Special callback for any settings that modify the current page's appearance.
+     */
+    const updateButtonsAndDisplay = () => {
+      updateFormButtons();
+      displayChanges(
+        document.getElementById("editFontSize").value,
+        document.getElementById("editFontFamily").value,
+        document.getElementById("editTheme").value,
+        document.getElementById("highContrast").checked ? "High" : "Low"
+      );
+    };
+
     // Add event listeners to the input fields.
     document.getElementById("editFirstName").oninput = updateFormButtons;
     document.getElementById("editLastName").oninput = updateFormButtons;
-    document.getElementById("editFontSize").onchange = updateFormButtons;
-    document.getElementById("editFontFamily").onchange = updateFormButtons;
-    document.getElementById("editTheme").onchange = updateFormButtons;
-    document.getElementById("highContrast").onchange = updateFormButtons;
-    document.getElementById("lowContrast").onchange = updateFormButtons;
+    document.getElementById("editFontSize").onchange = updateButtonsAndDisplay;
+    document.getElementById("editFontFamily").onchange =
+      updateButtonsAndDisplay;
+    document.getElementById("editTheme").onchange = updateButtonsAndDisplay;
+    document.getElementById("highContrast").onchange = updateButtonsAndDisplay;
+    document.getElementById("lowContrast").onchange = updateButtonsAndDisplay;
   })
   .catch((error) => {
     console.error(error);
@@ -84,7 +105,7 @@ let selectFontSize = document.getElementById("editFontSize");
 options.font_size.forEach((option) => {
   let optionElement = document.createElement("option");
   optionElement.value = option;
-  optionElement.innerText = option;
+  optionElement.innerText = prettyFontSize[option];
   selectFontSize.appendChild(optionElement);
 });
 
@@ -112,6 +133,53 @@ let save_changes = document.getElementById("save-changes");
 let cancel_changes = document.getElementById("cancel-changes");
 let highContrast = document.getElementById("highContrast");
 let lowContrast = document.getElementById("lowContrast");
+
+/**
+ * When the user modifies a setting that changes the appearance of the page,
+ * should apply those settings temporarily to the page to show the user.
+ */
+const displayChanges = (fontSize, fontFamily, theme, contrast) => {
+  var htmlElement = document.getElementById("html");
+  htmlElement.setAttribute("style", "--bs-body-font-family: " + fontFamily);
+  htmlElement.style.fontSize = fontSize;
+
+  const div = document.getElementById("body"); // Get element from DOM
+  const navBar = document.getElementById("nav");
+  const buttons = document.querySelectorAll(".btn");
+  if (theme === "Light Theme") {
+    div.classList.remove("dark-mode");
+    div.classList.remove("bg-dark");
+    div.classList.remove("text-white");
+    div.classList.add("light-mode");
+    div.classList.add("text-navy");
+
+    navBar.classList.remove("navbar-dark");
+
+    buttons.forEach((button) => {
+      if (button.classList.contains("btn-warning")) {
+        button.classList.remove("btn-warning");
+        button.classList.add("btn-dark");
+        button.classList.add("bg-navy");
+      }
+    });
+  } else {
+    div.classList.add("dark-mode");
+    div.classList.add("bg-dark");
+    div.classList.add("text-white");
+    div.classList.remove("light-mode");
+    div.classList.remove("text-navy");
+
+    navBar.classList.add("navbar-dark");
+
+    buttons.forEach((button) => {
+      if (button.classList.contains("btn-dark")) {
+        button.classList.remove("btn-dark");
+        button.classList.remove("bg-navy");
+        button.classList.add("btn-warning");
+      }
+    });
+  }
+};
 
 /**
  * When the user clicks on the cancel button, the page is reloaded after confirmation
