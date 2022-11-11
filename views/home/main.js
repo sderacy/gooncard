@@ -167,7 +167,7 @@ function toggle_switches(account_type) {
         toggles.push(parseInt(toggle.id));
       }
     } else {
-      toggle.checked = false
+      toggle.checked = false;
       toggles = toggles.filter((id) => id != parseInt(toggle.id));
     }
   });
@@ -249,4 +249,4 @@ all_btn.onclick = function () {
 none_btn.onclick = function () {
   turn_all_switches_off();
   check_toggles();
-}
+};
