@@ -61,7 +61,8 @@
             <div id="qrcode-div" class="m-auto"></div>
           </main>
         </div>
-        <%- include('../partials/footer'); %>
+        <%- include('../partials/footer'); %> <%-
+        include('../partials/defaultSettings', {user: user}) %>
       </div>
     </div>
   </body>
