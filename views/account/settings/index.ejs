@@ -151,7 +151,10 @@
           </div>
         </form>
       </div>
-      <div class="pt-3"><%- include('../../partials/footer'); %></div>
+      <div class="pt-3">
+        <%- include('../../partials/footer'); %> <%-
+        include('../../partials/defaultSettings', {user: user}) %>
+      </div>
     </div>
   </body>
 </html>

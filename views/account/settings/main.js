@@ -15,14 +15,6 @@ const prettyFontSize = {
 fetch("/account/profile/getsettings", { method: "GET" })
   .then((response) => response.json())
   .then((settings) => {
-    // Update the display with these settings.
-    displayChanges(
-      settings.font_size,
-      settings.font_family,
-      settings.theme,
-      settings.contrast
-    );
-
     // Set and store the default settings in the DOM.
     document.getElementById("editFontSize").value = settings.font_size;
     document.getElementById("editFontFamily").value = settings.font_family;
