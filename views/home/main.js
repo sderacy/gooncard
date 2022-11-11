@@ -2,6 +2,7 @@
 let casual_btn = document.getElementById("casual-btn");
 let professional_btn = document.getElementById("professional-btn");
 let all_btn = document.getElementById("all-btn");
+let none_btn = document.getElementById("none-btn");
 let toggles_div = document.getElementById("toggles-div");
 let qrcode_div = document.getElementById("qrcode-div");
 let qrcode_submit = document.getElementById("qr-submit");
@@ -161,13 +162,13 @@ function toggle_switches(account_type) {
     // Only toggle the account if it is the correct type.
     if (types[index] == account_type) {
       // Need to check/uncheck AND add/remove from toggles array.
-      if (toggle.checked) {
-        toggle.checked = false;
-        toggles = toggles.filter((id) => id != parseInt(toggle.id));
-      } else {
+      if (!toggle.checked) {
         toggle.checked = true;
         toggles.push(parseInt(toggle.id));
       }
+    } else {
+      toggle.checked = false
+      toggles = toggles.filter((id) => id != parseInt(toggle.id));
     }
   });
 }
@@ -242,11 +243,10 @@ professional_btn.onclick = function () {
   check_toggles();
 };
 all_btn.onclick = function () {
-  if (labels.length == toggles.length) {
-    turn_all_switches_off();
-  } else {
-    turn_all_switches_on();
-  }
-
+  turn_all_switches_on();
   check_toggles();
 };
+none_btn.onclick = function () {
+  turn_all_switches_off();
+  check_toggles();
+}
