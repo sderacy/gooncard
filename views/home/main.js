@@ -71,7 +71,7 @@ for (let i = 0; i < labels.length; i++) {
   let toggle_label = document.createElement("label");
   toggle_label.classList.add("form-check-label", "col-4");
   toggle_label.for = ids[i];
-  toggle_label.innerText = `${labels[i]}: ${values[i]}`;
+  toggle_label.innerText = `${labels[i]}`;
 
   toggle_div.appendChild(toggle);
   toggle_div.appendChild(toggle_label);
