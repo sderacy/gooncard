@@ -5,6 +5,12 @@ var options = {
   theme: ["Light Theme", "Dark Theme"],
 };
 
+const prettyFontSize = {
+  smaller: "Small",
+  medium: "Medium",
+  larger: "Large",
+};
+
 // Make sure the settings are fetched.
 fetch("/account/profile/getsettings", { method: "GET" })
   .then((response) => response.json())
@@ -121,7 +127,7 @@ let selectFontSize = document.getElementById("editFontSize");
 options.font_size.forEach((option) => {
   let optionElement = document.createElement("option");
   optionElement.value = option;
-  optionElement.innerText = option;
+  optionElement.innerText = prettyFontSize[option];
   selectFontSize.appendChild(optionElement);
 });
 
