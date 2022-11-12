@@ -42,11 +42,13 @@
         navLinks.forEach((navLink) => {
           navLink.classList.add("high-contrast-light");
         });
+        navBar.classList.add("navbar-dark");
       } else {
         contrastDiv.classList.remove("high-contrast-light");
         navLinks.forEach((navLink) => {
           navLink.classList.remove("high-contrast-light");
         });
+        navBar.classList.remove("navbar-dark");
       }
     });
 
@@ -73,11 +75,13 @@
         navLinks.forEach((navLink) => {
           navLink.classList.add("high-contrast-dark");
         });
+        navBar.classList.remove("navbar-dark");
       } else {
         contrastDiv.classList.remove("high-contrast-dark");
         navLinks.forEach((navLink) => {
           navLink.classList.remove("high-contrast-dark");
         });
+        navBar.classList.add("navbar-dark");
       }
     });
   }
