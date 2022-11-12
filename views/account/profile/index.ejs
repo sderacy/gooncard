@@ -21,13 +21,13 @@
       <div class="cover-container w-100 d-flex align-items-center p-3 mx-auto">
         <div class="row col-12">
           <main class="px-3">
-            <h1 class="contrast">Profile</h1>
+            <h1><span class="contrast">Profile</span></h1>
             <% if (error) { %>
-            <p class="message text-danger contrast"><%= error %></p>
+            <p class="message text-danger"><span class="contrast"><%= error %></span></p>
             <% } else if(success) { %>
-            <p class="message text-warning contrast"><%= success %></p>
+            <p class="message text-warning"><span class="contrast"><%= success %></span></p>
             <% } %>
-            <h1 id="edit-existing-header" class="contrast">Edit Existing</h1>
+            <h1 id="edit-existing-header"><span class="contrast">Edit Existing</span></h1>
 
             <table id="accounts-table" class="table table-borderless">
               <thead id="table-head" class="contrast">
@@ -41,7 +41,7 @@
               <tbody id="accounts-table-body"></tbody>
             </table>
             <br />
-            <h1 id="add-new-account-header" class="contrast">Add a New Account</h1>
+            <h1 id="add-new-account-header"><span class="contrast">Add a New Account</span></h1>
             <div>
               <input
                 id="add-new-label"

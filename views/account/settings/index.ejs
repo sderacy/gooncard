@@ -13,11 +13,11 @@
       <div class="row col-12 text-center justify-content-center m-auto">
         <div class="text-center">
           <br />
-          <h1 class="contrast">Settings</h1>
+          <h1><span class="contrast">Settings</span></h1>
           <% if (error) { %>
-          <p class="message text-danger contrast"><%= error %></p>
+          <p class="message text-danger"><span class="contrast"><%= error %></span></p>
           <% } else if(success) { %>
-          <p class="message text-gold contrast"><%= success %></p>
+          <p class="message text-gold"><span class="contrast"><%= success %></span></p>
           <% } %>
         </div>
 
@@ -28,8 +28,8 @@
           class="text-center w-50"
         >
           <div class="form-group row">
-            <label for="editFirstName" class="col-form-label contrast"
-              >First Name:</label
+            <label for="editFirstName" class="col-form-label"
+              ><span class="contrast">First Name:</span></label
             >
             <div>
               <input
@@ -44,8 +44,8 @@
 
           <br />
           <div class="form-group row">
-            <label for="editLastName" class="col-form-label contrast"
-              >Last Name:</label
+            <label for="editLastName" class="col-form-label"
+              ><span class="contrast">Last Name:</span></label
             >
             <div>
               <input
@@ -61,8 +61,8 @@
           <br />
 
           <div class="form-group row">
-            <label for="editFontSize" class="col-form-label contrast"
-              >Font Size:</label
+            <label for="editFontSize" class="col-form-label"
+              ><span class="contrast">Font Size:</span></label
             >
             <div>
               <div class="form-group">
@@ -78,8 +78,8 @@
           <br />
 
           <div class="form-group row">
-            <label for="editFontFamily" class="col-form-label contrast"
-              >Font Family:
+            <label for="editFontFamily" class="col-form-label"
+              ><span class="contrast">Font Family:</span>
             </label>
             <div>
               <div class="form-group">
@@ -94,8 +94,8 @@
 
           <br />
           <div class="form-group row">
-            <label for="editContrast" class="col-form-label contrast mb-2"
-              >Contrast:</label
+            <label for="editContrast" class="col-form-label mb-2"
+              ><span class="contrast">Contrast:</span></label
             >
             <div>
               <div class="form-check">
@@ -111,8 +111,8 @@
                 />
               </div>
               <div class="form-check">
-                <label class="form-check-label contrast" for="highContrast">
-                  High
+                <label class="form-check-label" for="highContrast">
+                  <span class="contrast">High</span>
                 </label>
                 <input
                   class="form-check-input"
@@ -127,8 +127,8 @@
 
           <br />
           <div class="form-group row">
-            <label for="editTheme" class="col-form-label contrast"
-              >Theme:</label
+            <label for="editTheme" class="col-form-label"
+              ><span class="contrast">Theme:</span></label
             >
             <div>
               <div class="form-group">
