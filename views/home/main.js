@@ -8,10 +8,18 @@ let qrcode_div = document.getElementById("qrcode-div");
 let qrcode_submit = document.getElementById("qr-submit");
 let size = document.getElementById("size");
 let main = document.getElementById("main-content");
+let contrast_indicator = document.getElementById("contrast-indicator");
 
 // Need to maintain the checked state of the toggle buttons.
 let toggles = [];
 let toggle_switch_elements = [];
+
+// Get the contrast type based on the page's contrast div.
+const contrastType = contrast_indicator.classList.contains("high-contrast-dark")
+  ? "high-contrast-dark"
+  : contrast_indicator.classList.contains("high-contrast-light")
+  ? "high-contrast-light"
+  : null;
 
 // Store the labels, values, types, and ids into separate arrays.
 const labels = [];
@@ -40,8 +48,8 @@ fetch("/account/profile/getall", { method: "GET" })
     <div class="container p-5 mt-5">
       <div class="row p-5 mt-5">
         <div class="col-12">
-          <h2 class="text-center">You have no accounts!</h3>
-          <h3 class="text-center">Click <a class="text-warning" href="/account/profile">here</a> to add an account.</h3>
+          <h2 class="text-center ${contrastType}">You have no accounts!</h3>
+          <h3 class="text-center ${contrastType}">Click <a class="text-warning ${contrastType}" href="/account/profile">here</a> to add an account.</h3>
         </div>
       </div>
     </div>
@@ -77,7 +85,7 @@ const populatePage = function () {
     toggle_switch_elements.push(toggle);
 
     let toggle_label = document.createElement("label");
-    toggle_label.classList.add("form-check-label", "col-4");
+    toggle_label.classList.add("form-check-label", "col-4", contrastType);
     toggle_label.for = ids[i];
     toggle_label.innerText = `${labels[i]}`;
 

@@ -13,6 +13,9 @@
   const contentDiv = document.getElementById("content-div");
   const navBar = document.getElementById("nav");
   const buttons = document.querySelectorAll(".btn");
+  const contrastDivs = document.querySelectorAll(".contrast");
+  const navLinks = document.querySelectorAll(".nav-link");
+  const logoTitle = document.getElementById("logo-title");
   if (settings.theme === "Light Theme") {
     div.classList.remove("dark-mode");
     div.classList.remove("bg-dark");
@@ -27,13 +30,35 @@
     navBar.classList.remove("navbar-dark");
 
     buttons.forEach((button) => {
-      console.log("looping buttons");
       if (button.classList.contains("btn-warning")) {
         button.classList.remove("btn-warning");
         button.classList.add("btn-dark");
         button.classList.add("bg-navy");
       }
     });
+
+    contrastDivs.forEach((contrastDiv) => {
+      if (settings.contrast == "High") {
+        contrastDiv.classList.add("high-contrast-light");
+        navLinks.forEach((navLink) => {
+          navLink.classList.add("high-contrast-light");
+        });
+        navBar.classList.add("navbar-dark");
+      } else {
+        contrastDiv.classList.remove("high-contrast-light");
+        navLinks.forEach((navLink) => {
+          navLink.classList.remove("high-contrast-light");
+        });
+        navBar.classList.remove("navbar-dark");
+      }
+    });
+
+    if (settings.contrast == "High") {
+      logoTitle.classList.remove("text-warning");
+    } else {
+      logoTitle.classList.add("text-warning");
+    }
+
   } else {
     div.classList.add("dark-mode");
     div.classList.add("bg-dark");
@@ -48,6 +73,22 @@
         button.classList.remove("btn-dark");
         button.classList.remove("bg-navy");
         button.classList.add("btn-warning");
+      }
+    });
+
+    contrastDivs.forEach((contrastDiv) => {
+      if (settings.contrast == "High") {
+        contrastDiv.classList.add("high-contrast-dark");
+        navLinks.forEach((navLink) => {
+          navLink.classList.add("high-contrast-dark");
+        });
+        navBar.classList.remove("navbar-dark");
+      } else {
+        contrastDiv.classList.remove("high-contrast-dark");
+        navLinks.forEach((navLink) => {
+          navLink.classList.remove("high-contrast-dark");
+        });
+        navBar.classList.add("navbar-dark");
       }
     });
   }

@@ -20,19 +20,32 @@
 }
 
 .dark-mode .nav-link {
-  color: #ffc107 !important;
+  color: #ffc107;
 }
 
 .dark-mode .nav-link:hover {
   color: #afafaf !important;
 }
 
+.high-contrast-dark {
+  background-color: #ffc107 !important;
+  color: #000000 !important;
+}
+
 .light-mode {
   background: rgb(255, 255, 255);
 }
 
+.light-mode .logo-title {
+  color: #ffffff !important;
+}
+
 .light-mode .text-warning {
   color: #2d2363 !important;
+}
+
+.light-mode footer .text-warning {
+  color: #2d2363;
 }
 
 .light-mode .text-white .text-white-50 {
@@ -40,7 +53,7 @@
 }
 
 .light-mode .nav-link {
-  color: #2d2363 !important;
+  color: #2d2363;
 }
 
 .light-mode .nav-link:hover {
@@ -58,12 +71,21 @@
   box-shadow: 0 0 10px #2d2363 !important;
 }
 
+.high-contrast-light {
+  background-color: #2d2363 !important;
+  color: #ffffff !important;
+}
+
 .text-navy {
   color: #2d2363 !important;
 }
 
 .bg-navy {
   background-color: #2d2363 !important;
+}
+
+.bg-gold {
+  background-color: #b08f26 !important;
 }
 
 .text-gold {
@@ -75,7 +97,8 @@
 .btn-secondary:hover,
 .btn-secondary:focus {
   color: #333;
-  text-shadow: none; /* Prevent inheritance from `body` */
+  text-shadow: none;
+  /* Prevent inheritance from `body` */
 }
 
 /*
@@ -130,7 +153,8 @@ body {
 }
 
 #content-wrap {
-  padding-bottom: 2.5rem; /* Footer height */
+  padding-bottom: 2.5rem;
+  /* Footer height */
 }
 
 footer {
@@ -138,5 +162,6 @@ footer {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 2.5rem; /* Footer height */
+  height: 2.5rem;
+  /* Footer height */
 }

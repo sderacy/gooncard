@@ -121,12 +121,18 @@
    */
   const displayChanges = (fontSize, fontFamily, theme, contrast) => {
     var htmlElement = document.getElementById("html");
-    htmlElement.setAttribute("style", "--bs-body-font-family: " + fontFamily);
+    htmlElement.setAttribute(
+      "style",
+      "--bs-body-font-family: " + fontFamily
+    );
     htmlElement.style.fontSize = fontSize;
 
     const div = document.getElementById("body"); // Get element from DOM
+    const contentDiv = document.getElementById("content-div");
     const navBar = document.getElementById("nav");
     const buttons = document.querySelectorAll(".btn");
+    const contrastDivs = document.querySelectorAll(".contrast");
+    const navLinks = document.querySelectorAll(".nav-link");
     if (theme === "Light Theme") {
       div.classList.remove("dark-mode");
       div.classList.remove("bg-dark");
@@ -134,6 +140,10 @@
       div.classList.add("light-mode");
       div.classList.add("text-navy");
 
+      if (contentDiv) {
+        contentDiv.classList.remove("text-white");
+        contentDiv.classList.add("text-navy");
+      }
       navBar.classList.remove("navbar-dark");
 
       buttons.forEach((button) => {
@@ -143,6 +153,25 @@
           button.classList.add("bg-navy");
         }
       });
+
+      contrastDivs.forEach((contrastDiv) => {
+        if (contrast == "High") {
+          contrastDiv.classList.add("high-contrast-light");
+          contrastDiv.classList.remove("high-contrast-dark");
+          navLinks.forEach((navLink) => {
+            navLink.classList.add("high-contrast-light");
+            contrastDiv.classList.remove("high-contrast-dark");
+          });
+          navBar.classList.add("navbar-dark");
+        } else {
+          contrastDiv.classList.remove("high-contrast-light");
+          navLinks.forEach((navLink) => {
+            navLink.classList.remove("high-contrast-light");
+          });
+          navBar.classList.remove("navbar-dark");
+        }
+      });
+
     } else {
       div.classList.add("dark-mode");
       div.classList.add("bg-dark");
@@ -157,6 +186,24 @@
           button.classList.remove("btn-dark");
           button.classList.remove("bg-navy");
           button.classList.add("btn-warning");
+        }
+      });
+
+      contrastDivs.forEach((contrastDiv) => {
+        if (contrast == "High") {
+          contrastDiv.classList.add("high-contrast-dark");
+          contrastDiv.classList.remove("high-contrast-light");
+          navLinks.forEach((navLink) => {
+            navLink.classList.add("high-contrast-dark");
+            contrastDiv.classList.remove("high-contrast-light");
+          });
+          navBar.classList.remove("navbar-dark");
+        } else {
+          contrastDiv.classList.remove("high-contrast-dark");
+          navLinks.forEach((navLink) => {
+            navLink.classList.remove("high-contrast-dark");
+          });
+          navBar.classList.add("navbar-dark");
         }
       });
     }
