@@ -4,11 +4,9 @@
 
 .dark-mode {
   background: rgb(38, 38, 38);
-  background: radial-gradient(
-    circle,
-    rgba(38, 38, 38, 1) 0%,
-    rgba(0, 0, 0, 1) 100%
-  );
+  background: radial-gradient(circle,
+      rgba(38, 38, 38, 1) 0%,
+      rgba(0, 0, 0, 1) 100%);
 }
 
 .dark-mode .text-warning {
@@ -36,8 +34,12 @@
   background: rgb(255, 255, 255);
 }
 
+.light-mode .logo-title {
+  color: #ffffff !important;
+}
+
 .light-mode .text-warning {
-  color: #2d2363;
+  color: #2d2363 !important;
 }
 
 .light-mode footer .text-warning {
@@ -115,13 +117,13 @@ body {
 
 /* Dropdown menu background color*/
 
-.navbar-nav > li > .dropdown-menu {
+.navbar-nav>li>.dropdown-menu {
   background-color: #212529;
 }
 
 /* Dropdown menu font color*/
 
-.navbar-nav > li > .dropdown-menu a {
+.navbar-nav>li>.dropdown-menu a {
   color: #fff;
 }
 
