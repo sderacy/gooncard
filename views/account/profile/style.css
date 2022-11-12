@@ -9,22 +9,26 @@
   #accounts-table {
     max-width: 50vw;
   }
+
   input {
     max-width: 15vw;
   }
 }
 
-#edit-existing-header,
-#add-new-account-header {
+.dark-mode #edit-existing-header {
+  color: #ffc107;
+}
+
+.dark-mode #add-new-account-header {
   color: #ffc107;
 }
 
 .light-mode #edit-existing-header {
-  color: #2d2363 !important;
+  color: #2d2363;
 }
 
 .light-mode #add-new-account-header {
-  color: #2d2363 !important;
+  color: #2d2363;
 }
 
 .dark-mode #accounts-table {
