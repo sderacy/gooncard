@@ -93,7 +93,7 @@ const populatePage = function () {
     };
 
     let toggle_label = document.createElement("label");
-    toggle_label.classList.add("form-check-label", "col-4", "contrast");
+    toggle_label.classList.add("form-check-label", "col-4");
     toggle_label.for = ids[i];
     toggle_label.innerText = `${labels[i]}`;
 
