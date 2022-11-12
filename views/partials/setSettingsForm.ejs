@@ -157,8 +157,10 @@
       contrastDivs.forEach((contrastDiv) => {
         if (contrast == "High") {
           contrastDiv.classList.add("high-contrast-light");
+          contrastDiv.classList.remove("high-contrast-dark");
           navLinks.forEach((navLink) => {
             navLink.classList.add("high-contrast-light");
+            contrastDiv.classList.remove("high-contrast-dark");
           });
           navBar.classList.add("navbar-dark");
         } else {
@@ -190,8 +192,10 @@
       contrastDivs.forEach((contrastDiv) => {
         if (contrast == "High") {
           contrastDiv.classList.add("high-contrast-dark");
+          contrastDiv.classList.remove("high-contrast-light");
           navLinks.forEach((navLink) => {
             navLink.classList.add("high-contrast-dark");
+            contrastDiv.classList.remove("high-contrast-light");
           });
           navBar.classList.remove("navbar-dark");
         } else {
