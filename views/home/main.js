@@ -48,8 +48,8 @@ fetch("/account/profile/getall", { method: "GET" })
     <div class="container p-5 mt-5">
       <div class="row p-5 mt-5">
         <div class="col-12">
-          <h2 class="text-center">You have no accounts!</h3>
-          <h3 class="text-center">Click <a class="text-warning" href="/account/profile">here</a> to add an account.</h3>
+          <h2 class="text-center ${contrastType}">You have no accounts!</h3>
+          <h3 class="text-center ${contrastType}">Click <a class="text-warning ${contrastType}" href="/account/profile">here</a> to add an account.</h3>
         </div>
       </div>
     </div>
