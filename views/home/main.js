@@ -18,8 +18,8 @@ let toggle_switch_elements = [];
 const contrastType = contrast_indicator.classList.contains("high-contrast-dark")
   ? "high-contrast-dark"
   : contrast_indicator.classList.contains("high-contrast-light")
-  ? "high-contrast-light"
-  : null;
+    ? "high-contrast-light"
+    : null;
 
 // Store the labels, values, types, and ids into separate arrays.
 const labels = [];
@@ -78,17 +78,20 @@ const populatePage = function () {
     toggle_div.classList.add("form-switch", "form-check", "form-switch-xl");
 
     let toggle = document.createElement("input");
-    toggle.classList.add("form-check-input", "col-4");
+    toggle.classList.add("form-check-input", "col-6");
     toggle.type = "checkbox";
     toggle.role = "switch";
     toggle.id = ids[i];
     toggle_switch_elements.push(toggle);
 
     let toggle_label = document.createElement("label");
-    toggle_label.classList.add("form-check-label", "col-4", contrastType);
-    toggle_label.for = ids[i];
-    toggle_label.innerText = `${labels[i]}`;
+    let toggle_label_span = document.createElement("span");
+    toggle_label_span.classList.add(contrastType);
+    toggle_label_span.classList.add("form-check-label", "col-6");
+    toggle_label_span.for = ids[i];
+    toggle_label_span.innerText = `${labels[i]}`;
 
+    toggle_label.append(toggle_label_span);
     toggle_div.appendChild(toggle_label);
     toggle_div.appendChild(toggle);
     toggles_div.appendChild(toggle_div);
