@@ -4,8 +4,7 @@
     <%- include('../../partials/header'); %>
     <title>Settings</title>
     <link rel="stylesheet" href="/account/settings/style" />
-    <!-- <script src="/main.js" type="module"></script> -->
-    <script type="text/javascript" src="main.js"></script>
+    <script src="/main.js" type="module"></script>
 
     <link
       rel="stylesheet"
@@ -162,17 +161,6 @@
             </div>
           </div>
           <br />
-          <div>
-            <button
-              type="button"
-              class="btn btn-danger"
-              onclick="return confirm('Are you sure you want to delete your G.O.O.N card account?')"
-              aria-label="delete account"
-            >
-              <i class="fa-solid fa-trash-can"></i> Delete G.O.O.N Account
-            </button>
-          </div>
-
           <br />
           <div class="mb-3">
             <button
@@ -192,6 +180,16 @@
               aria-label="save changes"
             >
               Save Changes
+            </button>
+          </div>
+          <div>
+            <button
+              type="button"
+              class="btn btn-danger"
+              onclick="return confirm('Are you sure you want to delete your G.O.O.N card account?')"
+              aria-label="delete account"
+            >
+              <i class="fa-solid fa-trash-can"></i> Delete G.O.O.N Account
             </button>
           </div>
         </form>
