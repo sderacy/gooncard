@@ -42,3 +42,6 @@
 main#main-content {
   display: none;
 }
+.form-check-label {
+  width: 11rem;
+}
