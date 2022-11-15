@@ -90,7 +90,3 @@ input {
 select {
   max-width: fit-content;
 }
-
-h3 {
-  text-decoration: underline;
-}
