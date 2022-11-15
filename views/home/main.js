@@ -18,8 +18,8 @@ let toggle_switch_elements = [];
 const contrastType = contrast_indicator.classList.contains("high-contrast-dark")
   ? "high-contrast-dark"
   : contrast_indicator.classList.contains("high-contrast-light")
-    ? "high-contrast-light"
-    : null;
+  ? "high-contrast-light"
+  : null;
 
 // Store the labels, values, types, and ids into separate arrays.
 const labels = [];
@@ -88,7 +88,9 @@ const populatePage = function () {
     toggle_label_span.classList.add(contrastType, "lh-3");
     toggle_label_span.classList.add("form-check-label");
     toggle_label_span.for = ids[i];
-    toggle_label_span.innerText = `${labels[i].charAt(0).toUpperCase()}${labels[i].slice(1)}`;
+    toggle_label_span.innerText = `${labels[i].charAt(0).toUpperCase()}${labels[
+      i
+    ].slice(1)}`;
 
     toggle_div.appendChild(toggle_label_span);
     toggle_div.appendChild(toggle);
