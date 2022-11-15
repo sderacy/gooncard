@@ -75,22 +75,31 @@ const populatePage = function () {
   for (let i = 0; i < labels.length; i++) {
     // Create the toggle switch and append it to the toggles div.
     let toggle_div = document.createElement("div");
-    toggle_div.classList.add("form-check", "form-switch", "form-switch-xl");
+    toggle_div.classList.add(
+      "form-switch",
+      "form-check",
+      "form-switch-xl",
+      "col-lg-9",
+      "col-10"
+    );
 
     let toggle = document.createElement("input");
-    toggle.classList.add("form-check-input", "col-4");
+    toggle.classList.add("form-check-input");
     toggle.type = "checkbox";
     toggle.role = "switch";
     toggle.id = ids[i];
     toggle_switch_elements.push(toggle);
 
-    let toggle_label = document.createElement("label");
-    toggle_label.classList.add("form-check-label", "col-4", contrastType);
-    toggle_label.for = ids[i];
-    toggle_label.innerText = `${labels[i]}`;
+    let toggle_label_span = document.createElement("span");
+    toggle_label_span.classList.add(contrastType, "lh-3");
+    toggle_label_span.classList.add("form-check-label");
+    toggle_label_span.for = ids[i];
+    toggle_label_span.innerText = `${labels[i].charAt(0).toUpperCase()}${labels[
+      i
+    ].slice(1)}`;
 
+    toggle_div.appendChild(toggle_label_span);
     toggle_div.appendChild(toggle);
-    toggle_div.appendChild(toggle_label);
     toggles_div.appendChild(toggle_div);
 
     /**

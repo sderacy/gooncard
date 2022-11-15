@@ -9,6 +9,7 @@
   <body id="body" class="h-100 text-center text-white dark-mode bg-dark">
     <div id="page-container">
       <div class="row col-12"><%- include('../partials/navbar'); %></div>
+
       <div
         class="cover-container h-100 w-100 align-items-center p-3 mx-auto mt-3"
       >
@@ -19,6 +20,7 @@
               id="casual-btn"
               class="btn btn-warning btn-lg"
               type="button"
+              aria-label="casual"
             >
               Casual
             </button>
@@ -26,14 +28,33 @@
               id="professional-btn"
               class="btn btn-warning btn-lg"
               type="button"
+              aria-label="professional"
             >
               Professional
             </button>
-            <button id="all-btn" class="btn btn-warning btn-lg" type="button">
+            <button
+              id="all-btn"
+              class="btn btn-warning btn-lg"
+              type="button"
+              aria-label="all"
+            >
               All
             </button>
-            <button id="none-btn" class="btn btn-warning btn-lg" type="button">
+            <button
+              id="none-btn"
+              class="btn btn-warning btn-lg"
+              type="button"
+              aria-label="none"
+            >
               None
+            </button>
+            <button
+              id="microphone"
+              class="btn btn-warning btn-lg"
+              type="button"
+              aria-label="microphone"
+            >
+              <i class="fa-solid fa-microphone"></i>
             </button>
 
             <br /><br />
@@ -45,7 +66,7 @@
             ></div>
             <div id="toggles-div"></div>
 
-            <form id="generate-form" class="mb-3">
+            <form id="generate-form" class="mb-3" aria-label="QR code size">
               <select
                 class="w-full border-2 border-gray-200 rounded p-3 text-grey-dark mr-2 focus:outline-none"
                 name="size"
@@ -60,6 +81,7 @@
                 class="btn btn-warning btn-lg"
                 role="button"
                 aria-disabled="true"
+                aria-label="generate QR"
                 disabled
               >
                 Generate

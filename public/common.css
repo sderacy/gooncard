@@ -165,3 +165,7 @@ footer {
   height: 2.5rem;
   /* Footer height */
 }
+
+.lh-3 {
+  line-height: 3 !important;
+}

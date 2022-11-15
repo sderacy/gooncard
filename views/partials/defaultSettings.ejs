@@ -16,6 +16,7 @@
   const contrastDivs = document.querySelectorAll(".contrast");
   const navLinks = document.querySelectorAll(".nav-link");
   const logoTitle = document.getElementById("logo-title");
+  const heart = document.getElementById("heart-icon");
   if (settings.theme === "Light Theme") {
     div.classList.remove("dark-mode");
     div.classList.remove("bg-dark");
@@ -55,8 +56,10 @@
 
     if (settings.contrast == "High") {
       logoTitle.classList.remove("text-warning");
+      heart.classList.remove("text-warning");
     } else {
       logoTitle.classList.add("text-warning");
+      heart.classList.add("text-warning");
     }
 
   } else {
