@@ -169,7 +169,7 @@ function toggle_single_switch(state, platform) {
  * @param {Event} e The event to be handled.
  */
 const onGenerateSubmit = async function (e) {
-  // e.preventDefault();
+  e.preventDefault();
 
   // Call the /home/generate endpoint with the toggles array.
   fetch("/home/generate", {
