@@ -150,12 +150,26 @@ function turn_all_switches_off() {
   toggles = [];
 }
 
+function toggle_single_switch(state, platform) {
+  toggle_switch_elements.forEach((toggle, index) => {
+    if (labels[index] == platform.toLowerCase()) {
+      if (!toggle.checked && state == 1) {
+        toggle.checked = true;
+        toggles.push(parseInt(toggle.id));
+      } else if (toggle.checked && state == 0) {
+        toggle.checked = false;
+        toggles = toggles.filter((id) => id != parseInt(toggle.id));
+      }
+    }
+  });
+}
+
 /**
  * QR Code submission handler.
  * @param {Event} e The event to be handled.
  */
 const onGenerateSubmit = async function (e) {
-  e.preventDefault();
+  // e.preventDefault();
 
   // Call the /home/generate endpoint with the toggles array.
   fetch("/home/generate", {
@@ -206,3 +220,82 @@ none_btn.onclick = function () {
   turn_all_switches_off();
   check_toggles();
 };
+
+//SPEECH RECOGNITION
+
+if ("webkitSpeechRecognition" in window) {
+  // Initialize webkitSpeechRecognition
+  let speechRecognition = new webkitSpeechRecognition();
+
+  // String for the Final Transcript
+  let final_transcript = "";
+
+  // Set the properties for the Speech Recognition object
+  speechRecognition.continuous = true;
+  speechRecognition.interimResults = true;
+  speechRecognition.lang = "en-US";
+
+  // Callback Function for the onStart Event
+  speechRecognition.onstart = () => {
+    // Show the Status Element
+    document.querySelector("#status").style.display = "block";
+  };
+  speechRecognition.onerror = () => {
+    // Hide the Status Element
+    document.querySelector("#status").style.display = "none";
+  };
+  speechRecognition.onend = () => {
+    // Hide the Status Element
+    document.querySelector("#status").style.display = "none";
+  };
+
+  speechRecognition.onresult = (event) => {
+    // Create the interim transcript string locally because we don't want it to persist like final transcript
+    let interim_transcript = "";
+
+    // Loop through the results from the speech recognition object.
+    for (let i = event.resultIndex; i < event.results.length; ++i) {
+      // If the result item is Final, add it to Final Transcript, Else add it to Interim transcript
+      if (event.results[i].isFinal) {
+        final_transcript = event.results[i][0].transcript;
+        final_transcript = final_transcript.trim();
+        let final_transcript_array = final_transcript.split(" ");
+        if (final_transcript_array.length == 3 && final_transcript_array[0] == "turn" && final_transcript_array[1] == "on") {
+          toggle_single_switch(1, final_transcript_array[2]);
+        } else if (final_transcript_array.length == 3 && final_transcript_array[0] == "turn" && final_transcript_array[1] == "off") {
+          toggle_single_switch(0, final_transcript_array[2]);
+        } else if (final_transcript_array.length == 1 && final_transcript_array[0] == "all") {
+          turn_all_switches_on();
+        } else if (final_transcript_array.length == 1 && final_transcript_array[0] == "none") {
+          turn_all_switches_off();
+        } else if (final_transcript_array.length == 1 && final_transcript_array[0] == "professional") {
+          toggle_switches(1);
+        } else if (final_transcript_array.length == 1 && final_transcript_array[0] == "casual") {
+          toggle_switches(0);
+        } else if (final_transcript_array.length == 1 && final_transcript_array[0] == "generate") {
+          qrcode_submit.click();
+        }
+        check_toggles();
+      } else {
+        interim_transcript += event.results[i][0].transcript;
+      }
+    }
+
+    // Set the Final transcript and Interim transcript.
+    document.querySelector("#final").innerHTML = final_transcript;
+    document.querySelector("#interim").innerHTML = interim_transcript;
+  };
+
+  // Set the onClick property of the start button
+  document.querySelector("#start").onclick = () => {
+    // Start the Speech Recognition
+    speechRecognition.start();
+  };
+  // Set the onClick property of the stop button
+  document.querySelector("#stop").onclick = () => {
+    // Stop the Speech Recognition
+    speechRecognition.stop();
+  };
+} else {
+  console.log("Speech Recognition Not Available");
+}
