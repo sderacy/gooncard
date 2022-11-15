@@ -136,6 +136,7 @@ function add_row(table, label, value, type, id) {
   label_input.value = label;
   label_input.oldvalue = label;
   label_td.appendChild(label_input);
+  label_input.ariaLabel = "platform";
   allTextboxes.push(label_input);
 
   // Creates the table data for the value input.
@@ -145,6 +146,7 @@ function add_row(table, label, value, type, id) {
   value_input.value = value;
   value_input.oldvalue = value;
   value_td.appendChild(value_input);
+  value_input.ariaLabel = "account";
   allTextboxes.push(value_input);
 
   // Creates the table data for the type input.
@@ -158,6 +160,7 @@ function add_row(table, label, value, type, id) {
   toggle.id = id;
   toggle.checked = type == 0 ? false : true;
   type_td.appendChild(type_switch_div);
+  toggle.ariaLabel = "professional";
   type_switch_div.appendChild(toggle);
 
   // Creates the table data for the delete button.
@@ -165,6 +168,7 @@ function add_row(table, label, value, type, id) {
   let delete_btn = document.createElement("button");
   delete_btn.innerHTML = `<i class="fa-solid fa-trash-can"></i>`;
   delete_btn.classList.add("btn", "btn-danger", "btn-sm");
+  delete_btn.ariaLabel = "delete button";
   delete_td.appendChild(delete_btn);
 
   // Creates the table row and adds the table data to it.

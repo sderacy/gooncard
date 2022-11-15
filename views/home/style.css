@@ -11,6 +11,11 @@
 
 /* Overriding bootstrap color from blue to yellow */
 
+.form-check-input {
+  float: right !important;
+  margin-right: 10%;
+}
+
 .form-switch .form-check-input:focus {
   border-color: rgba(0, 0, 0, 0.25);
   outline: 0;
@@ -41,4 +46,8 @@
 
 main#main-content {
   display: none;
+}
+
+.form-check-label {
+  width: 11rem;
 }
