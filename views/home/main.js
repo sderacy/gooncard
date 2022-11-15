@@ -18,8 +18,8 @@ let toggle_switch_elements = [];
 const contrastType = contrast_indicator.classList.contains("high-contrast-dark")
   ? "high-contrast-dark"
   : contrast_indicator.classList.contains("high-contrast-light")
-    ? "high-contrast-light"
-    : null;
+  ? "high-contrast-light"
+  : null;
 
 // Store the labels, values, types, and ids into separate arrays.
 const labels = [];
@@ -75,7 +75,13 @@ const populatePage = function () {
   for (let i = 0; i < labels.length; i++) {
     // Create the toggle switch and append it to the toggles div.
     let toggle_div = document.createElement("div");
-    toggle_div.classList.add("form-switch", "form-check", "form-switch-xl", "col-lg-9", "col-10");
+    toggle_div.classList.add(
+      "form-switch",
+      "form-check",
+      "form-switch-xl",
+      "col-lg-9",
+      "col-10"
+    );
 
     let toggle = document.createElement("input");
     toggle.classList.add("form-check-input");
