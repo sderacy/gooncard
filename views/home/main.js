@@ -78,21 +78,19 @@ const populatePage = function () {
     toggle_div.classList.add("form-switch", "form-check", "form-switch-xl");
 
     let toggle = document.createElement("input");
-    toggle.classList.add("form-check-input", "col-6");
+    toggle.classList.add("form-check-input", "ms-4");
     toggle.type = "checkbox";
     toggle.role = "switch";
     toggle.id = ids[i];
     toggle_switch_elements.push(toggle);
 
-    let toggle_label = document.createElement("label");
     let toggle_label_span = document.createElement("span");
-    toggle_label_span.classList.add(contrastType);
-    toggle_label_span.classList.add("form-check-label", "col-6");
+    toggle_label_span.classList.add(contrastType, "lh-3");
+    toggle_label_span.classList.add("form-check-label");
     toggle_label_span.for = ids[i];
-    toggle_label_span.innerText = `${labels[i]}`;
+    toggle_label_span.innerText = `${labels[i].charAt(0).toUpperCase()}${labels[i].slice(1)}`;
 
-    toggle_label.append(toggle_label_span);
-    toggle_div.appendChild(toggle_label);
+    toggle_div.appendChild(toggle_label_span);
     toggle_div.appendChild(toggle);
     toggles_div.appendChild(toggle_div);
 
