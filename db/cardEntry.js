@@ -84,6 +84,7 @@ const getUserData = async (uuid) => {
     });
 
   const userAccountId = result.length > 0 ? result[0].user_account_id : null;
+  if (!userAccountId) return null;
 
   // Find the user associated with the user_account ID.
   result = await knex("user_accounts")
@@ -94,6 +95,7 @@ const getUserData = async (uuid) => {
     });
 
   const userId = result.length > 0 ? result[0].user_id : null;
+  if (!userId) return null;
 
   // Return the first and last name of the user.
   result = await knex("users")
