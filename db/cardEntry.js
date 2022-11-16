@@ -49,6 +49,39 @@ const getCardEntries = async (uuid) => {
   return result.length > 0 ? result : null;
 };
 
+const getUserData = async (uuid) => {
+  // Find just a user_account ID associated with the given uuid.
+  let result = await knex("card_entries")
+    .select("user_account_id")
+    .where("uuid", uuid)
+    .limit(1)
+    .catch((err) => {
+      console.log(err);
+    });
+
+  const userAccountId = result.length > 0 ? result[0].user_account_id : null;
+
+  // Find the user associated with the user_account ID.
+  result = await knex("user_accounts")
+    .select("user_id")
+    .where("id", userAccountId)
+    .catch((err) => {
+      console.log(err);
+    });
+
+  const userId = result.length > 0 ? result[0].user_id : null;
+
+  // Return the first and last name of the user.
+  result = await knex("users")
+    .select("first_name", "last_name")
+    .where("id", userId)
+    .catch((err) => {
+      console.log(err);
+    });
+
+  return result.length > 0 ? result[0] : null;
+};
+
 /**
  *
  * Attempts to update a card_entry in the database.
@@ -100,6 +133,7 @@ const deleteCardEntry = async (id) => {
 module.exports = {
   createCardEntry,
   getCardEntries,
+  getUserData,
   updateCardEntry,
   deleteCardEntry,
 };

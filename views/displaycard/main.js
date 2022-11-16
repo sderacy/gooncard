@@ -1,7 +1,22 @@
 let profile_owner_name = document.getElementById("profile-owner-name");
 let profile_contents = document.getElementById("profile-contents");
 
-// Values to be connected with the DB
+// Get the UUID from the EJS.
+const uuid = document.getElementById("uuid-indicator").innerText;
+
+// Fetch card_entries and user data from database.
+fetch("/displaycard/getall", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({ uuid: uuid }),
+})
+  .then((res) => res.json())
+  .then((data) => {
+    console.log(data);
+  });
+
 profile_owner_name.innerText = "Leah Kazenmayer";
 let profile_labels = [
   "email",

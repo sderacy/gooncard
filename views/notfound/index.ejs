@@ -32,8 +32,8 @@
           </p>
         </main>
       </div>
-      <%- include('../partials/footer'); %> <% if (typeof user === 'undefined')
-      { %> <%- include('../partials/defaultSettings', {user: user}) %> <% } %>
+      <%- include('../partials/footer'); %> <% if (user) { %> <%-
+      include('../partials/defaultSettings', {user: user}) %> <% } %>
     </div>
   </body>
 </html>

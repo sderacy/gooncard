@@ -1,4 +1,4 @@
-const { getCardEntries } = require("../db/cardEntry");
+const { getCardEntries, getUserData } = require("../db/cardEntry");
 
 module.exports = function (app, path) {
   /**
@@ -36,5 +36,17 @@ module.exports = function (app, path) {
    */
   app.get("/displaycard/main", (req, res) => {
     res.sendFile(path + "/displaycard/main.js");
+  });
+
+  /**
+   * POST /displaycard/getall
+   *
+   * Returns all card entries for the given uuid.
+   */
+  app.post("/displaycard/getall", async (req, res) => {
+    const { uuid } = req.body;
+    const cardEntries = await getCardEntries(uuid);
+    const userData = await getUserData(uuid);
+    res.send({ cardEntries, userData });
   });
 };
