@@ -46,7 +46,31 @@ const getCardEntries = async (uuid) => {
       console.log(err);
     });
 
-  return result.length > 0 ? result : null;
+  // Need to get all of the accounts associated with the ids in the result.
+  let whereString = "";
+
+  if (result && result.length > 0) {
+    result.forEach((cardEntry, index) => {
+      // All but the last entry need an OR.
+      if (index === result.length - 1) {
+        whereString += "id = " + cardEntry.user_account_id;
+      } else {
+        whereString += "id = " + cardEntry.user_account_id + " OR ";
+      }
+    });
+
+    // Find all user_accounts associated with the card_entries.
+    const userAccounts = await knex("user_accounts")
+      .select("*")
+      .whereRaw(whereString)
+      .catch((err) => {
+        console.log(err);
+      });
+
+    return userAccounts && userAccounts.length > 0 ? userAccounts : null;
+  } else {
+    return null;
+  }
 };
 
 const getUserData = async (uuid) => {
