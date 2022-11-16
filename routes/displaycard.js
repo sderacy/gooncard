@@ -6,6 +6,12 @@ module.exports = function (app, path) {
    * Uses the isLoggedIn middleware to redirect to confirm this.
    */
   app.get("/displaycard", (req, res) => {
+    // Redirect if query param is missing.
+    if (!req.query.id) {
+      res.redirect("/notfound");
+      return;
+    }
+
     // Pass the user object to the displaycard page
     res.render(path + "/displaycard/index", {
       uuid: req.query.id,
