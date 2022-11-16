@@ -1,3 +1,5 @@
+const { getCardEntries } = require("../db/cardEntry");
+
 module.exports = function (app, path) {
   /**
    * GET /
@@ -5,14 +7,14 @@ module.exports = function (app, path) {
    * Renders the displaycard page for the currently logged in user.
    * Uses the isLoggedIn middleware to redirect to confirm this.
    */
-  app.get("/displaycard", (req, res) => {
-    // Redirect if query param is missing.
-    if (!req.query.id) {
+  app.get("/displaycard", async (req, res) => {
+    // Redirect if query param UUID is not in the database or absent.
+    if (!req.query.id || !(await getCardEntries(req.query.id))) {
       res.redirect("/notfound");
       return;
     }
 
-    // Pass the user object to the displaycard page
+    // Pass the uuid to the displaycard page
     res.render(path + "/displaycard/index", {
       uuid: req.query.id,
     });
