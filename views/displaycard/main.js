@@ -23,7 +23,7 @@ fetch("/displaycard/getall", {
     });
 
     // Use the fetched data for the owner's name.
-    profile_owner_name.innerText = `${data.userData.first_name} ${data.userData.last_name}`;
+    profile_owner_name.innerText = `${data.userData?.first_name} ${data.userData?.last_name}`;
 
     // Create a div for each label / value pair.
     for (let i = 0; i < profile_labels.length; i++) {
