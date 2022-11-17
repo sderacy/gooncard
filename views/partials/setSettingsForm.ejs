@@ -28,6 +28,9 @@
   let highContrast = document.getElementById("highContrast");
   let lowContrast = document.getElementById("lowContrast");
 
+  // Keep track of when the submit button is clicked.
+  let submitClicked = false;
+
   /**
    * Function to be run whenever any user input is detected. This method ensures
    * that all buttons on the page are either enabled or disabled as appropriate.
@@ -89,6 +92,9 @@
   document.getElementById("editTheme").onchange = updateButtonsAndDisplay;
   document.getElementById("highContrast").onchange = updateButtonsAndDisplay;
   document.getElementById("lowContrast").onchange = updateButtonsAndDisplay;
+  save_changes.onclick = () => {
+    submitClicked = true;
+  };
 
   // Add the options to the select elements.
   let selectFontSize = document.getElementById("editFontSize");
@@ -238,6 +244,10 @@
   }
 
   window.addEventListener("beforeunload", function (e) {
+  // Ignore if the user clicks the submit button.
+  if (submitClicked) return;
+
+  // Prevent navigation if the user has unsaved changes.
     if (
       document.getElementById("editFirstName").value !== originalFirstName ||
       document.getElementById("editLastName").value !== originalLastName ||
