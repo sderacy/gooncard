@@ -7,6 +7,7 @@
     <title>Not Found</title>
   </head>
   <body id="body" class="h-100 text-center text-white dark-mode bg-dark">
+    <% var user = undefined; %>
     <div id="page-container">
       <div
         class="cover-container h-100 w-100 align-items-center p-3 mx-auto mt-3"
@@ -18,8 +19,8 @@
           <!-- This creates a divider to indicate the jump from the header to the actual content -->
           <hr />
           <h4>
-            The business card you are looking for is non-existent. Scan a GOON Card QR code again to view a valid business
-            card.
+            The card must have been deleted by the owner or you were sent to an invalid link. <br>
+            Scan a GOON Card QR code to view a valid business card!
           </h4>
           <p id="interested-message">
             Interested in your own GOON card?
@@ -29,8 +30,10 @@
           </p>
         </main>
       </div>
-      <%- include('../partials/footer'); %> <%-
-      include('../partials/defaultSettings', {user: user}) %>
+      <%- include('../partials/footer'); %> 
+      <% if (typeof user === 'undefined') { %>
+      <%- include('../partials/defaultSettings', {user: user}) %> 
+      <% } %>
     </div>
   </body>
 </html>
