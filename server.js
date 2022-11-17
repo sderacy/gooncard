@@ -5,7 +5,9 @@ const bodyParser = require("body-parser");
 
 // Create backend constants
 const app = express();
-const siteAddress = address.ip();
+const siteAddress = process.argv.includes("--vm")
+  ? "gooncard.hpc.tcnj.edu"
+  : address.ip();
 const port = 3000;
 const viewsPath = __dirname + "/views";
 const sessionKey = "secret";

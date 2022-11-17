@@ -7,6 +7,9 @@ let add_new_account_submit = document.getElementById("add-new-account-submit");
 let save_changes = document.getElementById("save-changes");
 let cancel_changes = document.getElementById("cancel-changes");
 
+// Keep track of when the submit button is clicked.
+let submitClicked = false;
+
 // In order to know which buttons to enable/disable, we need to keep track of
 // which textboxes have content in them.
 const allTextboxes = [];
@@ -311,7 +314,10 @@ cancel_changes.onclick = () => {
  * the add, edit, and remove arrays, which are used to update the user's accounts
  * accordingly in the backend.
  */
-save_changes.onclick = async () => {
+save_changes.onclick = async (e) => {
+  // Indicate that page change is valid at this point.
+  submitClicked = true;
+
   // Send the data to the backend, reload the page.
   fetch("/account/profile/update", {
     method: "POST",
@@ -343,3 +349,14 @@ function populate_table() {
 add_new_label.oninput = () => updateFormButtons();
 add_new_value.oninput = () => updateFormButtons();
 add_new_type.onchange = () => updateFormButtons();
+
+window.addEventListener("beforeunload", function (e) {
+  // Ignore if the user clicks the submit button.
+  if (submitClicked) return;
+
+  // Prevent navigation if the user has unsaved changes.
+  if (add.length != 0 || edit.length != 0 || remove.length != 0) {
+    e.preventDefault();
+    e.returnValue = "";
+  }
+});

@@ -154,6 +154,9 @@ const updateUserAccount = async (userAccountId, label, value, type) => {
  * successfully deleted, or false if the user_account could not be deleted.
  */
 const deleteUserAccount = async (userAccountId) => {
+  // This line enables the foreign key constraint to cascade deletions.
+  await knex.raw("PRAGMA foreign_keys = ON");
+
   // Simply delete the user_account entry with the given ID.
   return (
     (await knex("user_accounts")

@@ -59,12 +59,14 @@ We are using an SQLite database in order to store users' preferred settings as w
 
 ## -- Development Process --
 
-We currently have 4 commands:
+We currently have 6 development scripts:
 
 1. `npm run format` - Formats the application code usually the Prettier Formatting
 2. `npm run seed` - Loads the database with default values
 3. `npm start` - Starts up the server so that you can use the application, and runs `npm run format`
 4. `npm run cleanStart` - Runs a combination of the first 3 commands in the order listed.
+5. `npm run start-vm` - Runs the server on the TCNJ VM with the appropriate gooncard.hpc.tcnj.edu web address.
+6. `npm run cleanStart-vm` - Runs a combination of the first 3 commands in the order listed, but again, specifically for the VM.
 
 When you make a change (At least on the front-end side), you should just be able to refresh the page. Before you push the code to the repo to make a Pull Request, make sure to run `npm run format` to format the code so that it matches the repo's white space and indentation.
 
