@@ -236,4 +236,18 @@
   function deleteAccount() {
     return confirm("Are you sure you want to delete your G.O.O.N Card Account?");
   }
+
+  window.addEventListener("beforeunload", function (e) {
+    if (
+      document.getElementById("editFirstName").value !== originalFirstName ||
+      document.getElementById("editLastName").value !== originalLastName ||
+      document.getElementById("editFontSize").value !== settings.font_size ||
+      document.getElementById("editFontFamily").value !== settings.font_family ||
+      document.getElementById("editTheme").value !== settings.theme ||
+      document.getElementById("highContrast").checked !== (settings.contrast === "High")
+    ) {
+      e.preventDefault();
+      e.returnValue = "";
+    }
+  });
 </script>

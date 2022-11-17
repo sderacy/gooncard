@@ -343,3 +343,10 @@ function populate_table() {
 add_new_label.oninput = () => updateFormButtons();
 add_new_value.oninput = () => updateFormButtons();
 add_new_type.onchange = () => updateFormButtons();
+
+window.addEventListener("beforeunload", function (e) {
+  if (add.length != 0 || edit.length != 0 || remove.length != 0) {
+    e.preventDefault();
+    e.returnValue = "";
+  }
+});
