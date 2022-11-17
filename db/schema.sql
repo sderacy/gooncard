@@ -14,7 +14,7 @@ CREATE TABLE "user_accounts" (
 	"label"	TEXT NOT NULL,
 	"value"	TEXT NOT NULL,
 	"type"	INTEGER NOT NULL,
-	FOREIGN KEY("user_id") REFERENCES "users"("id"),
+	FOREIGN KEY("user_id") REFERENCES "users"("id")  ON DELETE CASCADE,
 	PRIMARY KEY("id" AUTOINCREMENT)
 );
 
@@ -22,6 +22,6 @@ CREATE TABLE "card_entries" (
 	"id"	INTEGER NOT NULL UNIQUE,
 	"uuid"	TEXT NOT NULL,
 	"user_account_id"	INTEGER NOT NULL,
-	FOREIGN KEY("user_account_id") REFERENCES "user_accounts"("id"),
+	FOREIGN KEY("user_account_id") REFERENCES "user_accounts"("id") ON DELETE CASCADE,
 	PRIMARY KEY("id" AUTOINCREMENT)
 );
