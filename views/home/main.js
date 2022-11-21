@@ -19,8 +19,8 @@ let toggle_switch_elements = [];
 const contrastType = contrast_indicator.classList.contains("high-contrast-dark")
   ? "high-contrast-dark"
   : contrast_indicator.classList.contains("high-contrast-light")
-    ? "high-contrast-light"
-    : null;
+  ? "high-contrast-light"
+  : null;
 
 // Store the labels, values, types, and ids into separate arrays.
 const labels = [];
