@@ -9,6 +9,7 @@ let qrcode_submit = document.getElementById("qr-submit");
 let size = document.getElementById("size");
 let main = document.getElementById("main-content");
 let contrast_indicator = document.getElementById("contrast-indicator");
+let mic_icon = document.getElementById("mic-icon");
 
 // Need to maintain the checked state of the toggle buttons.
 let toggles = [];
@@ -325,8 +326,10 @@ if ("webkitSpeechRecognition" in window) {
     isTalking = !isTalking;
     if (isTalking) {
       speechRecognition.start();
+      mic_icon.classList.add("red-mic");
     } else {
       speechRecognition.stop();
+      mic_icon.classList.remove("red-mic");
     }
   };
 } else {
