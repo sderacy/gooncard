@@ -46,7 +46,66 @@ const getCardEntries = async (uuid) => {
       console.log(err);
     });
 
-  return result.length > 0 ? result : null;
+  // Need to get all of the accounts associated with the ids in the result.
+  let whereString = "";
+
+  if (result && result.length > 0) {
+    result.forEach((cardEntry, index) => {
+      // All but the last entry need an OR.
+      if (index === result.length - 1) {
+        whereString += "id = " + cardEntry.user_account_id;
+      } else {
+        whereString += "id = " + cardEntry.user_account_id + " OR ";
+      }
+    });
+
+    // Find all user_accounts associated with the card_entries.
+    const userAccounts = await knex("user_accounts")
+      .select("*")
+      .whereRaw(whereString)
+      .catch((err) => {
+        console.log(err);
+      });
+
+    return userAccounts && userAccounts.length > 0 ? userAccounts : null;
+  } else {
+    return null;
+  }
+};
+
+const getUserData = async (uuid) => {
+  // Find just a user_account ID associated with the given uuid.
+  let result = await knex("card_entries")
+    .select("user_account_id")
+    .where("uuid", uuid)
+    .limit(1)
+    .catch((err) => {
+      console.log(err);
+    });
+
+  const userAccountId = result.length > 0 ? result[0].user_account_id : null;
+  if (!userAccountId) return null;
+
+  // Find the user associated with the user_account ID.
+  result = await knex("user_accounts")
+    .select("user_id")
+    .where("id", userAccountId)
+    .catch((err) => {
+      console.log(err);
+    });
+
+  const userId = result.length > 0 ? result[0].user_id : null;
+  if (!userId) return null;
+
+  // Return the first and last name of the user.
+  result = await knex("users")
+    .select("first_name", "last_name")
+    .where("id", userId)
+    .catch((err) => {
+      console.log(err);
+    });
+
+  return result.length > 0 ? result[0] : null;
 };
 
 /**
@@ -100,6 +159,7 @@ const deleteCardEntry = async (id) => {
 module.exports = {
   createCardEntry,
   getCardEntries,
+  getUserData,
   updateCardEntry,
   deleteCardEntry,
 };
