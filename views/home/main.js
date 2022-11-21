@@ -18,8 +18,8 @@ let toggle_switch_elements = [];
 const contrastType = contrast_indicator.classList.contains("high-contrast-dark")
   ? "high-contrast-dark"
   : contrast_indicator.classList.contains("high-contrast-light")
-  ? "high-contrast-light"
-  : null;
+    ? "high-contrast-light"
+    : null;
 
 // Store the labels, values, types, and ids into separate arrays.
 const labels = [];
@@ -319,17 +319,6 @@ if ("webkitSpeechRecognition" in window) {
     document.querySelector("#final").innerHTML = final_transcript;
     document.querySelector("#interim").innerHTML = interim_transcript;
   };
-
-  // // Set the onClick property of the start button
-  // document.querySelector("#microphone").onclick = () => {
-  //   // Start the Speech Recognition
-  //   speechRecognition.start();
-  // };
-  // // Set the onClick property of the stop button
-  // document.querySelector("#stop").onclick = () => {
-  //   // Stop the Speech Recognition
-  //   speechRecognition.stop();
-  // };
 
   document.querySelector("#microphone").onclick = () => {
     // Start the Speech Recognition
