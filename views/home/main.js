@@ -18,14 +18,16 @@ let toggle_switch_elements = [];
 const contrastType = contrast_indicator.classList.contains("high-contrast-dark")
   ? "high-contrast-dark"
   : contrast_indicator.classList.contains("high-contrast-light")
-  ? "high-contrast-light"
-  : null;
+    ? "high-contrast-light"
+    : null;
 
 // Store the labels, values, types, and ids into separate arrays.
 const labels = [];
 const values = [];
 const types = [];
 const ids = [];
+
+let isTalking = false;
 
 // Fetch the user_accounts from the database.
 fetch("/account/profile/getall", { method: "GET" })
@@ -269,19 +271,42 @@ if ("webkitSpeechRecognition" in window) {
         final_transcript = event.results[i][0].transcript;
         final_transcript = final_transcript.trim();
         let final_transcript_array = final_transcript.split(" ");
-        if (final_transcript_array.length == 3 && final_transcript_array[0] == "turn" && final_transcript_array[1] == "on") {
+        if (
+          final_transcript_array.length == 3 &&
+          final_transcript_array[0] == "turn" &&
+          final_transcript_array[1] == "on"
+        ) {
           toggle_single_switch(1, final_transcript_array[2]);
-        } else if (final_transcript_array.length == 3 && final_transcript_array[0] == "turn" && final_transcript_array[1] == "off") {
+        } else if (
+          final_transcript_array.length == 3 &&
+          final_transcript_array[0] == "turn" &&
+          final_transcript_array[1] == "off"
+        ) {
           toggle_single_switch(0, final_transcript_array[2]);
-        } else if (final_transcript_array.length == 1 && final_transcript_array[0] == "all") {
+        } else if (
+          final_transcript_array.length == 1 &&
+          final_transcript_array[0] == "all"
+        ) {
           turn_all_switches_on();
-        } else if (final_transcript_array.length == 1 && final_transcript_array[0] == "none") {
+        } else if (
+          final_transcript_array.length == 1 &&
+          final_transcript_array[0] == "none"
+        ) {
           turn_all_switches_off();
-        } else if (final_transcript_array.length == 1 && final_transcript_array[0] == "professional") {
+        } else if (
+          final_transcript_array.length == 1 &&
+          final_transcript_array[0] == "professional"
+        ) {
           toggle_switches(1);
-        } else if (final_transcript_array.length == 1 && final_transcript_array[0] == "casual") {
+        } else if (
+          final_transcript_array.length == 1 &&
+          final_transcript_array[0] == "casual"
+        ) {
           toggle_switches(0);
-        } else if (final_transcript_array.length == 1 && final_transcript_array[0] == "generate") {
+        } else if (
+          final_transcript_array.length == 1 &&
+          final_transcript_array[0] == "generate"
+        ) {
           qrcode_submit.click();
         }
         check_toggles();
@@ -295,16 +320,27 @@ if ("webkitSpeechRecognition" in window) {
     document.querySelector("#interim").innerHTML = interim_transcript;
   };
 
-  // Set the onClick property of the start button
-  document.querySelector("#start").onclick = () => {
+  // // Set the onClick property of the start button
+  // document.querySelector("#microphone").onclick = () => {
+  //   // Start the Speech Recognition
+  //   speechRecognition.start();
+  // };
+  // // Set the onClick property of the stop button
+  // document.querySelector("#stop").onclick = () => {
+  //   // Stop the Speech Recognition
+  //   speechRecognition.stop();
+  // };
+
+  document.querySelector("#microphone").onclick = () => {
     // Start the Speech Recognition
-    speechRecognition.start();
+    isTalking = !isTalking;
+    if (isTalking) {
+      speechRecognition.start();
+    } else {
+      speechRecognition.stop();
+    }
   };
-  // Set the onClick property of the stop button
-  document.querySelector("#stop").onclick = () => {
-    // Stop the Speech Recognition
-    speechRecognition.stop();
-  };
+
 } else {
   console.log("Speech Recognition Not Available");
 }
