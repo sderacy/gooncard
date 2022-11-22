@@ -19,8 +19,8 @@ let toggle_switch_elements = [];
 const contrastType = contrast_indicator.classList.contains("high-contrast-dark")
   ? "high-contrast-dark"
   : contrast_indicator.classList.contains("high-contrast-light")
-  ? "high-contrast-light"
-  : null;
+    ? "high-contrast-light"
+    : null;
 
 // Store the labels, values, types, and ids into separate arrays.
 const labels = [];
@@ -309,6 +309,33 @@ if ("webkitSpeechRecognition" in window) {
           final_transcript_array[0] == "generate"
         ) {
           qrcode_submit.click();
+        } else if (
+          final_transcript_array.length == 2 &&
+          final_transcript_array[0] == "generate" &&
+          final_transcript_array[1] == "casual"
+        ) {
+          toggle_switches(0);
+          setTimeout(function () {
+            qrcode_submit.click();
+          }, 1000);
+        } else if (
+          final_transcript_array.length == 2 &&
+          final_transcript_array[0] == "generate" &&
+          final_transcript_array[1] == "professional"
+        ) {
+          toggle_switches(1);
+          setTimeout(function () {
+            qrcode_submit.click();
+          }, 1000);
+        } else if (
+          final_transcript_array.length == 2 &&
+          final_transcript_array[0] == "generate" &&
+          final_transcript_array[1] == "all"
+        ) {
+          turn_all_switches_on();
+          setTimeout(function () {
+            qrcode_submit.click();
+          }, 1000);
         }
         check_toggles();
       } else {
