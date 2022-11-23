@@ -75,7 +75,30 @@ fetch("/displaycard/getall", {
       profile_info_div.appendChild(icon_i);
       profile_info_div.appendChild(profile_info_value);
 
-      // Put the profile_info_div on the page (within profile_contents)
-      profile_contents.appendChild(profile_info_div);
+      // Check if the account value is a valid url
+      const isValidUrl = urlString=> {
+        let url;
+        try { 
+              url =new URL(urlString); 
+          }
+          catch(e){ 
+            return false; 
+          }
+          return url.protocol === "http:" || url.protocol === "https:";
+      }
+
+      // If it is, then make sure the div is wrapped in an a element
+      if (isValidUrl(profile_values[i])) {
+        let a_element = document.createElement("a");
+        a_element.href = profile_values[i];
+        a_element.appendChild(profile_info_div);
+        a_element.style.textDecoration = "none";
+        a_element.target = "_blank";
+        profile_contents.appendChild(a_element);
+      // If not, then just append the profile_info_div
+      } else {
+        profile_contents.appendChild(profile_info_div);
+      }
+
     }
   });
