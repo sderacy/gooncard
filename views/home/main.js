@@ -85,14 +85,16 @@ const populatePage = function () {
       "col-lg-9",
       "col-10"
     );
-
+    
+    // Creates input element which stores the toggles for each account
     let toggle = document.createElement("input");
     toggle.classList.add("form-check-input");
     toggle.type = "checkbox";
     toggle.role = "switch";
     toggle.id = ids[i];
     toggle_switch_elements.push(toggle);
-
+    
+    // Creates span element which stores text for each account
     let toggle_label_span = document.createElement("span");
     toggle_label_span.classList.add(contrastType, "lh-3");
     toggle_label_span.classList.add("form-check-label");
@@ -101,6 +103,7 @@ const populatePage = function () {
       i
     ].slice(1)}`;
 
+    // Adds toggle and text to a div for each account
     toggle_div.appendChild(toggle_label_span);
     toggle_div.appendChild(toggle);
     toggles_div.appendChild(toggle_div);
@@ -233,8 +236,8 @@ none_btn.onclick = function () {
   check_toggles();
 };
 
-//SPEECH RECOGNITION
-
+// Speech Recognition
+// If the API is recognized, execute speech rec code. Otherwise, throw error. 
 if ("webkitSpeechRecognition" in window) {
   // Initialize webkitSpeechRecognition
   let speechRecognition = new webkitSpeechRecognition();

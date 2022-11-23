@@ -2,6 +2,8 @@
  * Globals
  */
 
+ 
+/* Specifies colors for dark theme */
 .dark-mode {
   background: rgb(38, 38, 38);
   background: radial-gradient(
@@ -27,10 +29,13 @@
   color: #afafaf !important;
 }
 
+/* Specifies colors for dark theme with high contrast*/
 .high-contrast-dark {
   background-color: #ffc107 !important;
   color: #000000 !important;
 }
+
+/* Specifies colors for light theme */
 
 .light-mode {
   background: rgb(255, 255, 255);
@@ -71,6 +76,8 @@
   box-shadow: 0 0 10px #2d2363 !important;
 }
 
+/* Specifies colors for light theme */
+
 .high-contrast-light {
   background-color: #2d2363 !important;
   color: #ffffff !important;
@@ -88,6 +95,9 @@
   background-color: #b08f26 !important;
 }
 
+/* 
+ * Used for when we want to apply the yellow color to 
+ * text w/o using the bootstap class text-warning */
 .text-gold {
   color: #b08f26;
 }
@@ -146,6 +156,8 @@ body {
     font-size: 3.5rem;
   }
 }
+
+/* Used to prevent collisions between page content and footer */
 
 #page-container {
   position: relative;
