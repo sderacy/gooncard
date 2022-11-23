@@ -1,7 +1,7 @@
 <!-- Apply the settings using the passed EJS user object. -->
 <script>
   var user = <%- JSON.stringify(user) %>;
-  var settings = JSON.parse(user.settings);
+  var settings = JSON.parse(user?.settings);
   var htmlElement = document.getElementById("html");
   htmlElement.setAttribute(
     "style",
@@ -23,7 +23,7 @@
     div.classList.remove("text-white");
     div.classList.add("light-mode");
     div.classList.add("text-navy");
-    
+
     if (contentDiv) {
       contentDiv.classList.remove("text-white");
       contentDiv.classList.add("text-navy");

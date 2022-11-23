@@ -8,12 +8,12 @@
   </head>
   <body id="body" class="h-100 text-center text-white dark-mode bg-dark">
     <% var user = undefined; %>
+    <div id="uuid-indicator" style="display: none"><%= uuid %></div>
     <div id="page-container">
       <div
         id="content-wrap"
         class="cover-container h-100 w-100 align-items-center p-3 mx-auto mt-3"
       >
-        <%= `TEST: UUID for this card is ${uuid}` %>
         <main class="px-3">
           <h1 id="profile-owner-name"></h1>
           <!-- This creates a divider to indicate the jump from the header to the actual content -->
@@ -25,8 +25,8 @@
           </p>
         </main>
       </div>
-      <%- include('../partials/footer'); %> <% if (typeof user === 'undefined')
-      { %> <%- include('../partials/defaultSettings', {user: user}) %> <% } %>
+      <%- include('../partials/footer'); %> <% if (user) { %> <%-
+      include('../partials/defaultSettings', {user: user}) %> <% } %>
     </div>
   </body>
 </html>
