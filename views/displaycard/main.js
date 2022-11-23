@@ -76,16 +76,15 @@ fetch("/displaycard/getall", {
       profile_info_div.appendChild(profile_info_value);
 
       // Check if the account value is a valid url
-      const isValidUrl = urlString=> {
+      const isValidUrl = (urlString) => {
         let url;
-        try { 
-              url =new URL(urlString); 
-          }
-          catch(e){ 
-            return false; 
-          }
-          return url.protocol === "http:" || url.protocol === "https:";
-      }
+        try {
+          url = new URL(urlString);
+        } catch (e) {
+          return false;
+        }
+        return url.protocol === "http:" || url.protocol === "https:";
+      };
 
       // If it is, then make sure the div is wrapped in an a element
       if (isValidUrl(profile_values[i])) {
@@ -95,10 +94,9 @@ fetch("/displaycard/getall", {
         a_element.style.textDecoration = "none";
         a_element.target = "_blank";
         profile_contents.appendChild(a_element);
-      // If not, then just append the profile_info_div
+        // If not, then just append the profile_info_div
       } else {
         profile_contents.appendChild(profile_info_div);
       }
-
     }
   });

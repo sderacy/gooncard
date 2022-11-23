@@ -35,6 +35,7 @@ fetch("/account/profile/getall", { method: "GET" })
   .then((response) => response.json())
   .then((user_accounts) => {
     // If the user has at least one account, display the main content normally.
+    let htmlElement = document.getElementById("html");
     if (user_accounts) {
       user_accounts.forEach((account) => {
         labels.push(account.label);
@@ -43,6 +44,7 @@ fetch("/account/profile/getall", { method: "GET" })
         ids.push(account.id);
       });
       main.style.display = "block";
+      main.classList.add("px-3");
     }
 
     // If the user does not have any accounts, replace main content with a message.
@@ -58,6 +60,7 @@ fetch("/account/profile/getall", { method: "GET" })
     </div>
   `;
       main.style.display = "block";
+      main.classList.remove("px-3");
     }
 
     // Populate the page with the toggle switches.
