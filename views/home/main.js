@@ -310,12 +310,14 @@ if ("webkitSpeechRecognition" in window) {
           final_transcript_array.length == 1 &&
           final_transcript_array[0] == "generate"
         ) {
+          document.querySelector("#microphone").click();
           qrcode_submit.click();
         } else if (
           final_transcript_array.length == 2 &&
           final_transcript_array[0] == "generate" &&
           final_transcript_array[1] == "casual"
         ) {
+          document.querySelector("#microphone").click();
           toggle_switches(0);
           setTimeout(function () {
             qrcode_submit.click();
@@ -325,6 +327,7 @@ if ("webkitSpeechRecognition" in window) {
           final_transcript_array[0] == "generate" &&
           final_transcript_array[1] == "professional"
         ) {
+          document.querySelector("#microphone").click();
           toggle_switches(1);
           setTimeout(function () {
             qrcode_submit.click();
@@ -334,6 +337,7 @@ if ("webkitSpeechRecognition" in window) {
           final_transcript_array[0] == "generate" &&
           final_transcript_array[1] == "all"
         ) {
+          document.querySelector("#microphone").click();
           turn_all_switches_on();
           setTimeout(function () {
             qrcode_submit.click();
