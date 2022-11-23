@@ -1,3 +1,7 @@
+* {
+  --bs-gutter-x: 0rem !important;
+}
+
 /* Makes it so that the input doesn't look all spread out on wider screens */
 @media screen and (max-width: 850px) {
   input {
