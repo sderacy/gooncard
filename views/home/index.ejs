@@ -54,7 +54,7 @@
               type="button"
               aria-label="microphone"
             >
-              <i class="fa-solid fa-microphone"></i>
+              <i id="mic-icon" class="fa-solid fa-microphone"></i>
             </button>
 
             <br /><br />
@@ -89,6 +89,9 @@
             </form>
             <br />
             <div id="qrcode-div" class="m-auto"></div>
+            <p id="status" style="display: none">Listening...</p>
+            <p id="final"></p>
+            <p id="interim"></p>
           </main>
         </div>
         <%- include('../partials/footer'); %> <%-

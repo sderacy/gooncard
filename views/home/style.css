@@ -51,3 +51,7 @@ main#main-content {
 .form-check-label {
   width: 11rem;
 }
+
+.red-mic {
+  color: rgb(255, 1, 1);
+}
