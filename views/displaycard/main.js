@@ -1,4 +1,4 @@
-// Store references to inportant elements.
+// Store references to important elements.
 let profile_owner_name = document.getElementById("profile-owner-name");
 let profile_contents = document.getElementById("profile-contents");
 
