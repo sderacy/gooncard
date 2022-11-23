@@ -208,9 +208,6 @@ const onGenerateSubmit = async function (e) {
 
       // Append the QR Code inside the qrcode div
       qrcode_div.appendChild(qrcode);
-
-      console.log(url);
-      alert(url);
     });
 };
 
