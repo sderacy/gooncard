@@ -1,6 +1,6 @@
 # The G.O.O.N. Card Project
 
-The Goon Squad's Goon Card Project for CSC 355 ('22)
+The Goon Squad's Generated Optional Online Network (G.O.O.N.) Card Project for CSC 355 ('22).
 
 <hr>
 
@@ -80,8 +80,9 @@ Below are some accessibility features and concerns that the application has.
 
 - Settings Page allows users to customize their display. For example, a user can modify their name, font-size, font-family, contrast, and theme. This functionality was implemented to let users with visual or other limitations to have a more user-friendly accessible application.
 - The web application is responsive on both mobile versions and desktop versions for users with a wide variety of devices.
-- We will implement a speech recognition feature where users can dictate a command into the device's microphone after selecting the microphone icon and have the action be carried out. This feature is to help users with physical impairments or restrictions.
+- There is a speech recognition feature where users can dictate a command into the device's microphone after selecting the microphone icon and have the action be carried out. This feature is to help users with physical impairments or restrictions.
 - Visual displays such as icons or codes or potentially unrecognizable entities will have alt tags for users with screen readers to be able to identify.
+- We plan on implementing a set of help pages to provide the user with useful tips relevant to the page it's located.
 
 ## -- Use Cases --
 
