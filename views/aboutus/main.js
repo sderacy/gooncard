@@ -15,4 +15,6 @@ function changeWidthDiv(media_query) {
 
 var media_query = window.matchMedia("(max-width: 900px)");
 changeWidthDiv(media_query); // Call listener function at run time
-media_query.addListener(changeWidthDiv); // Attach listener function on state changes
+media_query.addEventListener("change", function (e) {
+  changeWidthDiv(media_query);
+}); // Attach listener function on state changes
