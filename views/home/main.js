@@ -19,8 +19,8 @@ let toggle_switch_elements = [];
 const contrastType = contrast_indicator.classList.contains("high-contrast-dark")
   ? "high-contrast-dark"
   : contrast_indicator.classList.contains("high-contrast-light")
-    ? "high-contrast-light"
-    : null;
+  ? "high-contrast-light"
+  : null;
 
 // Store the labels, values, types, and ids into separate arrays.
 const labels = [];
@@ -164,7 +164,7 @@ function turn_all_switches_off() {
 
 function toggle_single_switch(state, platform) {
   toggle_switch_elements.forEach((toggle, index) => {
-    if (labels[index] == platform.toLowerCase()) {
+    if (labels[index].toLowerCase() == platform.toLowerCase()) {
       if (!toggle.checked && state == 1) {
         toggle.checked = true;
         toggles.push(parseInt(toggle.id));
@@ -271,7 +271,9 @@ if ("webkitSpeechRecognition" in window) {
       if (event.results[i].isFinal) {
         final_transcript = event.results[i][0].transcript;
         final_transcript = final_transcript.trim();
-        let final_transcript_array = final_transcript.split(" ");
+        let final_transcript_array = final_transcript
+          .split(" ")
+          .map((word) => word.toLowerCase());
         if (
           final_transcript_array.length == 3 &&
           final_transcript_array[0] == "turn" &&
