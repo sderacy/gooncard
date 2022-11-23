@@ -1,3 +1,4 @@
+// Store references to inportant elements.
 let profile_owner_name = document.getElementById("profile-owner-name");
 let profile_contents = document.getElementById("profile-contents");
 
@@ -25,11 +26,14 @@ fetch("/displaycard/getall", {
     // Use the fetched data for the owner's name.
     profile_owner_name.innerText = `${data.userData?.first_name} ${data.userData?.last_name}`;
 
-    // Create a div for each label / value pair.
     for (let i = 0; i < profile_labels.length; i++) {
+      // Create a div for each label / value pair.
       let profile_info_div = document.createElement("div");
       profile_info_div.classList.add("bg-white", "rounded-3", "m-3", "p-2");
 
+      // Use the appropriate faicon (logo) depending on what the platform is
+      // Accounts for multiple variations of one platform
+      // Hard codes a certain amount of platforms, and for all others, it will display an "information icon"
       let icon_i = document.createElement("i");
       switch (profile_labels[i].toLowerCase()) {
         case "cell phone number":
@@ -62,13 +66,16 @@ fetch("/displaycard/getall", {
           icon_i.classList.add("fa-solid", "fa-circle-info");
       }
 
+      // Retrieve the account name and insert the value into a span element
       let profile_info_value = document.createElement("span");
       profile_info_value.innerText = profile_values[i];
       profile_info_value.classList.add("profile-info-value");
 
+      // Append the faicon and the account name to the profile_info_div
       profile_info_div.appendChild(icon_i);
       profile_info_div.appendChild(profile_info_value);
 
+      // Put the profile_info_div on the page (within profile_contents)
       profile_contents.appendChild(profile_info_div);
     }
   });

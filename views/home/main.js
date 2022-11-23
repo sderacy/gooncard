@@ -162,6 +162,9 @@ function turn_all_switches_off() {
   toggles = [];
 }
 
+/**
+ * Turns on/off a single switch
+ */
 function toggle_single_switch(state, platform) {
   toggle_switch_elements.forEach((toggle, index) => {
     if (labels[index].toLowerCase() == platform.toLowerCase()) {
@@ -271,44 +274,64 @@ if ("webkitSpeechRecognition" in window) {
         let final_transcript_array = final_transcript
           .split(" ")
           .map((word) => word.toLowerCase());
+        // Parse through the user's words and proceed accordingly based on their command
+
+        // Turns on a single platform 
+        // "Turn on {platform_value}"
+        // Example: "Turn on Twitter"
         if (
           final_transcript_array.length == 3 &&
           final_transcript_array[0] == "turn" &&
           final_transcript_array[1] == "on"
         ) {
           toggle_single_switch(1, final_transcript_array[2]);
+        // Turns off a single platform
+        // "Turn off {platform_value}"
+        // Example: "Turn off Instagram"
         } else if (
           final_transcript_array.length == 3 &&
           final_transcript_array[0] == "turn" &&
           final_transcript_array[1] == "off"
         ) {
           toggle_single_switch(0, final_transcript_array[2]);
+        // Turns on all of the platforms
+        // "All"
         } else if (
           final_transcript_array.length == 1 &&
           final_transcript_array[0] == "all"
         ) {
           turn_all_switches_on();
+        // Turns off all of the platforms
+        // "None"
         } else if (
           final_transcript_array.length == 1 &&
           final_transcript_array[0] == "none"
         ) {
           turn_all_switches_off();
+        // Turns on only the professional platforms
+        // "Professional"
         } else if (
           final_transcript_array.length == 1 &&
           final_transcript_array[0] == "professional"
         ) {
           toggle_switches(1);
+        // Turns on only the casual platforms
+        // "Casual"
         } else if (
           final_transcript_array.length == 1 &&
           final_transcript_array[0] == "casual"
         ) {
           toggle_switches(0);
+        // Generates the QR code for the user and displays it on the screen
+        // "Generate"
         } else if (
           final_transcript_array.length == 1 &&
           final_transcript_array[0] == "generate"
         ) {
           document.querySelector("#microphone").click();
           qrcode_submit.click();
+        // Generates the QR code automatically for all of the casual accounts
+        // "Generate casual"
         } else if (
           final_transcript_array.length == 2 &&
           final_transcript_array[0] == "generate" &&
@@ -319,6 +342,8 @@ if ("webkitSpeechRecognition" in window) {
           setTimeout(function () {
             qrcode_submit.click();
           }, 1000);
+        // Generates the QR code automatically for all of the professional accounts
+        // "Generate Professional"
         } else if (
           final_transcript_array.length == 2 &&
           final_transcript_array[0] == "generate" &&
@@ -329,6 +354,8 @@ if ("webkitSpeechRecognition" in window) {
           setTimeout(function () {
             qrcode_submit.click();
           }, 1000);
+        // Generates the QR code automatically for all of the accounts
+        // "Generate All"
         } else if (
           final_transcript_array.length == 2 &&
           final_transcript_array[0] == "generate" &&
