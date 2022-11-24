@@ -56,7 +56,6 @@
             >
               <i id="mic-icon" class="fa-solid fa-microphone"></i>
             </button>
-
             <br /><br />
 
             <div
@@ -86,8 +85,47 @@
               >
                 Generate
               </button>
+              <!-- Button to trigger the help modal -->
+              <button
+                id="modal-btn"
+                class="btn btn-outline-secondary btn-m"
+                type="button"
+                aria-label="information"
+              >
+                <i id="info-button" class="fa-solid fa-circle-question"></i>
+              </button>
+              <!-- Help modal -->
+              <div class="modal" aria-modal="true">
+                <div class="modal-content">
+                  <span class="close-btn">&times;</span>
+                  <h1>Help Menu</h1>
+                  <hr />
+                  <p>
+                    You can specify which social media platforms to share with
+                    others by manually selecting the buttons, toggling the
+                    switches, or using the speech recognition feature on the
+                    page. You can enable and disable speech recognition by
+                    clicking on the microphone button and speaking the following
+                    commands into your device's microphone. You can also
+                    customize the dimensions of your QR code and then generate
+                    it by selecting the "Generate" button.
+                  </p>
+                  <br />
+                  <h4>Speech Commands</h4>
+                  <ul>
+                    <!-- Commands a user can say to customize their card -->
+                    <li>"Casual"</li>
+                    <li>"Professional"</li>
+                    <li>"All"</li>
+                    <li>"None"</li>
+                    <li>"Generate"</li>
+                    <li>"Generate casual"</li>
+                    <li>"Generate professional"</li>
+                    <li>"Generate all"</li>
+                  </ul>
+                </div>
+              </div>
             </form>
-            <br />
             <div id="qrcode-div" class="m-auto"></div>
             <p id="status" style="display: none">Listening...</p>
             <p id="final"></p>
