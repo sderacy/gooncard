@@ -67,12 +67,18 @@ fetch("/displaycard/getall", {
       }
 
       // Retrieve the account name and insert the value into a span element
+      let profile_info_label = document.createElement("span");
+      profile_info_label.innerText = profile_labels[i] + ": ";
+      profile_info_label.classList.add("profile-info-label");
+
+      // Retrieve the account name and insert the value into a span element
       let profile_info_value = document.createElement("span");
       profile_info_value.innerText = profile_values[i];
       profile_info_value.classList.add("profile-info-value");
 
       // Append the faicon and the account name to the profile_info_div
       profile_info_div.appendChild(icon_i);
+      profile_info_div.appendChild(profile_info_label);
       profile_info_div.appendChild(profile_info_value);
 
       // Check if the account value is a valid url
