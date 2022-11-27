@@ -1,4 +1,16 @@
-.row > * {
+header {
+  --bs-gutter-x: 0.5rem !important;
+}
+
+#logo-title {
+  padding-left: 0.5rem;
+}
+
+#nav {
+  padding-right: 0 !important;
+}
+
+.cover-container {
   padding-right: 0 !important;
 }
 
