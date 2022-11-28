@@ -350,6 +350,7 @@ add_new_label.oninput = () => updateFormButtons();
 add_new_value.oninput = () => updateFormButtons();
 add_new_type.onchange = () => updateFormButtons();
 
+// Prompts the user with an alert if they try to navigate away with cancelling/saving changes
 window.addEventListener("beforeunload", function (e) {
   // Ignore if the user clicks the submit button.
   if (submitClicked) return;

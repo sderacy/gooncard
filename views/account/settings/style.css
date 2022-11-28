@@ -1,3 +1,8 @@
+/* Provides custom button styling for settings page */
+* {
+  --bs-gutter-x: 0rem !important;
+}
+
 .button {
   border: none;
   color: white;

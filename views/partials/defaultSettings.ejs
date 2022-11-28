@@ -1,5 +1,8 @@
 <!-- Apply the settings using the passed EJS user object. -->
 <script>
+
+  // For the font family and font size, it's passes the settings
+  // to the html element so that every inner element will inherit the font
   var user = <%- JSON.stringify(user) %>;
   var settings = JSON.parse(user?.settings);
   var htmlElement = document.getElementById("html");
@@ -9,6 +12,8 @@
   );
   htmlElement.style.fontSize = settings.font_size;
 
+  // For the light theme and contrast, it's a little more involved so
+  // Elements are retrieved in order to implement the specific styling
   const div = document.getElementById("body"); // Get element from DOM
   const contentDiv = document.getElementById("content-div");
   const navBar = document.getElementById("nav");
@@ -17,6 +22,11 @@
   const navLinks = document.querySelectorAll(".nav-link");
   const logoTitle = document.getElementById("logo-title");
   const heart = document.getElementById("heart-icon");
+
+  // The idea is that if it's the light theme, we need to remove some classes
+  // that implement the dark color scheme and replace it with the light color scheme.
+  // It works similar to a toggle, where the classes added/removed are flipped in the
+  // opposite scheme. It works the same for contrast.
   if (settings.theme === "Light Theme") {
     div.classList.remove("dark-mode");
     div.classList.remove("bg-dark");
@@ -38,6 +48,8 @@
       }
     });
 
+    // Contrast needs a little more work because you're altering
+    // the text too as opposed to just the div container.
     contrastDivs.forEach((contrastDiv) => {
       if (settings.contrast == "High") {
         contrastDiv.classList.add("high-contrast-light");
@@ -63,6 +75,7 @@
     }
 
   } else {
+    // Same is done for dark mode
     div.classList.add("dark-mode");
     div.classList.add("bg-dark");
     div.classList.add("text-white");

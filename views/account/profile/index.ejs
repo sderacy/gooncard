@@ -29,7 +29,7 @@
               <span class="contrast"><%= error %></span>
             </p>
             <% } else if(success) { %>
-            <p class="message text-warning">
+            <p class="message text-gold">
               <span class="contrast"><%= success %></span>
             </p>
             <% } %>
@@ -55,15 +55,18 @@
             <div>
               <input
                 id="add-new-label"
-                class="form-control inline-block-child"
+                class="form-control inline-block-child me-3"
                 placeholder="Platform"
               />
               <input
                 id="add-new-value"
-                class="form-control inline-block-child"
+                class="form-control inline-block-child me-3"
                 placeholder="Account"
               />
-              <select class="form-select inline-block-child" id="add-new-type">
+              <select
+                class="form-select inline-block-child mt-3"
+                id="add-new-type"
+              >
                 <option value="" selected disabled>Account Type</option>
                 <option value="0">Casual</option>
                 <option value="1">Professional</option>
@@ -80,11 +83,11 @@
               Add Account
             </button>
             <br /><br />
-            <div>
+            <div class="mb-2">
               <button
                 id="cancel-changes"
                 type="button"
-                class="btn btn-light inline-block-child"
+                class="btn btn-light inline-block-child me-3"
                 disabled
                 aria-label="cancel changes"
               >
