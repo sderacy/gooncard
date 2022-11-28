@@ -178,6 +178,14 @@
         }
       });
 
+    if (settings.contrast == "High") {
+      logoTitle.classList.remove("text-warning");
+      heart.classList.remove("text-warning");
+    } else {
+      logoTitle.classList.add("text-warning");
+      heart.classList.add("text-warning");
+    }
+
     } else {
       div.classList.add("dark-mode");
       div.classList.add("bg-dark");
