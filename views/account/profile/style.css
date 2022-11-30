@@ -103,3 +103,9 @@ input {
 select {
   max-width: fit-content;
 }
+
+.modal table,
+th,
+td {
+  border: none;
+}

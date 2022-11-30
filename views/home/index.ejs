@@ -18,7 +18,7 @@
             <!--These buttons are to autmatically toggle all the switches for the user-->
             <button
               id="casual-btn"
-              class="btn btn-warning btn-lg shortcut-buttons"
+              class="btn btn-warning btn-lg shortcut-buttons mb-2"
               type="button"
               aria-label="casual"
             >
@@ -26,7 +26,7 @@
             </button>
             <button
               id="professional-btn"
-              class="btn btn-warning btn-lg shortcut-buttons"
+              class="btn btn-warning btn-lg shortcut-buttons mb-2"
               type="button"
               aria-label="professional"
             >
@@ -34,7 +34,7 @@
             </button>
             <button
               id="all-btn"
-              class="btn btn-warning btn-lg shortcut-buttons"
+              class="btn btn-warning btn-lg shortcut-buttons mb-2"
               type="button"
               aria-label="all"
             >
@@ -42,7 +42,7 @@
             </button>
             <button
               id="none-btn"
-              class="btn btn-warning btn-lg shortcut-buttons"
+              class="btn btn-warning btn-lg shortcut-buttons mb-2"
               type="button"
               aria-label="none"
             >
@@ -50,15 +50,13 @@
             </button>
             <button
               id="microphone"
-              class="btn btn-warning btn-lg shortcut-buttons"
+              class="btn btn-warning btn-lg shortcut-buttons mb-2"
               type="button"
               aria-label="microphone"
             >
               <i id="mic-icon" class="fa-solid fa-microphone"></i>
             </button>
-
             <br /><br />
-
             <div
               id="contrast-indicator"
               class="contrast"
@@ -86,8 +84,81 @@
               >
                 Generate
               </button>
+              <!-- Button to trigger the help modal -->
+              <button
+                id="modal-btn"
+                class="btn btn-light btn-outline-dark btn-m"
+                type="button"
+                aria-label="information"
+              >
+                <i id="info-button" class="fa-solid fa-circle-question"></i>
+              </button>
+              <!-- Help modal -->
+              <div class="modal" aria-modal="true">
+                <div class="modal-content">
+                  <span class="close-btn">
+                    <button
+                      type="button"
+                      class="btn-close btn-close-white"
+                      aria-label="Close"
+                    ></button
+                  ></span>
+                  <br />
+                  <h1>Help Menu</h1>
+                  <hr />
+                  <p>
+                    You can specify which social media platforms to share with
+                    others by manually selecting the buttons, toggling the
+                    switches, or using the speech recognition feature on the
+                    page. You can enable and disable speech recognition by
+                    clicking on the microphone button and speaking the following
+                    commands into your device's microphone. You can also
+                    customize the dimensions of your QR code and then generate
+                    it by selecting the "Generate" button.
+                  </p>
+                  <br />
+                  <table>
+                    <tr>
+                      <th>Speech Command</th>
+                      <th>Command Description</th>
+                    </tr>
+                    <tr>
+                      <td>"Casual"</td>
+                      <td>Selects casual social media platforms</td>
+                    </tr>
+                    <tr>
+                      <td>"Professional"</td>
+                      <td>Selects professional social media platforms</td>
+                    </tr>
+                    <tr>
+                      <td>"All"</td>
+                      <td>Selects all social media platforms</td>
+                    </tr>
+                    <tr>
+                      <td>"None"</td>
+                      <td>Unselect all social media platforms</td>
+                    </tr>
+                    <tr>
+                      <td>"Generate casual"</td>
+                      <td>
+                        Generates QR code with casual social media platforms
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>"Generate professional"</td>
+                      <td>
+                        Generates QR code with professional social media
+                        platforms
+                      </td>
+                      <tr>
+                        <td>"Generate all"</td>
+                        <td>Generates QR code with all social media platforms</td>
+                      </tr>
+                    </tr>
+                  </table>
+                </div>
+              </div>
             </form>
-            <br />
             <div id="qrcode-div" class="m-auto"></div>
             <p id="status" style="display: none">Listening...</p>
             <p id="final"></p>
@@ -95,7 +166,9 @@
           </main>
         </div>
         <%- include('../partials/footer'); %> <%-
-        include('../partials/defaultSettings', {user: user}) %>
+        include('../partials/defaultSettings', {user: user})%>
+        <%-
+        include('../partials/modal'); %>
       </div>
     </div>
   </body>

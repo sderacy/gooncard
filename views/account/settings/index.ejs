@@ -183,7 +183,16 @@
             >
               Save Changes
             </button>
+            <!-- Button to trigger the help modal -->
           </div>
+          <button
+            id="modal-btn"
+            class="btn btn-light btn-outline-dark btn-m ms-2 mb-2"
+            type="button"
+            aria-label="information"
+          >
+            <i id="info-button" class="fa-solid fa-circle-question"></i>
+          </button>
           <div>
             <button
               type="button"
@@ -193,6 +202,43 @@
             >
               <i class="fa-solid fa-trash-can"></i> Delete G.O.O.N Account
             </button>
+            <!-- Help modal -->
+            <div class="modal" aria-modal="true">
+              <div class="modal-content">
+                <span class="close-btn">
+                  <button
+                    type="button"
+                    class="btn-close btn-close-white"
+                    aria-label="Close"
+                  ></button
+                ></span>
+                <br />
+                <h1>Help Menu</h1>
+                <hr />
+                <p>
+                  You can customize the overall settings for the application to
+                  your liking. You can edit your first and last names. From a
+                  dropdown list of options, you can select any font size and
+                  font family you prefer.
+                </p>
+                <br />
+                <p>
+                  You can also select either a high or low contrast option that
+                  changes the appearance of text. There's also an option to
+                  choose between a light and dark theme whose scope affects the
+                  entire page, not just the text. The theme and contrast mode
+                  features allow users to invert foreground and background
+                  colors which often helps text stand out better.
+                </p>
+                <br />
+                <p>
+                  To commit any changes, select the "Save Changes" button.
+                  Otherwise, to undo any changes, select the "Cancel Changes"
+                  button. Finally, if you'd like to delete your overall G.O.O.N
+                  card account, you can select the red button.
+                </p>
+              </div>
+            </div>
           </div>
         </form>
       </div>
@@ -200,7 +246,8 @@
       <div class="pt-3">
         <%- include('../../partials/footer'); %> <%-
         include('../../partials/defaultSettings', {user: user}) %> <%-
-        include('../../partials/setSettingsForm', {user: user}) %>
+        include('../../partials/setSettingsForm', {user: user}) %> <%-
+        include('../../partials/modal'); %>
       </div>
     </div>
   </body>
