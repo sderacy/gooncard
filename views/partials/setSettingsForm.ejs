@@ -250,8 +250,15 @@
     lowContrast.checked = true;
   }
 
+  /**
+   * When the user clicks on the delete account button, they will need to confirm before
+   * the API request is sent. If they confirm, call the API (GET method so we can reassign
+   * window location) which will redirect them to login.
+   */
   function deleteAccount() {
-    return confirm("Are you sure you want to delete your G.O.O.N Card Account?");
+    if (confirm("Are you sure you want to delete your account? This action is irreversable, and all of your associated accounts and generated Goon Cards will also be innaccessible to the users that you have shared them with!")) {
+      window.location.assign("/account/settings/delete");
+    }
   }
 
   window.addEventListener("beforeunload", function (e) {

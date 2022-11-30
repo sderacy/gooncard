@@ -85,19 +85,18 @@ module.exports = function (app, path) {
    *
    * Deletes the user's account and card entries
    */
-  app.get("/account/settings/delete", (req, res) => {
+  app.get("/account/settings/delete", async (req, res) => {
     const id = req.session.user.id;
-    const deleteResult = deleteUser(id);
-    
-    //If the deletion was successful then the user will be brought to the login page
-    if(deleteResult) {
-      req.session.success = "Account deleted successfully!";
-      res.redirect("/account/login");
-    } 
+    const deleteResult = await deleteUser(id);
+
+    //If the deletion was successful then the user should be logged out.
+    if (deleteResult) {
+      res.redirect("/account/logout");
+    }
     //Otherwise, redirect to the settings page with an error message.
-    else { 
+    else {
       req.session.error =
-        "There was an error when deleting your account.";
+        "There was an error deleting your account. Please try again.";
       res.redirect("/account/settings");
     }
   });
