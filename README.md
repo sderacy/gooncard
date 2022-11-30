@@ -82,7 +82,7 @@ Below are some accessibility features and concerns that the application has.
 - The web application is responsive on both mobile versions and desktop versions for users with a wide variety of devices.
 - There is a speech recognition feature where users can dictate a command into the device's microphone after selecting the microphone icon and have the action be carried out. This feature is to help users with physical impairments or restrictions.
 - Visual displays such as icons or codes or potentially unrecognizable entities will have alt tags for users with screen readers to be able to identify.
-- We plan on implementing a set of help pages to provide the user with useful tips relevant to the page it's located.
+- There is a help icon on certain pages that provides a user with guidance on how to interact with the application. This is to improve accessibility to users.
 
 ## -- Use Cases --
 
@@ -90,9 +90,10 @@ Below are some accessibility features and concerns that the application has.
 - A user can input, edit, and delete their social media information.
 - A user can select which social media information to share and generate a QR code associated with their selections to share with others.
 
-## -- Concerns/Guidelines --
+## -- Guidelines Followed --
 
 - Check out [this link](https://www.smashingmagazine.com/2021/03/complete-guide-accessible-front-end-components/) for accessiblity guidelines to consider.
+- Check out [this link](http://web-accessibility.carnegiemuseums.org/design/color/) for color schemes that follow accessibility guidelines.
 
 ## -- Configured Routes --
 

@@ -1,10 +1,15 @@
+* {
+  --bs-gutter-x: 0rem !important;
+}
+
+/* Makes it so that the input doesn't look all spread out on wider screens */
 @media screen and (max-width: 850px) {
   input {
     max-width: 15vw;
   }
 }
 
-/* Makes it so that the table and input doesn't look all spread out */
+/* Makes it so that the table and input doesn't look all spread out on wider screens */
 @media screen and (min-width: 850px) {
   #accounts-table {
     max-width: 50vw;
@@ -15,6 +20,7 @@
   }
 }
 
+/* Specify dark mode color scheme for the header rows */
 .dark-mode #edit-existing-header {
   color: #ffc107;
 }
@@ -23,6 +29,7 @@
   color: #ffc107;
 }
 
+/* Specify light mode color scheme for the header rows */
 .light-mode #edit-existing-header {
   color: #2d2363;
 }
@@ -31,11 +38,13 @@
   color: #2d2363;
 }
 
+/* Specify dark mode theme for the rest of the table */
 .dark-mode #accounts-table {
   margin: auto;
   color: white;
 }
 
+/* Specify light mode theme for the rest of the table */
 .light-mode #accounts-table {
   margin: auto;
   color: #2d2363;
@@ -45,11 +54,13 @@ input {
   margin: auto;
 }
 
+/* Specify dark mode theme for form control when clicked */
 .dark-mode .form-control:focus {
   border-color: #ffc107;
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px #ffc107;
 }
 
+/* Specify light mode theme for form control when clicked */
 .light-mode .form-select:focus {
   border-color: #2d2363;
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px #2d2363;
@@ -66,6 +77,7 @@ input {
   background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba(0,0,0,0.25)'/></svg>");
 }
 
+/* Specify dark mode theme for form control when checked */
 .dark-mode .form-switch .form-check-input:checked {
   background-color: #ffc107;
   border-color: #ffc107;
@@ -73,6 +85,7 @@ input {
   background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba(255,255,255,1.0)'/></svg>");
 }
 
+/* Specify light mode theme for form control when checked */
 .light-mode .form-switch .form-check-input:checked {
   background-color: #2d2363 !important;
   border-color: #2d2363 !important;
@@ -89,4 +102,10 @@ input {
 
 select {
   max-width: fit-content;
+}
+
+.modal table,
+th,
+td {
+  border: none;
 }

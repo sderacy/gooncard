@@ -35,6 +35,7 @@ fetch("/account/profile/getall", { method: "GET" })
   .then((response) => response.json())
   .then((user_accounts) => {
     // If the user has at least one account, display the main content normally.
+    let htmlElement = document.getElementById("html");
     if (user_accounts) {
       user_accounts.forEach((account) => {
         labels.push(account.label);
@@ -43,13 +44,14 @@ fetch("/account/profile/getall", { method: "GET" })
         ids.push(account.id);
       });
       main.style.display = "block";
+      main.classList.add("px-3");
     }
 
     // If the user does not have any accounts, replace main content with a message.
     else {
       document.getElementById("main-content").innerHTML = `
-    <div class="container p-5 mt-5">
-      <div class="row p-5 mt-5">
+    <div class="container p-5">
+      <div class="row p-5">
         <div class="col-12">
           <h2 class="text-center ${contrastType}">You have no accounts!</h3>
           <h3 class="text-center ${contrastType}">Click <a class="text-warning ${contrastType}" href="/account/profile">here</a> to add an account.</h3>
@@ -58,6 +60,7 @@ fetch("/account/profile/getall", { method: "GET" })
     </div>
   `;
       main.style.display = "block";
+      main.classList.remove("px-3");
     }
 
     // Populate the page with the toggle switches.
@@ -86,6 +89,7 @@ const populatePage = function () {
       "col-10"
     );
 
+    // Creates input element which stores the toggles for each account
     let toggle = document.createElement("input");
     toggle.classList.add("form-check-input");
     toggle.type = "checkbox";
@@ -93,6 +97,7 @@ const populatePage = function () {
     toggle.id = ids[i];
     toggle_switch_elements.push(toggle);
 
+    // Creates span element which stores text for each account
     let toggle_label_span = document.createElement("span");
     toggle_label_span.classList.add(contrastType, "lh-3");
     toggle_label_span.classList.add("form-check-label");
@@ -101,6 +106,7 @@ const populatePage = function () {
       i
     ].slice(1)}`;
 
+    // Adds toggle and text to a div for each account
     toggle_div.appendChild(toggle_label_span);
     toggle_div.appendChild(toggle);
     toggles_div.appendChild(toggle_div);
@@ -162,6 +168,9 @@ function turn_all_switches_off() {
   toggles = [];
 }
 
+/**
+ * Turns on/off a single switch
+ */
 function toggle_single_switch(state, platform) {
   toggle_switch_elements.forEach((toggle, index) => {
     if (labels[index].toLowerCase() == platform.toLowerCase()) {
@@ -230,8 +239,8 @@ none_btn.onclick = function () {
   check_toggles();
 };
 
-//SPEECH RECOGNITION
-
+// Speech Recognition
+// If the API is recognized, execute speech rec code. Otherwise, throw error.
 if ("webkitSpeechRecognition" in window) {
   // Initialize webkitSpeechRecognition
   let speechRecognition = new webkitSpeechRecognition();
@@ -271,44 +280,64 @@ if ("webkitSpeechRecognition" in window) {
         let final_transcript_array = final_transcript
           .split(" ")
           .map((word) => word.toLowerCase());
+        // Parse through the user's words and proceed accordingly based on their command
+
+        // Turns on a single platform
+        // "Turn on {platform_value}"
+        // Example: "Turn on Twitter"
         if (
           final_transcript_array.length == 3 &&
           final_transcript_array[0] == "turn" &&
           final_transcript_array[1] == "on"
         ) {
           toggle_single_switch(1, final_transcript_array[2]);
+          // Turns off a single platform
+          // "Turn off {platform_value}"
+          // Example: "Turn off Instagram"
         } else if (
           final_transcript_array.length == 3 &&
           final_transcript_array[0] == "turn" &&
           final_transcript_array[1] == "off"
         ) {
           toggle_single_switch(0, final_transcript_array[2]);
+          // Turns on all of the platforms
+          // "All"
         } else if (
           final_transcript_array.length == 1 &&
           final_transcript_array[0] == "all"
         ) {
           turn_all_switches_on();
+          // Turns off all of the platforms
+          // "None"
         } else if (
           final_transcript_array.length == 1 &&
           final_transcript_array[0] == "none"
         ) {
           turn_all_switches_off();
+          // Turns on only the professional platforms
+          // "Professional"
         } else if (
           final_transcript_array.length == 1 &&
           final_transcript_array[0] == "professional"
         ) {
           toggle_switches(1);
+          // Turns on only the casual platforms
+          // "Casual"
         } else if (
           final_transcript_array.length == 1 &&
           final_transcript_array[0] == "casual"
         ) {
           toggle_switches(0);
+          // Generates the QR code for the user and displays it on the screen
+          // "Generate"
         } else if (
           final_transcript_array.length == 1 &&
           final_transcript_array[0] == "generate"
         ) {
           document.querySelector("#microphone").click();
           qrcode_submit.click();
+          // Generates the QR code automatically for all of the casual accounts
+          // "Generate casual"
         } else if (
           final_transcript_array.length == 2 &&
           final_transcript_array[0] == "generate" &&
@@ -319,6 +348,8 @@ if ("webkitSpeechRecognition" in window) {
           setTimeout(function () {
             qrcode_submit.click();
           }, 1000);
+          // Generates the QR code automatically for all of the professional accounts
+          // "Generate Professional"
         } else if (
           final_transcript_array.length == 2 &&
           final_transcript_array[0] == "generate" &&
@@ -329,6 +360,8 @@ if ("webkitSpeechRecognition" in window) {
           setTimeout(function () {
             qrcode_submit.click();
           }, 1000);
+          // Generates the QR code automatically for all of the accounts
+          // "Generate All"
         } else if (
           final_transcript_array.length == 2 &&
           final_transcript_array[0] == "generate" &&
