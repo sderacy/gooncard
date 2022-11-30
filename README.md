@@ -136,6 +136,7 @@ Below are some accessibility features and concerns that the application has.
 - `GET /account/settings/style` - Serves the settings page's stylesheet.
 - `GET /account/settings/main` - Serves the settings page's JavaScript.
 - `GET /account/settings/update` - Updates the user's settings. Used in form submission.
+- `GET /account/settings/delete` - Deletes the user's Goon Card account, all of their linked accounts, and all cards associated with their account that were previously generated.
 
 ### `aboutus` Routes
 
