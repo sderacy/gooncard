@@ -1,4 +1,4 @@
-const { updateName, updateSettings } = require("../db/users");
+const { updateName, updateSettings, deleteUser } = require("../db/users");
 const { isLoggedIn } = require("../util/middleware");
 
 module.exports = function (app, path) {
@@ -76,6 +76,28 @@ module.exports = function (app, path) {
     else {
       req.session.error =
         "There was an error updating one or more of your settings.";
+      res.redirect("/account/settings");
+    }
+  });
+
+  /**
+   * GET /account/settings/delete
+   *
+   * Deletes the user's account and card entries
+   */
+  app.get("/account/settings/delete", (req, res) => {
+    const id = req.session.user.id;
+    const deleteResult = deleteUser(id);
+    
+    //If the deletion was successful then the user will be brought to the login page
+    if(deleteResult) {
+      req.session.success = "Account deleted successfully!";
+      res.redirect("/account/login");
+    } 
+    //Otherwise, redirect to the settings page with an error message.
+    else { 
+      req.session.error =
+        "There was an error when deleting your account.";
       res.redirect("/account/settings");
     }
   });
