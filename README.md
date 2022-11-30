@@ -90,7 +90,7 @@ Below are some accessibility features and concerns that the application has.
 - A user can input, edit, and delete their social media information.
 - A user can select which social media information to share and generate a QR code associated with their selections to share with others.
 
-## -- Guideliens Followed --
+## -- Guidelines Followed --
 
 - Check out [this link](https://www.smashingmagazine.com/2021/03/complete-guide-accessible-front-end-components/) for accessiblity guidelines to consider.
 - Check out [this link](http://web-accessibility.carnegiemuseums.org/design/color/) for color schemes that follow accessibility guidelines.

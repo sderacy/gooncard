@@ -365,19 +365,3 @@ if ("webkitSpeechRecognition" in window) {
 } else {
   console.log("Speech Recognition Not Available");
 }
-
-let modalBtn = document.getElementById("modal-btn");
-let modal = document.querySelector(".modal");
-let closeBtn = document.querySelector(".close-btn");
-
-modalBtn.onclick = function () {
-  modal.style.display = "block"; // show the modal when button is selected
-};
-closeBtn.onclick = function () {
-  modal.style.display = "none"; // hides the modal when close button is selected
-};
-window.onclick = function (e) {
-  if (e.target == modal) {
-    modal.style.display = "none"; // hides the modal when any place in the window but outside the modal is clicked on
-  }
-};
