@@ -114,7 +114,7 @@ const deleteUser = async (id) => {
   // This line enables the foreign key constraint to cascade deletions.
   await knex.raw("PRAGMA foreign_keys = ON");
 
-  // Simply delete the user_account entry with the given ID.
+  // Simply delete the user with the given ID.
   return (
     (await knex("users")
       .where("id", id)
