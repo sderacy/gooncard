@@ -106,7 +106,7 @@ const updateName = async (email, first_name, last_name) => {
  *
  * Attempts to delete a user and their card entries in the database.
  *
- * @param {integer} id The email of the user to update.
+ * @param {integer} id The id of the user to update.
  * @returns {Promise<boolean>} Promise of true if the user_account was
  * successfully deleted, or false if the user_account could not be deleted.
  */
