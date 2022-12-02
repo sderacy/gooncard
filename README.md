@@ -156,13 +156,17 @@ Before you push the code to the repo to make a Pull Request, make sure to run `n
 
 If you get a message about files being modified and changing from LF to CLF for example, do `git add -A` to fix the issue.
 
-## Accessibility
+## Usability and Features
 
-Below are some accessibility features and concerns that the application has.
+### Use Cases
 
-## Features
+- A user can register an account on this application
+- A user can input, edit, and delete their social media information.
+- A user can select which social media information to share and generate a QR code associated with their selections to share with others.
 
-Below are a number of features that the GOON Card application curreently includes:
+### Features
+
+Below are a number of features (accessible features too) that the GOON Card application currently includes:
 
 - Settings Page allows users to customize their display. For example, a user can modify their name, font-size, font-family, contrast, and theme. This functionality was implemented to let users with visual or other limitations to have a more user-friendly accessible application.
 - The web application is responsive on both mobile versions and desktop versions for users with a wide variety of devices.
@@ -170,13 +174,7 @@ Below are a number of features that the GOON Card application curreently include
 - Visual displays such as icons or codes or potentially unrecognizable entities will have alt tags for users with screen readers to be able to identify.
 - There is a help icon on certain pages that provides a user with guidance on how to interact with the application. This is to improve accessibility to users.
 
-## Use Cases
-
-- A user can register an account on this application
-- A user can input, edit, and delete their social media information.
-- A user can select which social media information to share and generate a QR code associated with their selections to share with others.
-
-## Concerns/Guidelines
+### Concerns/Guidelines
 
 - Check out [this link](https://www.smashingmagazine.com/2021/03/complete-guide-accessible-front-end-components/) for accessiblity guidelines to consider.
 - Check out [this link](http://web-accessibility.carnegiemuseums.org/design/color/) for color schemes that follow accessibility guidelines.
