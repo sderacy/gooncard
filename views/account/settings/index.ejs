@@ -5,19 +5,33 @@
     <title>Settings</title>
     <link rel="stylesheet" href="/account/settings/style" />
     <script src="/account/settings/main" type="module"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+      integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
   </head>
-  <body class="h-100 text-center text-white bg-dark">
+  <body id="body" class="h-100 text-center text-white dark-mode bg-dark">
     <div id="page-container">
       <div class="row col-12"><%- include('../../partials/navbar'); %></div>
 
-      <div class="row col-12 text-center justify-content-center m-auto">
+      <div
+        id="content-wrap"
+        class="row col-12 text-center justify-content-center m-auto"
+      >
         <div class="text-center">
           <br />
-          <h1>Settings</h1>
+          <h1><span class="contrast">Settings</span></h1>
           <% if (error) { %>
-          <p class="message text-danger"><%= error %></p>
+          <p class="message text-danger">
+            <span class="contrast"><%= error %></span>
+          </p>
           <% } else if(success) { %>
-          <p class="message text-warning"><%= success %></p>
+          <p class="message text-gold">
+            <span class="contrast"><%= success %></span>
+          </p>
           <% } %>
         </div>
 
@@ -29,7 +43,7 @@
         >
           <div class="form-group row">
             <label for="editFirstName" class="col-form-label"
-              >First Name:</label
+              ><span class="contrast">First Name:</span></label
             >
             <div>
               <input
@@ -38,13 +52,16 @@
                 class="form-control"
                 id="editFirstName"
                 value="<%= user.first_name %>"
+                aria-label="first name"
               />
             </div>
           </div>
 
           <br />
           <div class="form-group row">
-            <label for="editLastName" class="col-form-label">Last Name:</label>
+            <label for="editLastName" class="col-form-label"
+              ><span class="contrast">Last Name:</span></label
+            >
             <div>
               <input
                 name="last_name"
@@ -52,6 +69,7 @@
                 class="form-control"
                 id="editLastName"
                 value="<%= user.last_name %>"
+                aria-label="last name"
               />
             </div>
           </div>
@@ -59,13 +77,16 @@
           <br />
 
           <div class="form-group row">
-            <label for="editFontSize" class="col-form-label">Font Size:</label>
+            <label for="editFontSize" class="col-form-label"
+              ><span class="contrast">Font Size:</span></label
+            >
             <div>
               <div class="form-group">
                 <select
                   name="font_size"
                   class="form-control"
                   id="editFontSize"
+                  aria-label="font size"
                 ></select>
               </div>
             </div>
@@ -75,7 +96,7 @@
 
           <div class="form-group row">
             <label for="editFontFamily" class="col-form-label"
-              >Font Family:
+              ><span class="contrast">Font Family:</span>
             </label>
             <div>
               <div class="form-group">
@@ -83,6 +104,7 @@
                   name="font_family"
                   class="form-control"
                   id="editFontFamily"
+                  aria-label="font family"
                 ></select>
               </div>
             </div>
@@ -90,21 +112,27 @@
 
           <br />
           <div class="form-group row">
-            <label for="editContrast" class="col-form-label">Contrast:</label>
+            <label for="editContrast" class="col-form-label mb-2"
+              ><span class="contrast">Contrast:</span></label
+            >
             <div>
               <div class="form-check">
-                <label class="form-check-label" for="lowContrast"> Low </label>
+                <label class="form-check-label contrast" for="lowContrast">
+                  Low
+                </label>
                 <input
                   class="form-check-input"
                   type="radio"
                   name="contrast"
                   id="lowContrast"
                   value="Low"
+                  aria-label="low contrast"
                 />
               </div>
+              <br />
               <div class="form-check">
                 <label class="form-check-label" for="highContrast">
-                  High
+                  <span class="contrast">High</span>
                 </label>
                 <input
                   class="form-check-input"
@@ -112,6 +140,7 @@
                   name="contrast"
                   id="highContrast"
                   value="High"
+                  aria-label="high contrast"
                 />
               </div>
             </div>
@@ -119,17 +148,21 @@
 
           <br />
           <div class="form-group row">
-            <label for="editTheme" class="col-form-label">Theme:</label>
+            <label for="editTheme" class="col-form-label"
+              ><span class="contrast">Theme:</span></label
+            >
             <div>
               <div class="form-group">
                 <select
                   name="theme"
                   class="form-control"
                   id="editTheme"
+                  aria-label="theme"
                 ></select>
               </div>
             </div>
           </div>
+          <br />
           <br />
           <div class="mb-3">
             <button
@@ -137,6 +170,7 @@
               type="button"
               class="btn btn-light inline-block-child"
               disabled
+              aria-label="cancel changes"
             >
               Cancel Changes
             </button>
@@ -145,13 +179,76 @@
               type="submit"
               class="btn btn-warning inline-block-child"
               disabled
+              aria-label="save changes"
             >
               Save Changes
             </button>
+            <!-- Button to trigger the help modal -->
+          </div>
+          <button
+            id="modal-btn"
+            class="btn btn-light btn-outline-dark btn-m ms-2 mb-2"
+            type="button"
+            aria-label="information"
+          >
+            <i id="info-button" class="fa-solid fa-circle-question"></i>
+          </button>
+          <div>
+            <button
+              type="button"
+              class="btn btn-danger"
+              onclick="deleteAccount()"
+              aria-label="delete account"
+            >
+              <i class="fa-solid fa-trash-can"></i> Delete G.O.O.N Account
+            </button>
+            <!-- Help modal -->
+            <div class="modal" aria-modal="true">
+              <div class="modal-content">
+                <span class="close-btn">
+                  <button
+                    type="button"
+                    class="btn-close btn-close-white"
+                    aria-label="Close"
+                  ></button
+                ></span>
+                <br />
+                <h1>Help Menu</h1>
+                <hr />
+                <p>
+                  You can customize the overall settings for the application to
+                  your liking. You can edit your first and last names. From a
+                  dropdown list of options, you can select any font size and
+                  font family you prefer.
+                </p>
+                <br />
+                <p>
+                  You can also select either a high or low contrast option that
+                  changes the appearance of text. There's also an option to
+                  choose between a light and dark theme whose scope affects the
+                  entire page, not just the text. The theme and contrast mode
+                  features allow users to invert foreground and background
+                  colors which often helps text stand out better.
+                </p>
+                <br />
+                <p>
+                  To commit any changes, select the "Save Changes" button.
+                  Otherwise, to undo any changes, select the "Cancel Changes"
+                  button. Finally, if you'd like to delete your overall G.O.O.N
+                  card account, you can select the red button.
+                </p>
+              </div>
+            </div>
           </div>
         </form>
       </div>
-      <div class="pt-3"><%- include('../../partials/footer'); %></div>
+      <br />
+      <div class="pt-3">
+        <%- include('../../partials/footer'); %> <%-
+        include('../../partials/defaultSettings', {user: user}) %> <%-
+        include('../../partials/setSettingsForm', {user: user}) %> <%-
+        include('../../partials/modal'); %>
+      </div>
     </div>
   </body>
 </html>

@@ -7,6 +7,9 @@ let add_new_account_submit = document.getElementById("add-new-account-submit");
 let save_changes = document.getElementById("save-changes");
 let cancel_changes = document.getElementById("cancel-changes");
 
+// Keep track of when the submit button is clicked.
+let submitClicked = false;
+
 // In order to know which buttons to enable/disable, we need to keep track of
 // which textboxes have content in them.
 const allTextboxes = [];
@@ -22,21 +25,6 @@ const labels = [];
 const values = [];
 const types = [];
 const ids = [];
-
-// Make sure the settings are fetched.
-fetch("/account/profile/getsettings", { method: "GET" })
-  .then((response) => response.json())
-  .then((settings) => {
-    var htmlElement = document.getElementById("html");
-    htmlElement.setAttribute(
-      "style",
-      "--bs-body-font-family: " + settings.font_family
-    );
-    htmlElement.style.fontSize = settings.font_size;
-  })
-  .catch((error) => {
-    console.error(error);
-  });
 
 // Fetch the user_accounts from the database.
 fetch("/account/profile/getall", { method: "GET" })
@@ -151,6 +139,7 @@ function add_row(table, label, value, type, id) {
   label_input.value = label;
   label_input.oldvalue = label;
   label_td.appendChild(label_input);
+  label_input.ariaLabel = "platform";
   allTextboxes.push(label_input);
 
   // Creates the table data for the value input.
@@ -160,6 +149,7 @@ function add_row(table, label, value, type, id) {
   value_input.value = value;
   value_input.oldvalue = value;
   value_td.appendChild(value_input);
+  value_input.ariaLabel = "account";
   allTextboxes.push(value_input);
 
   // Creates the table data for the type input.
@@ -173,6 +163,7 @@ function add_row(table, label, value, type, id) {
   toggle.id = id;
   toggle.checked = type == 0 ? false : true;
   type_td.appendChild(type_switch_div);
+  toggle.ariaLabel = "professional";
   type_switch_div.appendChild(toggle);
 
   // Creates the table data for the delete button.
@@ -180,6 +171,7 @@ function add_row(table, label, value, type, id) {
   let delete_btn = document.createElement("button");
   delete_btn.innerHTML = `<i class="fa-solid fa-trash-can"></i>`;
   delete_btn.classList.add("btn", "btn-danger", "btn-sm");
+  delete_btn.ariaLabel = "delete button";
   delete_td.appendChild(delete_btn);
 
   // Creates the table row and adds the table data to it.
@@ -322,7 +314,10 @@ cancel_changes.onclick = () => {
  * the add, edit, and remove arrays, which are used to update the user's accounts
  * accordingly in the backend.
  */
-save_changes.onclick = async () => {
+save_changes.onclick = async (e) => {
+  // Indicate that page change is valid at this point.
+  submitClicked = true;
+
   // Send the data to the backend, reload the page.
   fetch("/account/profile/update", {
     method: "POST",
@@ -354,3 +349,15 @@ function populate_table() {
 add_new_label.oninput = () => updateFormButtons();
 add_new_value.oninput = () => updateFormButtons();
 add_new_type.onchange = () => updateFormButtons();
+
+// Prompts the user with an alert if they try to navigate away with cancelling/saving changes
+window.addEventListener("beforeunload", function (e) {
+  // Ignore if the user clicks the submit button.
+  if (submitClicked) return;
+
+  // Prevent navigation if the user has unsaved changes.
+  if (add.length != 0 || edit.length != 0 || remove.length != 0) {
+    e.preventDefault();
+    e.returnValue = "";
+  }
+});

@@ -178,8 +178,9 @@ Below are a number of features that the GOON Card application curreently include
 
 - Settings Page allows users to customize their display. For example, a user can modify their name, font-size, font-family, contrast, and theme. This functionality was implemented to let users with visual or other limitations to have a more user-friendly accessible application.
 - The web application is responsive on both mobile versions and desktop versions for users with a wide variety of devices.
-- We will implement a speech recognition feature where users can dictate a command into the device's microphone after selecting the microphone icon and have the action be carried out. This feature is to help users with physical impairments or restrictions.
+- There is a speech recognition feature where users can dictate a command into the device's microphone after selecting the microphone icon and have the action be carried out. This feature is to help users with physical impairments or restrictions.
 - Visual displays such as icons or codes or potentially unrecognizable entities will have alt tags for users with screen readers to be able to identify.
+- There is a help icon on certain pages that provides a user with guidance on how to interact with the application. This is to improve accessibility to users.
 
 ## Use Cases
 
@@ -194,6 +195,7 @@ Below are a number of features that the GOON Card application curreently include
 ---
 
 - Check out [this link](https://www.smashingmagazine.com/2021/03/complete-guide-accessible-front-end-components/) for accessiblity guidelines to consider.
+- Check out [this link](http://web-accessibility.carnegiemuseums.org/design/color/) for color schemes that follow accessibility guidelines.
 
 ## Configured Routes
 
@@ -240,6 +242,7 @@ As mentioned in the [file and directory structure section](#file-and-directory-s
 - `GET /account/settings/style` - Serves the settings page's stylesheet.
 - `GET /account/settings/main` - Serves the settings page's JavaScript.
 - `GET /account/settings/update` - Updates the user's settings. Used in form submission.
+- `GET /account/settings/delete` - Deletes the user's Goon Card account, all of their linked accounts, and all cards associated with their account that were previously generated.
 
 ### `aboutus` Routes
 

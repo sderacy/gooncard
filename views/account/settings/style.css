@@ -1,3 +1,8 @@
+/* Provides custom button styling for settings page */
+* {
+  --bs-gutter-x: 0rem !important;
+}
+
 .button {
   border: none;
   color: white;
@@ -27,4 +32,20 @@
   background-color: goldenrod;
   color: white;
   cursor: pointer;
+}
+
+.form-check {
+  display: inline-table;
+}
+
+.mb-3 {
+  display: inline-flex;
+}
+
+#cancel-changes {
+  margin-right: 0.5em;
+}
+
+#save-changes {
+  margin-left: 0.5em;
 }
