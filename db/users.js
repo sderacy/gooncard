@@ -102,4 +102,33 @@ const updateName = async (email, first_name, last_name) => {
   )[0];
 };
 
-module.exports = { createUser, getUser, updateSettings, updateName };
+/**
+ *
+ * Attempts to delete a user and their card entries in the database.
+ *
+ * @param {integer} id The id of the user to delete.
+ * @returns {Promise<boolean>} Promise of true if the user_account was
+ * successfully deleted, or false if the user_account could not be deleted.
+ */
+const deleteUser = async (id) => {
+  // This line enables the foreign key constraint to cascade deletions.
+  await knex.raw("PRAGMA foreign_keys = ON");
+
+  // Simply delete the user with the given ID.
+  return (
+    (await knex("users")
+      .where("id", id)
+      .del()
+      .catch((err) => {
+        console.log(err);
+      })) > 0
+  );
+};
+
+module.exports = {
+  createUser,
+  getUser,
+  updateSettings,
+  updateName,
+  deleteUser,
+};
