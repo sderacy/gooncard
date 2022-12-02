@@ -1,7 +1,5 @@
 # The G.O.O.N. Card
 
----
-
 The Generated Optional Online Networking (GOON) card is a digital business card with emphasis on **optional** - now you can choose exactly _which_ social media accounts you wish to share with the world! Dynamically select as many or as few of your linked accounts as you wish, and create a customized business card on the fly.
 
 Created at TCNJ in the Fall 2022 semester by The Goon Squad:
@@ -24,8 +22,6 @@ Created at TCNJ in the Fall 2022 semester by The Goon Squad:
 8. [Routes](#configured-routes)
 
 ## Project Structure
-
----
 
 ### File and Directory Structure
 
@@ -110,8 +106,6 @@ When testing the application locally, any data that you add will be deleted and 
 
 ## Running the Application Locally
 
----
-
 After understanding the structure of the application and how to install dependencies and set up the database, the server can be run to begin listening for requests. Follow the instructions below in order to begin running the application:
 
 1. Make sure that you have installed all dependencies as described in the [dependencies section](#dependencies).
@@ -120,8 +114,6 @@ After understanding the structure of the application and how to install dependen
 4. You can access the server at `http://localhost:3000`, or on other computers on the same network if you know your local IP address.
 
 ## Development Process
-
----
 
 GitHub allows us to develop in a mostly individual manner, but still allows us to collaborate on the same codebase. While there were plenty of times that we worked together on the same code at the same time, the issue of keeping things consistent naturally came up rather early in the process.
 
@@ -166,13 +158,9 @@ If you get a message about files being modified and changing from LF to CLF for 
 
 ## Accessibility
 
----
-
 Below are some accessibility features and concerns that the application has.
 
 ## Features
-
----
 
 Below are a number of features that the GOON Card application curreently includes:
 
@@ -184,22 +172,16 @@ Below are a number of features that the GOON Card application curreently include
 
 ## Use Cases
 
----
-
 - A user can register an account on this application
 - A user can input, edit, and delete their social media information.
 - A user can select which social media information to share and generate a QR code associated with their selections to share with others.
 
 ## Concerns/Guidelines
 
----
-
 - Check out [this link](https://www.smashingmagazine.com/2021/03/complete-guide-accessible-front-end-components/) for accessiblity guidelines to consider.
 - Check out [this link](http://web-accessibility.carnegiemuseums.org/design/color/) for color schemes that follow accessibility guidelines.
 
 ## Configured Routes
-
----
 
 As mentioned in the [file and directory structure section](#file-and-directory-structure), routes are the lifeblood of the application's backend. Each route defines a certain set of actions that the user can take, as well as the appropriate page view files that will be sent back as a response. The section linked above includes the location for all routes if closer inspection is required, but a more general outline of the routes is included below:
 
