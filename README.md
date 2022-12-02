@@ -157,24 +157,25 @@ If you get a message about files being modified and changing from LF to CLF for 
 
 ### Use Cases
 
-- A user can register an account on this application
+- A user can register an account on this application.
 - A user can input, edit, and delete their social media information.
 - A user can select which social media information to share and generate a QR code associated with their selections to share with others.
 
 ### Features
 
-Below are a number of features (accessible features too) that the GOON Card application currently includes:
+Our goal as a team was to reach as broad of an audience as we can with our application. An application that is intended to promote networking should be easy to use and manage by everyone. That is why we put accessibility at the forefront of everything that we implemented. We followed numerous guidelines and articles (linked above) that discussed how developers can make an application more accessible or commonly known as, "a11y" friendly. Below are a number of accessible features that the GOON Card application currently includes:
 
 - Settings Page allows users to customize their display. For example, a user can modify their name, font-size, font-family, contrast, and theme. This functionality was implemented to let users with visual or other limitations to have a more user-friendly accessible application.
 - The web application is responsive on both mobile versions and desktop versions for users with a wide variety of devices.
 - There is a speech recognition feature where users can dictate a command into the device's microphone after selecting the microphone icon and have the action be carried out. This feature is to help users with physical impairments or restrictions.
 - Visual displays such as icons or codes or potentially unrecognizable entities will have alt tags for users with screen readers to be able to identify.
-- There is a help icon on certain pages that provides a user with guidance on how to interact with the application. This is to improve accessibility to users.
+- There is a help icon on pages that require user interactivity. This highly accessible feature provides a user with guidance on how to interact with the application.
 
 ### Concerns/Guidelines
 
 - Check out [this link](https://www.smashingmagazine.com/2021/03/complete-guide-accessible-front-end-components/) for accessiblity guidelines to consider.
 - Check out [this link](http://web-accessibility.carnegiemuseums.org/design/color/) for color schemes that follow accessibility guidelines.
+- Check out [this link](https://usability.yale.edu/web-accessibility/articles/wcag-overview#:~:text=The%20WCAG%202%20is%20a,operable%2C%20understandable%2C%20and%20robust/) for an overview of important accessibility guidelines to follow.
 
 ## Configured Routes
 
