@@ -15,11 +15,8 @@ Created at TCNJ in the Fall 2022 semester by The Goon Squad:
 1. [Project Structure](#project-structure)
 2. [Running the Application Locally](#running-the-application-locally)
 3. [Development Process](#development-process)
-4. [Accessibility](#accessibility)
-5. [Features](#features)
-6. [Use Cases](#use-cases)
-7. [Concerns/Guidelines](#concernsguidelines)
-8. [Routes](#configured-routes)
+4. [Usability and Features](#usability-and-features)
+5. [Routes](#configured-routes)
 
 ## Project Structure
 
