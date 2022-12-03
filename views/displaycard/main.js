@@ -30,6 +30,7 @@ fetch("/displaycard/getall", {
       // Create a div for each label / value pair.
       let profile_info_div = document.createElement("div");
       profile_info_div.classList.add("bg-white", "rounded-3", "m-3", "p-2");
+      profile_info_div.style.wordBreak = "break-all";
 
       // Use the appropriate faicon (logo) depending on what the platform is
       // Accounts for multiple variations of one platform
@@ -97,7 +98,7 @@ fetch("/displaycard/getall", {
         let a_element = document.createElement("a");
         a_element.href = profile_values[i];
         a_element.appendChild(profile_info_div);
-        a_element.style.textDecoration = "none";
+        a_element.style.textDecorationColor = "black";
         a_element.target = "_blank";
         profile_contents.appendChild(a_element);
         // If not, then just append the profile_info_div
