@@ -14,9 +14,10 @@ Created at TCNJ in the Fall 2022 semester by The Goon Squad:
 
 1. [Project Structure](#project-structure)
 2. [Running the Application Locally](#running-the-application-locally)
-3. [Development Process](#development-process)
-4. [Usability and Features](#usability-and-features)
-5. [Routes](#configured-routes)
+3. [Accessing the Application From the Cluster](#accessing-the-vm-from-the-cluster)
+4. [Development Process](#development-process)
+5. [Usability and Features](#usability-and-features)
+6. [Routes](#configured-routes)
 
 ## Project Structure
 
@@ -109,6 +110,16 @@ After understanding the structure of the application and how to install dependen
 2. (Required on first run) Make sure that you have configured the database as described in the [database section](#database).
 3. Run `npm start` to start the server locally on port 3000. Make sure that no other processes are running on port 3000 or this command will exit with an error.
 4. You can access the server at `http://localhost:3000`, or on other computers on the same network if you know your local IP address.
+
+As an alternative, you can run `npm run cleanStart` to perform all of the above operations, including deleting old versions of existing dependencies, re-installing dependencies, recreating the database, and starting the server.
+
+## Running the Application on the Cluster
+
+If the application is running on the TCNJ cluster, and you are connected to the `eduroam` network, you should be able to access the application online using the link below. Note that any accounts that you made while running the application locally will not be available on the cluster, and vice versa:
+
+http://gooncard.hpc.tcnj.edu:3000
+
+If you get an error while trying to access the application on the cluster, there is a chance that the server may have crashed due to some HPC issue. If you think this has occurred, please contact one of us and we can restart the server!
 
 ## Development Process
 
