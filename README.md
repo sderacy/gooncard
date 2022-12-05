@@ -52,6 +52,17 @@ The root directory contains the following subdirectories:
 - `util`: This folder contains any of the utility functions that are used throughout the application. These functions are not specific to any one module, and are instead used by multiple modules in the application. The main utility in this folder is the middleware used by routes to ensure that a user is logged in.
 - `views`: Contains the HTML Embedded Java Script (EJS), CSS, and JavaScript files for each page. Each page's set of files is logically separated into its own subdirectory based on the page's purpose. These are the files that get served when a user accesses a valid route. EJS was used over HTML in many cases since it can be templated to dynamically generate HTML based on the data passed to it.
 
+### Technologies and Frameworks
+
+There are technologies that we use that do not necessarily need to be installed by the user. The technologies that we are currently using in our project are:
+
+- HTML & CSS
+- Bootstrap
+- SQLite
+- Node.js & Express.js
+- Google Charts API
+- Web Speech API
+
 ### Dependencies
 
 Our project uses Node Package Manager (`npm`) for managing and installing dependencies. The list of dependencies can be found in the `package.json` file in the root directory of the project. The dependencies are listed in the `dependencies` section of the file. The `devDependencies` section contains the dependencies that are only used during development, such as the `nodemon` package that automatically restarts the server when changes are made to the code or the `prettier` package that formats the code to a consistent style.
