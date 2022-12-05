@@ -198,6 +198,7 @@ Our goal as a team was to reach as broad of an audience as we can with our appli
 - Check out [this link](https://www.smashingmagazine.com/2021/03/complete-guide-accessible-front-end-components/) for accessiblity guidelines to consider.
 - Check out [this link](http://web-accessibility.carnegiemuseums.org/design/color/) for color schemes that follow accessibility guidelines.
 - Check out [this link](https://usability.yale.edu/web-accessibility/articles/wcag-overview#:~:text=The%20WCAG%202%20is%20a,operable%2C%20understandable%2C%20and%20robust/) for an overview of important accessibility guidelines to follow.
+- Check out [this link](https://www.siteimprove.com/glossary/accessible-fonts/#:~:text=The%20most%20accessible%20fonts%20are,rather%20than%20the%20body%20text) and [this link](https://venngage.com/blog/accessible-fonts/) for information about accessible fonts.
 
 ## Configured Routes
 
