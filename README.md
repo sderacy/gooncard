@@ -14,7 +14,7 @@ Created at TCNJ in the Fall 2022 semester by The Goon Squad:
 
 1. [Project Structure](#project-structure)
 2. [Running the Application Locally](#running-the-application-locally)
-3. [Accessing the Application From the Cluster](#accessing-the-vm-from-the-cluster)
+3. [Running the Application From the Cluster](#running-the-application-on-the-cluster)
 4. [Development Process](#development-process)
 5. [Usability and Features](#usability-and-features)
 6. [Routes](#configured-routes)
